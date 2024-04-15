@@ -9,12 +9,15 @@
 
 하이루 방가방가~
 
-
+Notion
 https://www.notion.so/afa3f75303f444119ceef27e19b61d79
 
-
-- ERD
+ERD
 https://dbdiagram.io/d/OTL-661cec4803593b6b61ffa0fa
 
-- figma
+figma
 https://www.figma.com/file/66AdDjKjzbqIjjz3CSOfb5/Untitled?type=design&node-id=0%3A1&mode=design&t=Pus9I4kbvhARMzsk-1
+
+
+Mysql
+![Uploading KakaoTalk_Image_2024-04-15-18-49-03.png…]()
