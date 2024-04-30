@@ -5,7 +5,7 @@
 
 
 ![72856_74817_3538](https://github.com/TeamOTL/OTL/assets/156181234/99fae099-a532-43bd-823b-0e38ec2224df)
-![Uploading Group 17.png…]()
+
 
 
 하이루 방가방가~
