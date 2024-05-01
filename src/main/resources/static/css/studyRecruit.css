@@ -1,0 +1,71 @@
+.study-applicants {
+    width: 100%;
+    max-width: 720px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.study-applicants img.applicant-profile {
+    width: 50px; /* 프로필 이미지 크기 */
+    height: 50px; /* 프로필 이미지 높이 */
+    border-radius: 50%; /* 원형 이미지로 만듦 */
+    margin-right: 15px; /* 정보와의 간격 */
+    object-fit: cover; /* 이미지 비율 유지 */
+}
+
+.study-applicants h3 {
+    text-align: center;
+    color: #333;
+}
+
+.applicant {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+    background-color: #fdebed;
+    border-radius: 10px;
+}
+
+.applicant-info {
+    flex-grow: 1;
+}
+
+.applicant-name {
+    font-size: 16px;
+    font-weight: bold;
+    color: #555;
+}
+
+.applicant-message {
+    font-size: 14px;
+    color: #666;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.approve-btn, .reject-btn {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.approve-btn {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.reject-btn {
+    background-color: #f44336;
+    color: white;
+}
