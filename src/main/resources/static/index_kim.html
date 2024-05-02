@@ -39,8 +39,10 @@
                 <!-- container fluid -->
                 <div class="container-fluid">
 
-
-                    <!-- Modal s-->
+<!--  -->
+<!--  -->
+<!--  -->
+                    <!-- Modal Study Create start-->
                     <div class="row mb-4" id="studyCreate">
                         <!-- Button to Open the Modal -->
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#studyModal">
@@ -48,7 +50,7 @@
                         </button>
 
                         <!-- The Modal -->
-                        <div class="modal" id="studyModal" data-backdrop="static">
+                        <div class="modal fade" id="studyModal" data-backdrop="static">
                             <div class="modal-dialog">
                                 <div class="modal-content p-3">
 
@@ -161,9 +163,11 @@
 
 
                     </div>
-                    <!-- Modal e -->
-
-                    <!-- Modal s-->
+                    <!-- Modal Study Create end -->
+<!--  -->
+<!--  -->
+<!--  -->
+                    <!-- Modal Study info start-->
                     <div class="row mb-4" id="studyInfo">
                         <!-- Button to Open the Modal -->
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#studyInfoModal">
@@ -171,7 +175,7 @@
                         </button>
 
                         <!-- The Modal -->
-                        <div class="modal" id="studyInfoModal" data-backdrop="static">
+                        <div class="modal fade" id="studyInfoModal" data-backdrop="static">
                             <div class="modal-dialog">
                                 <div class="modal-content p-3">
 
@@ -180,7 +184,7 @@
                                         <h4 class="modal-title" style="color: #FD7B38;">스터디 상세 정보</h4>
                                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                                     </div>
-
+                                    <form action="" method="post">
                                     <!-- Modal Body -->
                                     <div class="modal-body" style="color: black;">
 
@@ -189,7 +193,8 @@
                                             <div class="col d-flex">
                                                 <label class="col col-form-label">스터디 이름</label>
                                                 <div class="col-sm-8">
-                                                    <input type="text" readonly class="form-control-plaintext" id="staticNAMESETㅋTINGplㅇzㅋz" value="스터디 이름">
+                                                    <input type="text" readonly class="form-control-plaintext"
+                                                        id="staticNAMESETㅋTINGplㅇzㅋz" value="스터디 이름">
                                                 </div>
                                             </div>
                                         </div>
@@ -198,31 +203,36 @@
                                             <div class="col d-flex">
                                                 <label class="col col-form-label">카테고리</label>
                                                 <div class="col-sm-3">
-                                                    <input type="text" readonly class="form-control-plaintext" id="stati1cNAMESETㅋTINGplzㅋz" value="카테고리">
-                                                    
+                                                    <input type="text" readonly class="form-control-plaintext"
+                                                        id="stati1cNAMESETㅋTINGplzㅋz" value="카테고리">
+
                                                 </div>
-                                            <label class="col col-form-label">모집 인원</label>
-                                            <div class="col-sm-3">
-                                                <input type="text" readonly class="form-control-plaintext" id="staticNAMESETㅋTINGplzㅋz" value="모집 인원">
-                                                
+                                                <label class="col col-form-label">모집 인원</label>
+                                                <div class="col-sm-3">
+                                                    <input type="text" readonly class="form-control-plaintext"
+                                                        id="staticNAMESETㅋTINGplzㅋz" value="모집 인원">
+
+                                                </div>
                                             </div>
-                                        </div>
                                         </div>
                                         <!-- 관심분야 -->
                                         <div class="row mb-3 justify-content-between">
                                             <div class="col d-flex">
                                                 <label class="col col-form-label">관심분야</label>
                                                 <div class="col-sm-3">
-                                                    <input type="text" readonly class="form-control-plaintext" id="staticNAMESETㅋTINGplzㅋㅇz" value="관심분야1">
-                                                    
+                                                    <input type="text" readonly class="form-control-plaintext"
+                                                        id="staticNAMESETㅋTINGplzㅋㅇz" value="관심분야1">
+
                                                 </div>
                                                 <div class="col-sm-3">
-                                                    <input type="text" readonly class="form-control-plaintext" id="staticNAMESETㅋTINGplㅇzㅋz" value="관심분야2">
-                                                    
+                                                    <input type="text" readonly class="form-control-plaintext"
+                                                        id="staticNAMESETㅋTINGplㅇzㅋz" value="관심분야2">
+
                                                 </div>
                                                 <div class="col-sm-3">
-                                                    <input type="text" readonly class="form-control-plaintext" id="staticNAMESETㅋTINGㅇplzㅋz" value="관심분야3">
-                                                    
+                                                    <input type="text" readonly class="form-control-plaintext"
+                                                        id="staticNAMESETㅋTINGㅇplzㅋz" value="관심분야3">
+
                                                 </div>
                                             </div>
                                         </div>
@@ -230,66 +240,75 @@
                                         <div class="row mb-3">
                                             <div class="col d-flex">
                                                 <label class="col-sm-4 col-form-label">모집 기간</label>
-                                                <input type="text" readonly class="form-control-plaintext" id="staticNAMESETTINGplzz" value="모집기간시작일">
+                                                <input type="text" readonly class="form-control-plaintext"
+                                                    id="staticNAMESETTINGplzz" value="모집기간시작일">
                                                 <label class="col col-form-label">~</label>
-                                                <input type="text" readonly class="form-control-plaintext" id="staticNAMESETTINGplzz" value="모집기간마감일">
+                                                <input type="text" readonly class="form-control-plaintext"
+                                                    id="staticNAMESETTINGplzz" value="모집기간마감일">
                                             </div>
                                         </div>
                                         <!-- 스터디 시작일 -->
                                         <div class="row mb-3">
                                             <div class="col d-flex">
                                                 <label class="col-sm-4 col-form-label">스터디 시작일</label>
-                                                <input type="text" readonly class="form-control-plaintext" id="staticNAMESETTINGplzz" value="스터디시작일">
+                                                <input type="text" readonly class="form-control-plaintext"
+                                                    id="staticNAMESETTINGplzz" value="스터디시작일">
                                             </div>
                                         </div>
                                         <!-- 한 줄 설명 -->
                                         <div class="row mb-3">
                                             <div class="col d-flex">
                                                 <label class="col-sm-2 col-form-label">설명</label>
-                                                <input type="text" readonly class="form-control-plaintext" id="staticNAMESETTINGplz" value="설명">
+                                                <input type="text" readonly class="form-control-plaintext"
+                                                    id="staticNAMESETTINGplz" value="설명">
                                             </div>
                                         </div>
                                         <!-- 일정 -->
                                         <div class="row mb-3">
                                             <div class="col d-flex">
                                                 <label class="col-sm-2 col-form-label">일정</label>
-                                                <input type="text" readonly class="form-control-plaintext" id="staticNAMESETTINGpl1z" value="일정">
+                                                <input type="text" readonly class="form-control-plaintext"
+                                                    id="staticNAMESETTINGpl1z" value="일정">
 
                                             </div>
                                         </div>
                                     </div>
                                     <!-- Modal Footer -->
-                                    <div class="modal-footer">
-                                        <!-- 방장에게 전송할 관심분야 -->
-                                        <form action=""></form>
-                                        <div class="row mb-3 justify-content-between w-100">
-                                            <label class="col-sm-2.5 col-form-label">관심분야</label>
-                                            <div class="col">
-                                                <select class="form-select form-control">
-                                                    <option value="1">1</option>
-                                                    <option value="2">2</option>
-                                                    <option value="3">3</option>
-                                                </select>
+                                    
+                                        <div class="modal-footer">
+                                            <!-- 방장에게 전송할 관심분야 -->
+                                            <div class="row mb-3 justify-content-between w-100">
+                                                <label class="col-sm-2.5 col-form-label">관심분야</label>
+                                                <div class="col">
+                                                    <select class="form-select form-control">
+                                                        <option value="1">1</option>
+                                                        <option value="2">2</option>
+                                                        <option value="3">3</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col">
+                                                    <select class="form-select form-control">
+                                                        <option value="1">1</option>
+                                                        <option value="2">2</option>
+                                                        <option value="3">3</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col">
+                                                    <select class="form-select form-control">
+                                                        <option value="1">1</option>
+                                                        <option value="2">2</option>
+                                                        <option value="3">3</option>
+                                                    </select>
+                                                </div>
                                             </div>
-                                            <div class="col">
-                                                <select class="form-select form-control">
-                                                    <option value="1">1</option>
-                                                    <option value="2">2</option>
-                                                    <option value="3">3</option>
-                                                </select>
-                                            </div>
-                                            <div class="col">
-                                                <select class="form-select form-control">
-                                                    <option value="1">1</option>
-                                                    <option value="2">2</option>
-                                                    <option value="3">3</option>
-                                                </select>
-                                            </div>
+                                            <input type="text" class="form-control bg-white"
+                                                placeholder="방장에게 한마디(15자 내외)">
+                                            <button type="button" class="btn btn-primary"
+                                                data-dismiss="modal">완료</button>
+                                            <button type="button" class="btn btn-danger"
+                                                data-dismiss="modal">취소</button>
                                         </div>
-                                        <input type="text" class="form-control bg-white" placeholder="방장에게 한마디(15자 내외)">
-                                        <button type="button" class="btn btn-primary" data-dismiss="modal">완료</button>
-                                        <button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
-                                    </div>
+                                    </form>
 
                                 </div>
                             </div>
@@ -298,110 +317,380 @@
 
 
                     </div>
-                    <!-- Modal e -->
-
-                    <!--  -->
-                    <div>
-                        <!-- 테스트용 팝업 버튼 data-toggle="modal" data-target="#exampleModal" 속성으로 타겟 지정해줘야함 -->
-                        <button type="button" class="btn btn-primary" data-toggle="modal"
-                        data-target="#exampleModal">
-                        팝업 열기
-                    </button>
-                    <!-- 테스트용 팝업 버튼 -->
-                    <!-- 모달 -->
-                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
-                        aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">개인 정보 수정</h5>
-                                    <!-- 닫기버튼 -->
-                                    <button type="button" class="close" data-dismiss="modal"
-                                        aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                    <!-- 닫기버튼 end -->
-                                </div> <!-- 모달 헤더 종료-->
-                                <div class="modal-body">
-                                    <!-- 모달 내용 (바디부분 ) -->
-                                    <div class="rounded p-2" style="background-color: silver;">
-                                        <!-- 프로필 영역 -->
-                                        <div
-                                            class="profile-container d-flex align-items-center justify-content-between">
-                                            <!-- 프로필 이미지 -->
-                                            <img src="프로필이미지URL" alt="프로필 이미지" class="rounded-circle"
-                                                style="width: 50px; height: 50px;">
-                                            <!-- 프로필 닉네임 -->
-                                            <span>프로필 닉네임</span>
-                                            <!-- 이미지 변경 버튼 -->
-                                            <div>
-                                                <button type="button" class="btn btn-primary">이미지
-                                                    변경</button>
+                    <!-- Modal Study info end -->
+<!--  -->
+<!--  -->
+<!--  -->
+                    <!-- modal Setting start -->
+                    <div class="row mb-4">
+                        <!-- 팝업 버튼 -->
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#settingModal">
+                            User Setting
+                        </button>
+                        <!-- 모달 -->
+                        <div class="modal fade" id="settingModal" tabindex="-1" role="dialog"
+                            aria-labelledby="settingModalLabel" aria-hidden="true" data-backdrop="static">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="settingLabel">개인 정보 수정</h5>
+                                        <!-- 닫기버튼 -->
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                        <!-- 닫기버튼 end -->
+                                    </div> <!-- 모달 헤더 종료-->
+                                    <form action="" method="post">
+                                        <div class="modal-body">
+                                            <!-- 모달 내용 (바디부분 ) -->
+                                            <div class="rounded p-2" style="background-color: silver;">
+                                                <!-- 프로필 영역 -->
+                                                <div
+                                                    class="profile-container d-flex align-items-center justify-content-between">
+                                                    <!-- 프로필 이미지 -->
+                                                    <img src="프로필이미지URL" alt="프로필 이미지" class="rounded-circle"
+                                                        style="width: 50px; height: 50px;">
+                                                    <!-- 프로필 닉네임 -->
+                                                    <span>프로필 닉네임</span>
+                                                    <!-- 이미지 변경 버튼 -->
+                                                    <div>
+                                                        <button type="button" class="btn btn-primary">이미지
+                                                            변경</button>
+                                                    </div>
+                                                </div>
                                             </div>
+                                            <!-- 프로필영역종료 -->
+                                            <br>
+                                            <h6>닉네임</h6>
+                                            <!-- 텍스트 입력 필드 -->
+                                            <input type="text" class="form-control rounded mr-3" placeholder="텍스트 입력">
+                                            <br>
+                                            <h6>관심 분야(카테고리 선택하는 토글)</h6>
+                                            <!-- 텍스트 입력 필드 -->
+                                            <select class="form-select rounded" aria-label="Default select example"
+                                                style="width: 100%;" id="mySelect">
+                                                <option selected>카테고리</option>
+                                                <option value="1">자바</option>
+                                                <option value="2">리눅스</option>
+                                                <option value="3">김강현</option>
+                                            </select>
+                                            <br>
+                                            <!-- 선택된 항목을 보여주는 div -->
+                                            <div class="mt-2">
+                                                <!-- 선택된 항목을 보여주는 div -->
+                                                <div id="selectedOption"
+                                                    class="selected-option btn btn-primary disabled">
+                                                </div>
+                                            </div>
+                                            <script>
+                                                // 셀렉트 박스의 선택된 항목을 보여주는 함수
+                                                function showSelectedOption() {
+                                                    var selectElement = document.getElementById("mySelect");
+                                                    var selectedOption = selectElement.options[selectElement.selectedIndex].text;
+                                                    document.getElementById("selectedOption").innerText = selectedOption;
+                                                }
+
+                                                // 페이지 로드시 선택된 항목 표시
+                                                showSelectedOption();
+
+                                                // 셀렉트 박스에서 항목이 변경될 때마다 선택된 항목을 보여줌
+                                                document.getElementById("mySelect").addEventListener("change", showSelectedOption);
+                                            </script>
+                                            <br>
+                                            <h6>한 줄 자개소개</h6>
+                                            <!-- 텍스트 입력 필드 -->
+                                            <input type="text" class="form-control rounded mr-3"
+                                                placeholder="최대 15글자 이하입니다.">
+                                            <br>
+                                            <h6>자기 소개</h6>
+                                            <!-- 텍스트 입력 필드 -->
+                                            <input type="text" class="form-control rounded mr-3"
+                                                placeholder="자기소개를 입력하세요.">
+
+
                                         </div>
-                                    </div>
-                                    <!-- 프로필영역종료 -->
-                                    <br>
-                                    <h6>닉네임</h6>
-                                    <!-- 텍스트 입력 필드 -->
-                                    <input type="text" class="form-control rounded mr-3"
-                                        placeholder="텍스트 입력">
-                                    <br>
-                                    <h6>관심 분야(카테고리 선택하는 토글)</h6>
-                                    <!-- 텍스트 입력 필드 -->
-                                    <select class="form-select rounded" aria-label="Default select example"
-                                        style="width: 100%;" id="mySelect">
-                                        <option selected>카테고리</option>
-                                        <option value="1">자바</option>
-                                        <option value="2">리눅스</option>
-                                        <option value="3">김강현</option>
-                                    </select>
-                                    <br>
-                                    <!-- 선택된 항목을 보여주는 div -->
-                                    <div class="mt-2">
-                                        <!-- 선택된 항목을 보여주는 div -->
-                                        <div id="selectedOption"
-                                            class="selected-option btn btn-primary disabled">
+                                        <div class="modal-footer">
+                                            <!-- 모달 하단부분 -->
+                                            <button type="button" class="btn btn-danger">로그아웃</button>
+                                            <button type="submit" class="btn btn-success">수정 완료</button>
+                                            <button type="button" class="btn btn-secondary">취소</button>
                                         </div>
-                                    </div>
-                                    <script>
-                                        // 셀렉트 박스의 선택된 항목을 보여주는 함수
-                                        function showSelectedOption() {
-                                            var selectElement = document.getElementById("mySelect");
-                                            var selectedOption = selectElement.options[selectElement.selectedIndex].text;
-                                            document.getElementById("selectedOption").innerText = selectedOption;
-                                        }
-
-                                        // 페이지 로드시 선택된 항목 표시
-                                        showSelectedOption();
-
-                                        // 셀렉트 박스에서 항목이 변경될 때마다 선택된 항목을 보여줌
-                                        document.getElementById("mySelect").addEventListener("change", showSelectedOption);
-                                    </script>
-                                    <br>
-                                    <h6>한 줄 자개소개</h6>
-                                    <!-- 텍스트 입력 필드 -->
-                                    <input type="text" class="form-control rounded mr-3"
-                                        placeholder="최대 15글자 이하입니다.">
-                                    <br>
-                                    <h6>자기 소개</h6>
-                                    <!-- 텍스트 입력 필드 -->
-                                    <input type="text" class="form-control rounded mr-3"
-                                        placeholder="자기소개를 입력하세요.">
-
-
-                                </div>
-                                <div class="modal-footer">
-                                    <!-- 모달 하단부분 -->
-                                    <button type="button" class="btn btn-danger">로그아웃</button>
-                                    <button type="button" class="btn btn-success">수정 완료</button>
-                                    <button type="button" class="btn btn-secondary">취소</button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <!-- modal Setting end -->
+<!--  -->
+<!--  -->
+<!--  -->           
+                    <!-- 혹시 몰라서 만듬 -->
+                    <!-- modal Study Metting start -->
+                    <div class="row mb-4">
+                        <!-- Button to Open the Modal -->
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#mettingModal">
+                            Metting Edit
+                        </button>
+
+                        <!-- metting Modal -->
+                        <div class="modal fade" id="mettingModal" data-backdrop="static">
+                            <div class="modal-dialog">
+                                <div class="modal-content p-3">
+
+                                    <!-- Modal Header -->
+                                    <div class="modal-header">
+                                        <h4 class="modal-title" style="color: #FD7B38;">오늘의 스터디</h4>
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    </div>
+                                    <!-- 주 차표시 -->
+                                    <div class="row mb-3" style="color: black;">
+                                        <div class="col d-flex" style="background-color: #FD7B38;">
+                                            <img class=" " alt="img">
+                                            <label class="col col-form-label">객체지향의 이해</label>
+                                        </div>
+                                    </div>
+                                    <!-- Modal Body -->
+                                    <form action="#" method="post">
+                                        <div class="modal-body" style="color: black;">
+
+                                            <!-- 날짜 -->
+                                            <div class="row mb-3">
+                                                <div class="col d-flex">
+                                                    <img class="col " alt="img">
+                                                    <label class="col col-form-label">날짜</label>
+                                                    <div class="col-sm-8">
+                                                        <input type="text" class="form-control"
+                                                            id="staticNAMESETㅋTINGplㅇzㅋz" value="텍스트 입력">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- 작성자 -->
+                                            <div class="row mb-3">
+                                                <div class="col d-flex">
+                                                    <img class="col " alt="img">
+                                                    <label class="col col-form-label">작성자</label>
+                                                    <div class="col-sm-8">
+                                                        <input type="text" class="form-control"
+                                                            id="staticNAMESETㅋTINGplㅇzㅋz" value="텍스트 입력">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- 시간 -->
+                                            <div class="row mb-3">
+                                                <div class="col d-flex">
+                                                    <img class="col " alt="img">
+                                                    <label class="col col-form-label">시간</label>
+                                                    <div class="col-sm-8">
+                                                        <input type="text" class="form-control"
+                                                            id="staticNAMESETㅋTINGplㅇzㅋz" value="텍스트 입력">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- 장소 -->
+                                            <div class="row mb-3">
+                                                <div class="col d-flex">
+                                                    <img class="col " alt="img">
+                                                    <label class="col col-form-label">장소</label>
+                                                    <div class="col-sm-8">
+                                                        <input type="text" class="form-control"
+                                                            id="staticNAMESETㅋTINGplㅇzㅋz" value="텍스트 입력">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- 참석자 -->
+                                            <div class="row mb-3">
+                                                <div class="col d-flex">
+                                                    <img class="col " alt="img">
+                                                    <label class="col col-form-label">참석자</label>
+                                                    <div class="col-sm-8">
+                                                        <input type="text" class="form-control"
+                                                            id="staticNAMESETㅋTINGplㅇzㅋz" value="텍스트 입력">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- 내용 -->
+                                            <div class="row mb-3">
+                                                <div class="col d-flex">
+                                                    <img class="col " alt="img">
+                                                    <label class="col col-form-label">내용</label>
+                                                    <div class="col-sm-8">
+                                                        <textarea type="text" class="form-control" style="height: 30vh;"
+                                                            id="staticNAMESETㅋTINGplㅇzㅋz" value="텍스트 입력">
+                                                    </textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Modal Footer -->
+                                        <div class="modal-footer">
+                                            <!-- 방장에게 전송할 관심분야 -->
+
+                                            <div class="justify-content-between">
+                                                <button type="submit" class=" btn btn-success" data-dismiss="modal">수정
+                                                    완료</button>
+                                                <button type="button" class=" btn btn-danger"
+                                                    data-dismiss="modal">삭제하기</button>
+                                            </div>
+                                        </div>
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
-                    <!--  -->
+                    <!-- modal Study Metting end -->
+
+<!--  -->
+<!--  -->
+<!--  -->
+                    <!-- Modal User Drop Start -->
+                    <div class="row mb-4">
+                        <!-- Button to Open the Modal -->
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#userDropModal">
+                            user Drop
+                        </button>
+                        <!-- metting Modal -->
+                        <div class="modal fade" id="userDropModal" data-backdrop="static">
+                            <div class="modal-dialog">
+                                <div class="modal-content p-3">
+                                    <!-- Modal Header -->
+                                    <div class="modal-header">
+                                        <h4 class="modal-title" style="color: #F87D7D;">스터디 탈퇴</h4>
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    </div>
+                                    <!-- 주 차표시 -->
+                                    <!-- Modal Body -->
+                                    <form action="#" method="post">
+                                        <div class="modal-body" style="color: black;">
+
+                                            <!-- 날짜 -->
+                                            <div class="row mb-3">
+                                                <div class="col-lg-1">
+                                                    <label type="text" class="col col-form-label text-center "
+                                                    value="">정말 탈퇴하시겠습니까?<br>탈퇴하시면 스터디 내의 모든 기록들 사라집니다.
+                                                    <br>복구가 어렵다는 점 양해 부탁드립니다.</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                            <!-- 방장에게 전송할 관심분야 -->
+                                            <div class="flex-grow-1">
+                                                <button type="button" class=" btn btn-danger btn-block"
+                                                    data-dismiss="modal">삭제하기</button>
+                                            </div>
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Modal User Drop END -->
+
+
+                    <!-- card today study -->
+                    <div class="card">
+                        <!-- header -->
+                        <div class="card-header bg-white">
+                            <div class="row mb-3">
+                                <h4 class="font-weight-bold">
+                                    오늘의 스터디
+                                </h4>
+                            </div>
+                            <div class="w-100">
+                                <div class=" d-flex" style="background-color:#f9a188;">
+                                    <img alt="img">
+                                    <label class="ml-3">객체지향의 이해</label>
+                                </div>
+                            </div>
+                        </div>
+                        <form action="#" method="post">
+                            <div class="card-body" style="color: black;">
+
+                                <!-- 날짜 -->
+                                <div class="row mb-3">
+                                    <div class="col d-flex">
+                                        <img class="col " alt="img">
+                                        <label class="col col-form-label">날짜</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control"
+                                                id="staticNAMESETㅋTINGplㅇzㅋz" value="텍스트 입력">
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- 작성자 -->
+                                <div class="row mb-3">
+                                    <div class="col d-flex">
+                                        <img class="col " alt="img">
+                                        <label class="col col-form-label">작성자</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control"
+                                                id="staticNAMESETㅋTINGplㅇzㅋz" value="텍스트 입력">
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- 시간 -->
+                                <div class="row mb-3">
+                                    <div class="col d-flex">
+                                        <img class="col " alt="img">
+                                        <label class="col col-form-label">시간</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control"
+                                                id="staticNAMESETㅋTINGplㅇzㅋz" value="텍스트 입력">
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- 장소 -->
+                                <div class="row mb-3">
+                                    <div class="col d-flex">
+                                        <img class="col " alt="img">
+                                        <label class="col col-form-label">장소</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control"
+                                                id="staticNAMESETㅋTINGplㅇzㅋz" value="텍스트 입력">
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- 참석자 -->
+                                <div class="row mb-3">
+                                    <div class="col d-flex">
+                                        <img class="col " alt="img">
+                                        <label class="col col-form-label">참석자</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control"
+                                                id="staticNAMESETㅋTINGplㅇzㅋz" value="텍스트 입력">
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- 내용 -->
+                                <div class="row mb-3">
+                                    <div class="col d-flex">
+                                        <img class="col " alt="img">
+                                        <label class="col col-form-label">내용</label>
+                                        <div class="col-sm-8">
+                                            <textarea type="text" class="form-control" style="height: 30vh;"
+                                                id="staticNAMESETㅋTINGplㅇzㅋz" value="텍스트 입력">
+                                        </textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Modal Footer -->
+                            <div class="modal-footer">
+                                <!-- 방장에게 전송할 관심분야 -->
+
+                                <div class="justify-content-between">
+                                    <button type="submit" class=" btn btn-success" data-dismiss="modal">수정
+                                        완료</button>
+                                    <button type="button" class=" btn btn-danger"
+                                        data-dismiss="modal">삭제하기</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- card today study -->
+
+
+
                 </div>
                 <!-- End of Page Wrapper -->
 
