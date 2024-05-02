@@ -1,0 +1,126 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body, html {
+    height: 100%;
+    font-family: Arial, sans-serif;
+}
+.sidebar {
+    width: 250px;
+    background-color: #f4f4f4;
+    height: 100vh;
+    float: left;
+    padding: 20px;
+}
+.profile img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+.profile span {
+    display: block;
+}
+.menu button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    background: white;
+    border: none;
+    cursor: pointer;
+}
+.main-content {
+    margin-left: 250px;
+    padding: 20px;
+}
+.top-content, .middle-content, .bottom-content {
+    margin-bottom: 20px;
+}
+.progress-bar {
+    width: 100%;
+    height: 20px;
+    background-color: #eee; /* 진행 바의 배경색 */
+    border: 1px solid #ccc; /* 진행 바의 경계선 */
+    position: relative; /* 포지셔닝을 위한 기준점 설정 */
+    margin-top: 10px;
+}
+.progress {
+    height: 100%;
+    background-color: #4CAF50;
+    position: absolute; /* 진행 상태를 절대 위치로 설정 */
+}
+.week-tasks .task, .task-list .task-detail {
+
+    margin: 5px 0;
+    padding: 10px;
+    border-left: 5px solid orange;
+
+}
+
+.week-tasks{
+    width: 650px;
+    margin-left: 10px;
+
+}
+
+.task{
+    background-color: antiquewhite;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.month-picker button {
+    margin: 0 5px;
+}
+.pagination button {
+    margin: 0 2px;
+}
+
+.study-container {
+
+
+    border: 1px solid #ddd; /* 경계선을 추가하여 박스를 강조 */
+    padding: 15px; /* 내부 여백을 추가 */
+    margin: 10px; /* 외부 여백을 추가 */
+    background-color: #f9f9f9; /* 배경색을 설정 */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* 그림자 효과를 추가 */
+    width: 700px;
+    position: relative; /* 상대적 위치 설정 */
+
+}
+
+.month-picker {
+    position: absolute;
+    top: 40px; /* 상단에서 10px 아래 */
+    right: 10px; /* 오른쪽에서 10px 떨어진 위치 */
+}
+#addTaskButton {
+    padding: 10px 15px;
+    font-size: 24px; /* 버튼 내 텍스트 크기를 조정 */
+    border-radius: 50%; /* 버튼을 원형으로 만듦 */
+    border: 2px solid #4CAF50; /* 버튼의 테두리 색상 */
+    background-color: #fff; /* 버튼의 배경색 */
+    color: #4CAF50; /* 버튼 텍스트 색상 */
+    cursor: pointer; /* 마우스 오버 시 커서 변경 */
+    margin-top: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* 그림자 추가 */
+}
+
+.arrow-button, #addTaskButton {
+    padding: 10px;
+    border-radius: 50%; /* 원형 모양 */
+    font-size: 20px; /* 화살표와 + 버튼 크기 조절 */
+    line-height: 20px;
+    border: 2px solid black; /* 테두리 */
+    cursor: pointer;
+    margin: 0 5px; /* 버튼 사이의 간격 */
+}
+
+.task-checkbox:checked + span {
+    text-decoration: line-through; /* 체크박스 체크 시 취소선 */
+}
+
+.task span {
+    flex-grow: 1; /* 텍스트가 체크박스를 제외한 나머지 공간을 차지 */
+}
