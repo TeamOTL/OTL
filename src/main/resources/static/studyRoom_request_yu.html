@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>스터디 모집방</title>
+
+    <!-- Custom fonts for this template-->
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- Custom styles for this template-->
+    <link href="css/sb-admin-2.min.css" rel="stylesheet" />
+    <link href="css/dashboard.css" rel="stylesheet">
+    <!-- <link rel="stylesheet" href="css/studyRecruit.css"> -->
+    <!-- <link rel="stylesheet" href="css/studyRecruit1.css"> -->
+</head>
+
+<body>
+
+    <body id="page-top">
+        <!-- Page Wrapper -->
+        <div id="wrapper">
+            <!-- Sidebar -->
+
+            <ul class="navbar-nav bg-dong sidebar sidebar-dark accordion " id="accordionSidebar">
+
+
+                <!-- Sidebar - Brand -->
+                <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+                    <div class="sidebar-brand-icon">
+                        <img src="img/main_icon.svg" />
+                    </div>
+                    <!-- <div class="sidebar-brand-text mx-3"><b1 class="text-black-50">OTL</b1></div> -->
+                </a>
+
+                <!-- Divider -->
+                <hr class="sidebar-divider my-0" />
+
+                <!-- Nav Item - Dashboard -->
+                <li class="nav-item">
+                    <a class="nav-link list-group-item-action list-group-item-danger rounded text-gray-900"
+                        href="index.html">
+                        <i class="fas fa-fw fa-th-large"></i>
+                        <span>대시보드</span></a>
+                </li>
+                <!-- Nav Item - Dashboard -->
+                <li class="nav-item">
+                    <a class="nav-link list-group-item-action list-group-item-danger rounded text-gray-900"
+                        href="index.html">
+                        <i class="fas fa-fw fa-clipboard"></i>
+                        <span>게시판</span></a>
+                </li>
+
+
+
+                <!-- Nav Item - Pages Collapse Menu -->
+                <li class="nav-item">
+                    <a class="nav-link list-group-item-action list-group-item-danger rounded text-gray-900" href="#"
+                        data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true"
+                        aria-controls="collapseTwo">
+                        <i class="fas fa-fw fa-users"></i>
+                        <span>스터디룸</span>
+                    </a>
+                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo"
+                            data-parent="#accordionSidebar">
+                            <div class="bg-white py-2 collapse-inner rounded">
+                                <h6 class="collapse-header">나의 스터디룸</h6>
+                                <a class="collapse-item" href=""><img src="img/Property 1=linux.svg">수연이와 리눅스</a>
+                                <a class="collapse-item" href=""><img src="img/Property 1=spring.svg">강현과 봄남자</a>
+
+                            </div>
+                        </div>
+                    </div>
+                </li>
+
+
+
+                <!-- Nav Item - Charts -->
+                <li class="nav-item">
+                    <a class="nav-link list-group-item-action list-group-item-danger rounded text-gray-900"
+                        href="index.html">
+                        <i class="fas fa-fw fa-user-plus"></i>
+                        <span>스터디 모집</span></a>
+                </li>
+
+
+
+
+                <!-- Divider -->
+                <hr class="sidebar-divider d-none d-md-block" />
+
+                <!-- Sidebar Toggler (Sidebar) -->
+                <div class="text-center d-none d-md-inline">
+                    <button class="rounded-circle border-0" id="sidebarToggle"></button>
+                </div>
+
+            </ul>
+            <!-- End of Sidebar -->
+
+            <!-- Content Wrapper -->
+            <div id="content-wrapper" class="d-flex flex-column">
+                <!-- Main Content -->
+                <div id="content">
+                    <!-- Topbar -->
+                    <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                        <!-- Sidebar Toggle (Topbar) -->
+                        <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                            <i class="fa fa-bars"></i>
+                        </button>
+
+                        <!-- Topbar Search -->
+
+
+                        <!-- Topbar Navbar -->
+                        <ul class="navbar-nav ml-auto">
+
+                            <!-- Nav Item - User Information -->
+                            <li class="nav-item dropdown no-arrow">
+                                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span class="mr-2 d-none d-lg-inline text-gray-600 small">당후니</span>
+                                    <img class="img-profile rounded-circle" src="/img/" />
+                                </a>
+                                <!-- Dropdown - User Information -->
+                                <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                    aria-labelledby="userDropdown">
+                                    <a class="dropdown-item" href="#">
+                                        <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                        프로필
+                                    </a>
+                                    <a class="dropdown-item" href="#">
+                                        <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                                        설정
+                                    </a>
+                                    <a class="dropdown-item" href="#">
+                                        <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
+                                        나의 스터디
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                        <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                        로그아웃
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                    </nav>
+                    <!-- End of Topbar -->
+
+                    <!-- 신청 카드 -->
+                    <div class="container-fluid">
+                        <!--가로 배열-->
+                        <div class="column">
+                            <div class="row" style="padding: 0px 12px;">
+                                <div class="card p-3" style="width: 31%; margin-right: 24px;">
+                                    <div class="d-flex align-items-center justify-content px-3">
+                                        <img src="./아이콘/panda.svg" alt="프로필 이미지" class="mr-3 me-3" />
+                                        <h4 class="font-weight-bolder text-dark">김동우</h4>
+                                    </div>
+                                    <hr>
+                                    <div class="d-flex align-items-center mb-4">
+                                        <button type="button" class="btn btn-outline-primary font-weight-bolder mx-1"
+                                                disabled>Java</button>
+                                        <button type="button" class="btn btn-outline-success font-weight-bolder mx-1"
+                                                disabled>MotJava</button>
+                                        <button type="button" class="btn btn-outline-danger font-weight-bolder mx-1"
+                                                disabled>hiru</button>
+                                    </div>
+                                    <h6 class="font-weight-bolder text-gray-600">이번 기회에 열심히 해보고 싶어요. <br>처음이지만 잘부탁드리겠습니다.
+                                        열심히 할게요.</h6>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col">
+                                            <a href="#" class="btn btn-info btn-block">신청 승인</a>
+                                        </div>
+                                        <div class="col">
+                                            <a href="#" class="btn btn-danger btn-block">거절</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card p-3" style="width: 31%; margin-right: 24px;">
+                                    <div class="d-flex align-items-center justify-content px-3">
+                                        <img src="./아이콘/panda.svg" alt="프로필 이미지" class="mr-3 me-3" />
+                                        <h4 class="font-weight-bolder text-dark">김동우</h4>
+                                    </div>
+                                    <hr>
+                                    <div class="d-flex align-items-center mb-4">
+                                        <button type="button" class="btn btn-outline-primary font-weight-bolder mx-1"
+                                                disabled>Java</button>
+                                        <button type="button" class="btn btn-outline-success font-weight-bolder mx-1"
+                                                disabled>MotJava</button>
+                                        <button type="button" class="btn btn-outline-danger font-weight-bolder mx-1"
+                                                disabled>hiru</button>
+                                    </div>
+                                    <h6 class="font-weight-bolder text-gray-600">이번 기회에 열심히 해보고 싶어요. <br>처음이지만 잘부탁드리겠습니다.
+                                        열심히 할게요.</h6>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col">
+                                            <a href="#" class="btn btn-info btn-block">신청 승인</a>
+                                        </div>
+                                        <div class="col">
+                                            <a href="#" class="btn btn-danger btn-block">거절</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card p-3" style="width: 31%;">
+                                    <div class="d-flex align-items-center justify-content px-3">
+                                        <img src="./아이콘/panda.svg" alt="프로필 이미지" class="mr-3 me-3" />
+                                        <h4 class="font-weight-bolder text-dark">김동우</h4>
+                                    </div>
+                                    <hr>
+                                    <div class="d-flex align-items-center mb-4">
+                                        <button type="button" class="btn btn-outline-primary font-weight-bolder mx-1"
+                                                disabled>Java</button>
+                                        <button type="button" class="btn btn-outline-success font-weight-bolder mx-1"
+                                                disabled>MotJava</button>
+                                        <button type="button" class="btn btn-outline-danger font-weight-bolder mx-1"
+                                                disabled>hiru</button>
+                                    </div>
+                                    <h6 class="font-weight-bolder text-gray-600">이번 기회에 열심히 해보고 싶어요. <br>처음이지만 잘부탁드리겠습니다.
+                                        열심히 할게요.</h6>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col">
+                                            <a href="#" class="btn btn-info btn-block">신청 승인</a>
+                                        </div>
+                                        <div class="col">
+                                            <a href="#" class="btn btn-danger btn-block">거절</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" style="padding: 24px 12px;">
+                                <div class="card p-3" style="width: 31%; margin-right: 24px;">
+                                    <div class="d-flex align-items-center justify-content px-3">
+                                        <img src="./아이콘/panda.svg" alt="프로필 이미지" class="mr-3 me-3" />
+                                        <h4 class="font-weight-bolder text-dark">김동우</h4>
+                                    </div>
+                                    <hr>
+                                    <div class="d-flex align-items-center mb-4">
+                                        <button type="button" class="btn btn-outline-primary font-weight-bolder mx-1"
+                                                disabled>Java</button>
+                                        <button type="button" class="btn btn-outline-success font-weight-bolder mx-1"
+                                                disabled>MotJava</button>
+                                        <button type="button" class="btn btn-outline-danger font-weight-bolder mx-1"
+                                                disabled>hiru</button>
+                                    </div>
+                                    <h6 class="font-weight-bolder text-gray-600">이번 기회에 열심히 해보고 싶어요. <br>처음이지만 잘부탁드리겠습니다.
+                                        열심히 할게요.</h6>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col">
+                                            <a href="#" class="btn btn-info btn-block">신청 승인</a>
+                                        </div>
+                                        <div class="col">
+                                            <a href="#" class="btn btn-danger btn-block">거절</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card p-3" style="width: 31%; margin-right: 24px;">
+                                    <div class="d-flex align-items-center justify-content px-3">
+                                        <img src="./아이콘/panda.svg" alt="프로필 이미지" class="mr-3 me-3" />
+                                        <h4 class="font-weight-bolder text-dark">김동우</h4>
+                                    </div>
+                                    <hr>
+                                    <div class="d-flex align-items-center mb-4">
+                                        <button type="button" class="btn btn-outline-primary font-weight-bolder mx-1"
+                                                disabled>Java</button>
+                                        <button type="button" class="btn btn-outline-success font-weight-bolder mx-1"
+                                                disabled>MotJava</button>
+                                        <button type="button" class="btn btn-outline-danger font-weight-bolder mx-1"
+                                                disabled>hiru</button>
+                                    </div>
+                                    <h6 class="font-weight-bolder text-gray-600">이번 기회에 열심히 해보고 싶어요. <br>처음이지만 잘부탁드리겠습니다.
+                                        열심히 할게요.</h6>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col">
+                                            <a href="#" class="btn btn-info btn-block">신청 승인</a>
+                                        </div>
+                                        <div class="col">
+                                            <a href="#" class="btn btn-danger btn-block">거절</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card p-3" style="width: 31%;">
+                                    <div class="d-flex align-items-center justify-content px-3">
+                                        <img src="./아이콘/panda.svg" alt="프로필 이미지" class="mr-3 me-3" />
+                                        <h4 class="font-weight-bolder text-dark">김동우</h4>
+                                    </div>
+                                    <hr>
+                                    <div class="d-flex align-items-center mb-4">
+                                        <button type="button" class="btn btn-outline-primary font-weight-bolder mx-1"
+                                                disabled>Java</button>
+                                        <button type="button" class="btn btn-outline-success font-weight-bolder mx-1"
+                                                disabled>MotJava</button>
+                                        <button type="button" class="btn btn-outline-danger font-weight-bolder mx-1"
+                                                disabled>hiru</button>
+                                    </div>
+                                    <h6 class="font-weight-bolder text-gray-600">이번 기회에 열심히 해보고 싶어요. <br>처음이지만 잘부탁드리겠습니다.
+                                        열심히 할게요.</h6>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col">
+                                            <a href="#" class="btn btn-info btn-block">신청 승인</a>
+                                        </div>
+                                        <div class="col">
+                                            <a href="#" class="btn btn-danger btn-block">거절</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--세로 배열-->
+                        <div class="row">
+                            <div class="col-xl-4 col-lg-5">
+                                    <div class="card p-3">
+                                        <div class="d-flex align-items-center justify-content px-3">
+                                            <img src="./아이콘/panda.svg" alt="프로필 이미지" class="mr-3 me-3" />
+                                            <h4 class="font-weight-bolder text-dark">김동우</h4>
+                                        </div>
+                                        <hr>
+                                        <div class="d-flex align-items-center mb-4">
+                                            <button type="button" class="btn btn-outline-primary font-weight-bolder mx-1"
+                                                    disabled>Java</button>
+                                            <button type="button" class="btn btn-outline-success font-weight-bolder mx-1"
+                                                    disabled>MotJava</button>
+                                            <button type="button" class="btn btn-outline-danger font-weight-bolder mx-1"
+                                                    disabled>hiru</button>
+                                        </div>
+                                        <h6 class="font-weight-bolder text-gray-600">이번 기회에 열심히 해보고 싶어요. <br>처음이지만 잘부탁드리겠습니다.
+                                            열심히 할게요.</h6>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col">
+                                                <a href="#" class="btn btn-info btn-block">신청 승인</a>
+                                            </div>
+                                            <div class="col">
+                                                <a href="#" class="btn btn-danger btn-block">거절</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card p-3">
+                                        <div class="d-flex align-items-center justify-content px-3">
+                                            <img src="./아이콘/panda.svg" alt="프로필 이미지" class="mr-3 me-3" />
+                                            <h4 class="font-weight-bolder text-dark">김동우</h4>
+                                        </div>
+                                        <hr>
+                                        <div class="d-flex align-items-center mb-4">
+                                            <button type="button" class="btn btn-outline-primary font-weight-bolder mx-1"
+                                                    disabled>Java</button>
+                                            <button type="button" class="btn btn-outline-success font-weight-bolder mx-1"
+                                                    disabled>MotJava</button>
+                                            <button type="button" class="btn btn-outline-danger font-weight-bolder mx-1"
+                                                    disabled>hiru</button>
+                                        </div>
+                                        <h6 class="font-weight-bolder text-gray-600">이번 기회에 열심히 해보고 싶어요. <br>처음이지만 잘부탁드리겠습니다.
+                                            열심히 할게요.</h6>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col">
+                                                <a href="#" class="btn btn-info btn-block">신청 승인</a>
+                                            </div>
+                                            <div class="col">
+                                                <a href="#" class="btn btn-danger btn-block">거절</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                            </div>
+                            <div class="col-xl-4 col-lg-5">
+                                    <div class="card p-3">
+                                        <div class="d-flex align-items-center justify-content px-3">
+                                            <img src="./아이콘/panda.svg" alt="프로필 이미지" class="mr-3 me-3" />
+                                            <h4 class="font-weight-bolder text-dark">김동우</h4>
+                                        </div>
+                                        <hr>
+                                        <div class="d-flex align-items-center mb-4">
+                                            <button type="button" class="btn btn-outline-primary font-weight-bolder mx-1"
+                                                    disabled>Java</button>
+                                            <button type="button" class="btn btn-outline-success font-weight-bolder mx-1"
+                                                    disabled>MotJava</button>
+                                            <button type="button" class="btn btn-outline-danger font-weight-bolder mx-1"
+                                                    disabled>hiru</button>
+                                        </div>
+                                        <h6 class="font-weight-bolder text-gray-600">이번 기회에 열심히 해보고 싶어요. <br>처음이지만 잘부탁드리겠습니다.
+                                            열심히 할게요.</h6>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col">
+                                                <a href="#" class="btn btn-info btn-block">신청 승인</a>
+                                            </div>
+                                            <div class="col">
+                                                <a href="#" class="btn btn-danger btn-block">거절</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card p-3">
+                                    <div class="d-flex align-items-center justify-content px-3">
+                                        <img src="./아이콘/panda.svg" alt="프로필 이미지" class="mr-3 me-3" />
+                                        <h4 class="font-weight-bolder text-dark">김동우</h4>
+                                    </div>
+                                    <hr>
+                                    <div class="d-flex align-items-center mb-4">
+                                        <button type="button" class="btn btn-outline-primary font-weight-bolder mx-1"
+                                                disabled>Java</button>
+                                        <button type="button" class="btn btn-outline-success font-weight-bolder mx-1"
+                                                disabled>MotJava</button>
+                                        <button type="button" class="btn btn-outline-danger font-weight-bolder mx-1"
+                                                disabled>hiru</button>
+                                    </div>
+                                    <h6 class="font-weight-bolder text-gray-600">이번 기회에 열심히 해보고 싶어요. <br>처음이지만 잘부탁드리겠습니다.
+                                        열심히 할게요.</h6>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col">
+                                            <a href="#" class="btn btn-info btn-block">신청 승인</a>
+                                        </div>
+                                        <div class="col">
+                                            <a href="#" class="btn btn-danger btn-block">거절</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-lg-5">
+                                <div class="card p-3">
+                                    <div class="d-flex align-items-center justify-content px-3">
+                                        <img src="./아이콘/panda.svg" alt="프로필 이미지" class="mr-3 me-3" />
+                                        <h4 class="font-weight-bolder text-dark">김동우</h4>
+                                    </div>
+                                    <hr>
+                                    <div class="d-flex align-items-center mb-4">
+                                        <button type="button" class="btn btn-outline-primary font-weight-bolder mx-1"
+                                                disabled>Java</button>
+                                        <button type="button" class="btn btn-outline-success font-weight-bolder mx-1"
+                                                disabled>MotJava</button>
+                                        <button type="button" class="btn btn-outline-danger font-weight-bolder mx-1"
+                                                disabled>hiru</button>
+                                    </div>
+                                    <h6 class="font-weight-bolder text-gray-600">이번 기회에 열심히 해보고 싶어요. <br>처음이지만 잘부탁드리겠습니다.
+                                        열심히 할게요.</h6>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col">
+                                            <a href="#" class="btn btn-info btn-block">신청 승인</a>
+                                        </div>
+                                        <div class="col">
+                                            <a href="#" class="btn btn-danger btn-block">거절</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card p-3">
+                                    <div class="d-flex align-items-center justify-content px-3">
+                                        <img src="./아이콘/panda.svg" alt="프로필 이미지" class="mr-3 me-3" />
+                                        <h4 class="font-weight-bolder text-dark">김동우</h4>
+                                    </div>
+                                    <hr>
+                                    <div class="d-flex align-items-center mb-4">
+                                        <button type="button" class="btn btn-outline-primary font-weight-bolder mx-1"
+                                                disabled>Java</button>
+                                        <button type="button" class="btn btn-outline-success font-weight-bolder mx-1"
+                                                disabled>MotJava</button>
+                                        <button type="button" class="btn btn-outline-danger font-weight-bolder mx-1"
+                                                disabled>hiru</button>
+                                    </div>
+                                    <h6 class="font-weight-bolder text-gray-600">이번 기회에 열심히 해보고 싶어요. <br>처음이지만 잘부탁드리겠습니다.
+                                        열심히 할게요.</h6>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col">
+                                            <a href="#" class="btn btn-info btn-block">신청 승인</a>
+                                        </div>
+                                        <div class="col">
+                                            <a href="#" class="btn btn-danger btn-block">거절</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- End of Content Wrapper -->
+
+                <!-- Scroll to Top Button-->
+                <a class="scroll-to-top rounded" href="#page-top">
+                    <i class="fas fa-angle-up"></i>
+                </a>
+            </div>
+            <!-- End of Page Wrapper -->
+
+            <!-- Bootstrap core JavaScript-->
+            <script src="vendor/jquery/jquery.min.js"></script>
+            <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+            <!-- Core plugin JavaScript-->
+            <!-- <script src="vendor/jquery-easing/jquery.easing.min.js"></script> -->
+
+            <!-- Custom scripts for all pages-->
+            <!-- <script src="js/sb-admin-2.min.js"></script> -->
+
+            <!-- Page level plugins -->
+            <!-- <script src="vendor/chart.js/Chart.min.js"></script> -->
+
+            <!-- Page level custom scripts -->
+            <!-- <script src="js/demo/chart-area-demo.js"></script> -->
+            <!-- <script src="js/demo/chart-pie-demo.js"></script> -->
+    </body>
+
+
+
+</body>
+
+</html>
