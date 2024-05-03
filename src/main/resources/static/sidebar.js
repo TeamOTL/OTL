@@ -58,7 +58,11 @@ class sidebar extends HTMLElement {
 
            <!-- Sidebar Toggler (Sidebar) -->
            <div class="text-center d-none d-md-inline">
-               <button class="rounded-circle border-0" id="sidebarToggle"></button>
+               <button class="rounded-circle border-0 bg-light" id="sidebarToggle"></button>
+           </div>
+           
+           <div class="text-center d-none d-md-inline">
+               <button class="rounded-circle border-0 bg-secondary" id="sidebarToggle"></button>
            </div>
 
        </ul>
