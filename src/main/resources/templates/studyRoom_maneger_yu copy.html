@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>스터디방 관리</title>
+
+    <!-- Custom fonts for this template-->
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- Custom styles for this template-->
+    <link href="css/sb-admin-2.min.css" rel="stylesheet" />
+    <link href="css/dashboard.css" rel="stylesheet">
+    <!-- <link rel="stylesheet" href="css/studyRecruit.css"> -->
+    <!-- <link rel="stylesheet" href="css/studyRecruit1.css"> -->
+</head>
+
+<body>
+
+    <body id="page-top">
+        <!-- Page Wrapper -->
+        <div id="wrapper">
+            <!-- Sidebar -->
+
+            <ul class="navbar-nav bg-dong sidebar sidebar-dark accordion " id="accordionSidebar">
+
+
+                <!-- Sidebar - Brand -->
+                <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+                    <div class="sidebar-brand-icon">
+                        <img src="img/main_icon.svg" />
+                    </div>
+                    <!-- <div class="sidebar-brand-text mx-3"><b1 class="text-black-50">OTL</b1></div> -->
+                </a>
+
+                <!-- Divider -->
+                <hr class="sidebar-divider my-0" />
+
+                <!-- Nav Item - Dashboard -->
+                <li class="nav-item">
+                    <a class="nav-link list-group-item-action list-group-item-danger rounded text-gray-900"
+                        href="index.html">
+                        <i class="fas fa-fw fa-th-large"></i>
+                        <span>대시보드</span></a>
+                </li>
+                <!-- Nav Item - Dashboard -->
+                <li class="nav-item">
+                    <a class="nav-link list-group-item-action list-group-item-danger rounded text-gray-900"
+                        href="index.html">
+                        <i class="fas fa-fw fa-clipboard"></i>
+                        <span>게시판</span></a>
+                </li>
+
+
+
+                <!-- Nav Item - Pages Collapse Menu -->
+                <li class="nav-item">
+                    <a class="nav-link list-group-item-action list-group-item-danger rounded text-gray-900" href="#"
+                        data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true"
+                        aria-controls="collapseTwo">
+                        <i class="fas fa-fw fa-users"></i>
+                        <span>스터디룸</span>
+                    </a>
+                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo"
+                            data-parent="#accordionSidebar">
+                            <div class="bg-white py-2 collapse-inner rounded">
+                                <h6 class="collapse-header">나의 스터디룸</h6>
+                                <a class="collapse-item" href=""><img src="img/Property 1=linux.svg">수연이와 리눅스</a>
+                                <a class="collapse-item" href=""><img src="img/Property 1=spring.svg">강현과 봄남자</a>
+
+                            </div>
+                        </div>
+                    </div>
+                </li>
+
+
+
+                <!-- Nav Item - Charts -->
+                <li class="nav-item">
+                    <a class="nav-link list-group-item-action list-group-item-danger rounded text-gray-900"
+                        href="index.html">
+                        <i class="fas fa-fw fa-user-plus"></i>
+                        <span>스터디 모집</span></a>
+                </li>
+
+
+
+
+                <!-- Divider -->
+                <hr class="sidebar-divider d-none d-md-block" />
+
+                <!-- Sidebar Toggler (Sidebar) -->
+                <div class="text-center d-none d-md-inline">
+                    <button class="rounded-circle border-0" id="sidebarToggle"></button>
+                </div>
+
+            </ul>
+            <!-- End of Sidebar -->
+
+            <!-- Content Wrapper -->
+            <div id="content-wrapper" class="d-flex flex-column">
+                <!-- Main Content -->
+                <div id="content">
+                    <!-- Topbar -->
+                    <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                        <!-- Sidebar Toggle (Topbar) -->
+                        <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                            <i class="fa fa-bars"></i>
+                        </button>
+
+                        <!-- Topbar Search -->
+
+
+                        <!-- Topbar Navbar -->
+                        <ul class="navbar-nav ml-auto">
+
+                            <!-- Nav Item - User Information -->
+                            <li class="nav-item dropdown no-arrow">
+                                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span class="mr-2 d-none d-lg-inline text-gray-600 small">당후니</span>
+                                    <img class="img-profile rounded-circle" src="/img/" />
+                                </a>
+                                <!-- Dropdown - User Information -->
+                                <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                    aria-labelledby="userDropdown">
+                                    <a class="dropdown-item" href="#">
+                                        <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                        프로필
+                                    </a>
+                                    <a class="dropdown-item" href="#">
+                                        <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                                        설정
+                                    </a>
+                                    <a class="dropdown-item" href="#">
+                                        <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
+                                        나의 스터디
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                        <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                        로그아웃
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                    </nav>
+                    <!-- End of Topbar -->
+
+                <!-- 방장_회원 관리 영역 -->
+                    <div class="container-fluid">
+                        <div class="row">
+                            <!-- 스터디룸 관리 -->
+                            <div class="col-lg-6">
+
+                                <div class="card mb-4">
+                                    <!-- Card Body -->
+                                    <div class="card-body">
+                                        <div class="manager-header">
+                                            <h4 class="font-weight-bolder" style="color: #FD7B38;">스터디 관리</h4>
+                                        </div>
+                                        <!-- Modal Body -->
+                                        <div class="modal-body" style="color: black;">
+
+                                            <!-- 스터디 이름 -->
+                                            <div class="row mb-3">
+                                                <label class="col-sm-2.5 col-form-label">스터디 이름</label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" class="form-control">
+                                                </div>
+                                            </div>
+                                            <!-- 카테고리 & 모집인원 -->
+                                            <div class="row mb-3 justify-content-between">
+                                                <label class="col-sm-2.5 col-form-label">카테고리</label>
+                                                <div class="col-sm-3">
+                                                    <select class="form-select form-control">
+                                                        <option value="1">1</option>
+                                                        <option value="2">2</option>
+                                                        <option value="3">3</option>
+                                                    </select>
+                                                </div>
+                                                <label class="col-sm-2.5 col-form-label">모집 인원</label>
+                                                <div class="col-sm-3">
+                                                    <select class="form-select form-control">
+                                                        <option value="1">1</option>
+                                                        <option value="2">2</option>
+                                                        <option value="3">3</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <!-- 관심분야 -->
+                                            <div class="row mb-3 justify-content-between">
+                                                <label class="col-sm-2.5 col-form-label">관심분야</label>
+                                                <div class="col-sm-3">
+                                                    <select class="form-select form-control">
+                                                        <option value="1">1</option>
+                                                        <option value="2">2</option>
+                                                        <option value="3">3</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <select class="form-select form-control">
+                                                        <option value="1">1</option>
+                                                        <option value="2">2</option>
+                                                        <option value="3">3</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <select class="form-select form-control">
+                                                        <option value="1">1</option>
+                                                        <option value="2">2</option>
+                                                        <option value="3">3</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <!-- 모집기간 -->
+                                            <div class="row mb-3">
+                                                <label class="col-sm-2.5 col-form-label">모집 기간</label>
+                                                <div class="col-sm-8 d-flex">
+                                                    <input type="date" class="form-select form-control">
+                                                    ~
+                                                    <input type="date" class="form-select form-control">
+                                                </div>
+                                            </div>
+                                            <!-- 스터디 시작일 -->
+                                            <div class="row mb-3">
+                                                <label class="col-sm-2.5 col-form-label">스터디 시작일</label>
+                                                <div class="col-sm-9">
+                                                    <input type="date" class="form-select form-control">
+                                                </div>
+                                            </div>
+                                            <!-- 한 줄 설명 -->
+                                            <div class="row mb-3">
+                                                <label class="col-sm-2.5 col-form-label">설명</label>
+                                                <div class="col flex-grow-1">
+                                                    <input type="text" class="form-control" placeholder="15글자 이하">
+                                                </div>
+                                            </div>
+                                            <!-- 일정 -->
+                                            <div class="row mb-3">
+                                                <label class="form-label">일정</label>
+                                                <div class="col d-flex">
+                                                    <input type="text" class="form-control mr-1" placeholder="">
+                                                    <button type="button" class="btn btn-primary ">+</button>
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <input type="text" class="form-control mr-1" placeholder="">
+                                                <input type="text" class="form-control mr-1" placeholder="">
+                                                <input type="text" class="form-control mr-1" placeholder="">
+                                                <textarea class="form-control bg-white" disabled></textarea>
+                                            </div>
+                                        </div>
+
+                                        <!-- Modal Footer -->
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-primary">참가신청 현황</button>
+                                            <button type="button" class="btn btn-success">수정하기</button>
+                                            <button type="button" class="btn btn-danger">스터디 삭제</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- 스터디 멤버 강제 퇴장 버튼 -->
+                            <div class="col-lg-6">
+
+                                <div class="card mb-4">
+                                    <!-- Card Body -->
+                                    <div class="card-body">
+                                        <ul class="list-group">
+                                            <div class="member-state"  style="margin-bottom: 10px;">
+                                                <form class="form-inline my-2 my-lg-0">
+                                                    <input class="form-control mr-2" type="search" placeholder="Search" aria-label="Search">
+                                                    <!-- 폼을 오른쪽 정렬하기 위해 ml-auto 클래스 추가 -->
+                                                    <button class="btn btn-outline-success ml-auto" type="submit">검색</button>
+
+                                                </form>
+                                            </div>
+                                            <li class=" list-group-item d-flex justify-content-end align-items-center">
+                                                <img src="./아이콘/face.svg" alt="프로필 이미지" class="rounded-circle mr-3 me-3" />
+                                                <span class="flex-grow-1 font-weight-bolder fs-5 text-dark">김동우</span>
+                                                <a href=""><button type="button" class="btn btn-danger btn- btn-block">강제
+                                                    퇴장</button></a>
+                                            </li>
+                                            <li class=" list-group-item d-flex justify-content-end align-items-center">
+                                                <img src="./아이콘/face.svg" alt="프로필 이미지" class="rounded-circle mr-3 me-3" />
+                                                <span class="flex-grow-1 font-weight-bolder fs-5 text-dark">김동우</span>
+                                                <a href=""><button type="button" class="btn btn-danger btn- btn-block">강제
+                                                    퇴장</button></a>
+                                            </li>
+                                            <li class=" list-group-item d-flex justify-content-end align-items-center">
+                                                <img src="./아이콘/face.svg" alt="프로필 이미지" class="rounded-circle mr-3 me-3" />
+                                                <span class="flex-grow-1 font-weight-bolder fs-5 text-dark">김동우</span>
+                                                <a href=""><button type="button" class="btn btn-danger btn- btn-block">강제
+                                                    퇴장</button></a>
+                                            </li>
+                                            <li class=" list-group-item d-flex justify-content-end align-items-center">
+                                                <img src="./아이콘/face.svg" alt="프로필 이미지" class="rounded-circle mr-3 me-3" />
+                                                <span class="flex-grow-1 font-weight-bolder fs-5 text-dark">김동우</span>
+                                                <a href=""><button type="button" class="btn btn-danger btn- btn-block">강제
+                                                    퇴장</button></a>
+                                            </li>
+                                            <li class=" list-group-item d-flex justify-content-end align-items-center">
+                                                <img src="./아이콘/face.svg" alt="프로필 이미지" class="rounded-circle mr-3 me-3" />
+                                                <span class="flex-grow-1 font-weight-bolder fs-5 text-dark">김동우</span>
+                                                <a href=""><button type="button" class="btn btn-danger btn- btn-block">강제
+                                                    퇴장</button></a>
+                                            </li>
+
+                                            <li class=" list-group-item d-flex justify-content-end align-items-center">
+                                                <img src="./아이콘/face.svg" alt="프로필 이미지" class="rounded-circle mr-3 me-3" />
+                                                <span class="flex-grow-1 font-weight-bolder fs-5 text-dark">김동우</span>
+                                                <a href=""><button type="button" class="btn btn-danger btn- btn-block">강제
+                                                    퇴장</button></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+            </div>
+
+
+            <!-- End of Content Wrapper -->
+
+            <!-- Scroll to Top Button-->
+            <a class="scroll-to-top rounded" href="#page-top">
+                <i class="fas fa-angle-up"></i>
+            </a>
+        </div>
+        <!-- End of Page Wrapper -->
+
+        <!-- Bootstrap core JavaScript-->
+        <script src="vendor/jquery/jquery.min.js"></script>
+        <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+        <!-- Core plugin JavaScript-->
+        <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+        <!-- Custom scripts for all pages-->
+        <script src="js/sb-admin-2.min.js"></script>
+
+        <!-- Page level plugins -->
+        <script src="vendor/chart.js/Chart.min.js"></script>
+
+        <!-- Page level custom scripts -->
+        <script src="js/demo/chart-area-demo.js"></script>
+        <script src="js/demo/chart-pie-demo.js"></script>
+    </body>
+
+
+
+</body>
+
+</html>
