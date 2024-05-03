@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>스터디 모집방</title>
+
+    <!-- Custom fonts for this template-->
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- Custom styles for this template-->
+    <link href="css/sb-admin-2.min.css" rel="stylesheet" />
+    <link href="css/dashboard.css" rel="stylesheet">
+    <!-- <link rel="stylesheet" href="css/studyRecruit.css"> -->
+    <!-- <link rel="stylesheet" href="css/studyRecruit1.css"> -->
+</head>
+
+<body>
+
+    <body id="page-top">
+        <!-- Page Wrapper -->
+        <div id="wrapper">
+            <!-- Sidebar -->
+
+            <ul class="navbar-nav bg-dong sidebar sidebar-dark accordion " id="accordionSidebar">
+
+
+                <!-- Sidebar - Brand -->
+                <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+                    <div class="sidebar-brand-icon">
+                        <img src="img/main_icon.svg" />
+                    </div>
+                    <!-- <div class="sidebar-brand-text mx-3"><b1 class="text-black-50">OTL</b1></div> -->
+                </a>
+
+                <!-- Divider -->
+                <hr class="sidebar-divider my-0" />
+
+                <!-- Nav Item - Dashboard -->
+                <li class="nav-item">
+                    <a class="nav-link list-group-item-action list-group-item-danger rounded text-gray-900"
+                        href="index.html">
+                        <i class="fas fa-fw fa-th-large"></i>
+                        <span>대시보드</span></a>
+                </li>
+                <!-- Nav Item - Dashboard -->
+                <li class="nav-item">
+                    <a class="nav-link list-group-item-action list-group-item-danger rounded text-gray-900"
+                        href="index.html">
+                        <i class="fas fa-fw fa-clipboard"></i>
+                        <span>게시판</span></a>
+                </li>
+
+
+
+                <!-- Nav Item - Pages Collapse Menu -->
+                <li class="nav-item">
+                    <a class="nav-link list-group-item-action list-group-item-danger rounded text-gray-900" href="#"
+                        data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true"
+                        aria-controls="collapseTwo">
+                        <i class="fas fa-fw fa-users"></i>
+                        <span>스터디룸</span>
+                    </a>
+                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo"
+                            data-parent="#accordionSidebar">
+                            <div class="bg-white py-2 collapse-inner rounded">
+                                <h6 class="collapse-header">나의 스터디룸</h6>
+                                <a class="collapse-item" href=""><img src="img/Property 1=linux.svg">수연이와 리눅스</a>
+                                <a class="collapse-item" href=""><img src="img/Property 1=spring.svg">강현과 봄남자</a>
+
+                            </div>
+                        </div>
+                    </div>
+                </li>
+
+
+
+                <!-- Nav Item - Charts -->
+                <li class="nav-item">
+                    <a class="nav-link list-group-item-action list-group-item-danger rounded text-gray-900"
+                        href="index.html">
+                        <i class="fas fa-fw fa-user-plus"></i>
+                        <span>스터디 모집</span></a>
+                </li>
+
+
+
+
+                <!-- Divider -->
+                <hr class="sidebar-divider d-none d-md-block" />
+
+                <!-- Sidebar Toggler (Sidebar) -->
+                <div class="text-center d-none d-md-inline">
+                    <button class="rounded-circle border-0" id="sidebarToggle"></button>
+                </div>
+
+            </ul>
+            <!-- End of Sidebar -->
+
+            <!-- Content Wrapper -->
+            <div id="content-wrapper" class="d-flex flex-column">
+                <!-- Main Content -->
+                <div id="content">
+                    <!-- Topbar -->
+                    <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                        <!-- Sidebar Toggle (Topbar) -->
+                        <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                            <i class="fa fa-bars"></i>
+                        </button>
+
+                        <!-- Topbar Search -->
+
+
+                        <!-- Topbar Navbar -->
+                        <ul class="navbar-nav ml-auto">
+
+                            <!-- Nav Item - User Information -->
+                            <li class="nav-item dropdown no-arrow">
+                                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span class="mr-2 d-none d-lg-inline text-gray-600 small">당후니</span>
+                                    <img class="img-profile rounded-circle" src="/img/" />
+                                </a>
+                                <!-- Dropdown - User Information -->
+                                <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                    aria-labelledby="userDropdown">
+                                    <a class="dropdown-item" href="#">
+                                        <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                        프로필
+                                    </a>
+                                    <a class="dropdown-item" href="#">
+                                        <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                                        설정
+                                    </a>
+                                    <a class="dropdown-item" href="#">
+                                        <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
+                                        나의 스터디
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                        <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                        로그아웃
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                    </nav>
+                    <!-- End of Topbar -->
+
+                    <div class="container-fluid">
+                        <!-- Content Row -->
+                        <div class="row">
+                            <!-- 스터디_모집_카드 1 -->
+                            <div class="col-xl-5 col-lg-5 mb-3">
+                                <div class="card p-3">
+                                    <div
+                                        class="profile-container d-flex align-items-center justify-content-between px-3">
+                                        <!-- div에 align-items-center와 justify-content-between 클래스 추가하여 수직 및 수평 정렬 -->
+                                        <!-- 스터디 주제 이미지 -->
+                                        <img src="./img/docker.svg" alt="프로필 이미지" class="rounded-circle me-3 ">
+                                        <!-- 이미지에 me-3 클래스 추가하여 오른쪽 여백 적용 -->
+                                        <!-- 스터디 명 -->
+                                        <h5 class="flex-grow-1 mx-3 text-dark font-weight-bold"><span>조수연과 고래사냥</span>
+                                        </h5>
+                                        <!-- span에 flex-grow-1 클래스 추가하여 나머지 공간을 모두 차지 -->
+                                        <!-- d-day -->
+                                        <button type="button"
+                                            class="btn btn-danger btn-lg font-weight-bold disabled rounded">D-61</button>
+                                        <div class="ml-3"><img src="./아이콘/dotdotdot.svg" /></div>
+                                    </div>
+
+                                    <div class="card-body">
+                                        <!-- 인원 동순이.. 수연이... 강현이... 지오... 덕현님...  -->
+                                        <div
+                                            class="study_member d-flex justify-content-start ml-1 mb-2 bg-success text-white rounded align-items-center">
+                                            <img src="./아이콘/people.svg" class="p-2" />
+                                            <span class="p-1"> 동순</span>
+                                            <span class="p-1"> 수연</span>
+                                            <span class="p-1"> 강현</span>
+                                            <span class="p-1"> 지오</span>
+                                            <span class="p-1"> 덕현</span>
+                                        </div>
+
+                                        <!-- 프로그레스 바 -->
+                                        진행률
+                                        <div class="progress mb-4">
+                                            <div class="progress-bar bg-success" role="progressbar" style="width: 25%"
+                                                aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                        </div>
+
+                                        <div class="d-flex align-items-center justify-content-start mb-4">
+                                            <button type="button"
+                                                class="btn btn-outline-primary font-weight-bolder mx-1"
+                                                disabled="">도커</button>
+                                            <button type="button"
+                                                class="btn btn-outline-success font-weight-bolder mx-1"
+                                                disabled="">쿠버네티스</button>
+                                            <button type="button"
+                                                class="btn btn-outline-warning font-weight-bolder mx-1"
+                                                disabled="">하이루</button>
+                                            <button type="button" class="btn btn-outline-info font-weight-bolder mx-1"
+                                                disabled="">방가방가</button>
+                                        </div>
+
+                                        <a href=""><button type="button"
+                                                class="btn btn-danger btn- btn-block">더보기</button></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- 스터디_모집_카드 1 End -->
+
+
+                            <div class="col-xl-4 col-lg-5">
+                                <div class="card p-3">
+
+                                    <div
+                                        class="profile-container d-flex align-items-center justify-content-between px-3">
+                                        <!-- div에 align-items-center와 justify-content-between 클래스 추가하여 수직 및 수평 정렬 -->
+                                        <!-- 스터디 주제 이미지 -->
+                                        <img src="./img/docker.svg" alt="프로필 이미지" class="rounded-circle me-3 " />
+                                        <!-- 이미지에 me-3 클래스 추가하여 오른쪽 여백 적용 -->
+                                        <h5 class="flex-grow-1 mx-3 text-dark font-weight-bold"><span>조수연과 고래사냥</span>
+                                        </h5>
+                                        <!-- span에 flex-grow-1 클래스 추가하여 나머지 공간을 모두 차지 -->
+                                        <button type="button"
+                                            class="btn btn-danger btn-lg font-weight-bold disabled rounded">D-61</button>
+                                    </div>
+                                    <div class="card-body">
+                                        <!-- 피그마 프레임 css 적용 -->
+                                        <div class="framever01-frame80 mb-4">
+                                            <div class="framever01-frame181"><img src="./img/state=off.svg"
+                                                    alt="Union6824" class="framever01-union" /><span
+                                                    class="framever01-text016"><span>매주
+                                                        월요일, 목요일
+                                                        20:00</span></span></div>
+                                        </div>
+                                        <!--  피그마 프레임 css 적용 -->
+                                        진행률
+                                        <div class="progress mb-4">
+                                            <div class="progress-bar bg-success" role="progressbar" style="width: 25%"
+                                                aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                        </div>
+
+                                        <div class="d-flex align-items-center justify-content-start mb-4">
+
+                                            <button type="button"
+                                                class="btn btn-outline-primary font-weight-bolder mx-1"
+                                                disabled>도커</button>
+                                            <button type="button"
+                                                class="btn btn-outline-success font-weight-bolder mx-1"
+                                                disabled>쿠버네티스</button>
+                                            <button type="button"
+                                                class="btn btn-outline-warning font-weight-bolder mx-1"
+                                                disabled>하이루</button>
+                                            <button type="button" class="btn btn-outline-info font-weight-bolder mx-1"
+                                                disabled>방가방가</button>
+
+                                        </div>
+
+
+                                        <ul class="list-group mb-4">
+                                            <li class="list-group-item d-flex justify-content-end align-items-center">
+                                                <span class="mr-3 font-weight-bold">1주차</span>
+                                                <span class="mr-auto">밥먹기</span>
+                                                <img src="./아이콘/check_on.svg"">
+                                            </li>
+    
+                                            <li class=" list-group-item d-flex justify-content-end align-items-center">
+                                                <span class="mr-3 font-weight-bold">2주차</span>
+                                                <span class="mr-auto">숙면</span>
+                                                <img src="./아이콘/check_on.svg"">
+                                            </li>
+    
+                                            <li class=" list-group-item d-flex justify-content-end align-items-center">
+                                                <span class="mr-3 font-weight-bold">3주차</span>
+                                                <span class="mr-auto">30분 이상 운동</span>
+                                                <img src="./아이콘/check_off.svg">
+                                            </li>
+
+                                            <li class="list-group-item d-flex justify-content-end align-items-center">
+                                                <span class="mr-3 font-weight-bold">4주차</span>
+                                                <span class="mr-auto">실패</span>
+                                                <img src="./아이콘/check_off.svg"">
+                                            </li>
+                                            <!-- <li class=" list-group-item d-flex justify-content-end
+                                                    align-items-center">
+                                                <input class="form-check-input me-1" type="checkbox" value=""
+                                                    aria-label="...">
+                                                <span class="mr-auto">checkbox</span>
+                                            </li> -->
+                                        </ul>
+
+                                        <a href=""><button type="button"
+                                                class="btn btn-danger btn- btn-block">더보기</button></a>
+                                    </div>
+                                </div>
+
+
+                                <!-- 스터디 기록 -->
+                                <div class="col-xl-5 col-lg-5 mb-3">
+                                    <div class="card p-3">
+                                        <div class="d-flex align-items-center justify-content-between px-3 mb-3">
+                                            <div class="d-flex align-items-center justify-content-between">
+                                                <img src="./아이콘/line3.svg" alt="list" class="mr-3 me-3" />
+                                                <h4 class="font-weight-bolder text-dark me-3 text-center"
+                                                    style="margin-right: 20px;">스터디 기록</h4>
+                                                <div class="calender d-flex justify-content-between">
+                                                    <img src="./아이콘/left.svg" alt="이전 월" class=" me-3" />
+                                                    <h5 class="m-3"><span class="flex-lg-grow-1 text-center">2024년
+                                                            5월</span>
+                                                    </h5>
+                                                    <img src="./아이콘/right.svg" alt="다음 월" class="me-3" />
+                                                </div>
+                                            </div>
+                                            <a href=""><img src="./아이콘/plus.svg" alt="추가하기" class="mr-3 me-3" /></a>
+                                        </div>
+                                        <ul class="list-group">
+                                            <a href="">
+                                                <li
+                                                    class=" list-group-item d-flex justify-content-between align-items-center">
+                                                    <img src="./아이콘/timeer.svg" alt="아이콘"
+                                                        class="rounded-circle mr-3 me-3" />
+                                                    <span class="flex-grow-1 font-weight-bolder text-dark">1주차</span>
+                                                    <span class="flex-grow-1 font-weight-bold text-dark">객체 지향의
+                                                        이해</span>
+                                                    <img src="./아이콘/dotdotdot.svg" alt="회의록으로" class="">
+                                                </li>
+                                            </a>
+                                            <li
+                                                class=" list-group-item d-flex justify-content-between align-items-center">
+                                                <img src="./아이콘/timeer.svg" alt="아이콘"
+                                                    class="rounded-circle mr-3 me-3" />
+                                                <span class="flex-grow-1 font-weight-bolder text-dark">2주차</span>
+                                                <a href=""></a><span class="flex-grow-1 font-weight-bold text-dark">객체
+                                                    지향의
+                                                    이해</span>
+                                                <img src="./아이콘/dotdotdot.svg" alt="회의록으로" class="">
+                                            </li></a>
+                                            <li
+                                                class=" list-group-item d-flex justify-content-between align-items-center">
+                                                <img src="./아이콘/timeer.svg" alt="아이콘"
+                                                    class="rounded-circle mr-3 me-3" />
+                                                <span class="flex-grow-1 font-weight-bolder text-dark">3주차</span>
+                                                <a href=""></a><span class="flex-grow-1 font-weight-bold text-dark">객체
+                                                    지향의
+                                                    이해</span>
+                                                <img src="./아이콘/dotdotdot.svg" alt="회의록으로" class="">
+                                            </li></a>
+                                            <li
+                                                class=" list-group-item d-flex justify-content-between align-items-center">
+                                                <img src="./아이콘/timeer.svg" alt="아이콘"
+                                                    class="rounded-circle mr-3 me-3" />
+                                                <span class="flex-grow-1 font-weight-bolder text-dark">4주차</span>
+                                                <a href=""></a><span class="flex-grow-1 font-weight-bold text-dark">객체
+                                                    지향의
+                                                    이해</span>
+                                                <img src="./아이콘/dotdotdot.svg" alt="회의록으로" class="">
+                                            </li></a>
+
+
+                                        </ul>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <!-- 방장_회원 관리 영역 -->
+                        <div class="card p-3">
+
+                            <ul class="list-group">
+                                <form class="form-inline my-2 my-lg-0">
+                                    <input class="form-control mr-2" type="search" placeholder="Search"
+                                        aria-label="Search">
+                                    <!-- 폼을 오른쪽 정렬하기 위해 ml-auto 클래스 추가 -->
+                                    <button class="btn btn-outline-success ml-auto" type="submit">검색</button>
+                                </form>
+
+                                <li class=" list-group-item d-flex justify-content-end align-items-center">
+                                    <img src="./아이콘/face.svg" alt="프로필 이미지" class="rounded-circle mr-3 me-3" />
+                                    <span class="flex-grow-1 font-weight-bolder fs-5 text-dark">김동우</span>
+                                    <a href=""><button type="button" class="btn btn-danger btn- btn-block">강제
+                                            퇴장</button></a>
+                                </li>
+                                <li class=" list-group-item d-flex justify-content-end align-items-center">
+                                    <img src="./아이콘/face.svg" alt="프로필 이미지" class="rounded-circle mr-3 me-3" />
+                                    <span class="flex-grow-1 font-weight-bolder fs-5 text-dark">김동우</span>
+                                    <a href=""><button type="button" class="btn btn-danger btn- btn-block">강제
+                                            퇴장</button></a>
+                                </li>
+                                <li class=" list-group-item d-flex justify-content-end align-items-center">
+                                    <img src="./아이콘/face.svg" alt="프로필 이미지" class="rounded-circle mr-3 me-3" />
+                                    <span class="flex-grow-1 font-weight-bolder fs-5 text-dark">김동우</span>
+                                    <a href=""><button type="button" class="btn btn-danger btn- btn-block">강제
+                                            퇴장</button></a>
+                                </li>
+                                <li class=" list-group-item d-flex justify-content-end align-items-center">
+                                    <img src="./아이콘/face.svg" alt="프로필 이미지" class="rounded-circle mr-3 me-3" />
+                                    <span class="flex-grow-1 font-weight-bolder fs-5 text-dark">김동우</span>
+                                    <a href=""><button type="button" class="btn btn-danger btn- btn-block">강제
+                                            퇴장</button></a>
+                                </li>
+                                <li class=" list-group-item d-flex justify-content-end align-items-center">
+                                    <img src="./아이콘/face.svg" alt="프로필 이미지" class="rounded-circle mr-3 me-3" />
+                                    <span class="flex-grow-1 font-weight-bolder fs-5 text-dark">김동우</span>
+                                    <a href=""><button type="button" class="btn btn-danger btn- btn-block">강제
+                                            퇴장</button></a>
+                                </li>
+
+                                <li class=" list-group-item d-flex justify-content-end align-items-center">
+                                    <img src="./아이콘/face.svg" alt="프로필 이미지" class="rounded-circle mr-3 me-3" />
+                                    <span class="flex-grow-1 font-weight-bolder fs-5 text-dark">김동우</span>
+                                    <a href=""><button type="button" class="btn btn-danger btn- btn-block">강제
+                                            퇴장</button></a>
+                                </li>
+                            </ul>
+                        </div>
+
+
+
+
+                        <!-- 신청 카드 -->
+                        <div class="card p-3">
+                            <div class="d-flex align-items-center justify-content px-3">
+                                <img src="./아이콘/panda.svg" alt="프로필 이미지" class="mr-3 me-3" />
+                                <h4 class="font-weight-bolder text-dark">김동우</h4>
+                            </div>
+                            <hr>
+                            <div class="d-flex align-items-center mb-4">
+                                <button type="button" class="btn btn-outline-primary font-weight-bolder mx-1"
+                                    disabled>Java</button>
+                                <button type="button" class="btn btn-outline-success font-weight-bolder mx-1"
+                                    disabled>MotJava</button>
+                                <button type="button" class="btn btn-outline-danger font-weight-bolder mx-1"
+                                    disabled>hiru</button>
+                            </div>
+                            <h6 class="font-weight-bolder text-gray-600">이번 기회에 열심히 해보고 싶어요. <br>처음이지만 잘부탁드리겠습니다.
+                                열심히 할게요.</h6>
+                            <hr>
+                            <div class="row">
+                                <div class="col">
+                                    <a href="#" class="btn btn-info btn-block">신청 승인</a>
+                                </div>
+                                <div class="col">
+                                    <a href="#" class="btn btn-danger btn-block">거절</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 오늘의 스터디 -->
+                        <div class="row mb-4 p-3">
+                            <!-- card today study -->
+                            <div class="card">
+                                <!-- header -->
+                                <div class="card-header bg-white">
+                                    <div class="row mb-3">
+                                        <h4 class="font-weight-bold">
+                                            오늘의 스터디
+                                        </h4>
+                                    </div>
+                                    <div class="w-100">
+                                        <div class=" d-flex" style="background-color:#f9a188;">
+                                            <img alt="img">
+                                            <label class="ml-3">객체지향의 이해</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <form action="#" method="post">
+                                    <div class="card-body" style="color: black;">
+
+                                        <!-- 날짜 -->
+                                        <div class="row mb-3">
+                                            <div class="col d-flex">
+                                                <img class="" alt="img">
+                                                <label class="col col-form-label">날짜</label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" class="form-control"
+                                                        id="staticNAMESETㅋTINGplㅇzㅋz" value="텍스트 입력">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- 작성자 -->
+                                        <div class="row mb-3">
+                                            <div class="col d-flex">
+                                                <img class="" alt="img">
+                                                <label class="col col-form-label">작성자</label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" class="form-control"
+                                                        id="staticNAMESETㅋTINGplㅇzㅋz" value="텍스트 입력">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- 시간 -->
+                                        <div class="row mb-3">
+                                            <div class="col d-flex">
+                                                <img class="" alt="img">
+                                                <label class="col col-form-label">시간</label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" class="form-control"
+                                                        id="staticNAMESETㅋTINGplㅇzㅋz" value="텍스트 입력">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- 장소 -->
+                                        <div class="row mb-3">
+                                            <div class="col d-flex">
+                                                <img class="" alt="img">
+                                                <label class="col col-form-label">장소</label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" class="form-control"
+                                                        id="staticNAMESETㅋTINGplㅇzㅋz" value="텍스트 입력">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- 참석자 -->
+                                        <div class="row mb-3">
+                                            <div class="col d-flex">
+                                                <img class="" alt="img">
+                                                <label class="col col-form-label">참석자</label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" class="form-control"
+                                                        id="staticNAMESETㅋTINGplㅇzㅋz" value="텍스트 입력">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- 내용 -->
+                                        <div class="row mb-3">
+                                            <div class="col d-flex">
+                                                <img class="" alt="img">
+                                                <label class="col col-form-label">내용</label>
+                                                <div class="col-sm-8">
+                                                    <textarea type="text" class="form-control" style="height: 30vh;"
+                                                        id="staticNAMESETㅋTINGplㅇzㅋz" value="텍스트 입력">
+                                                            </textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Modal Footer -->
+                                    <div class="modal-footer">
+                                        <!-- 방장에게 전송할 관심분야 -->
+
+                                        <div class="justify-content-between">
+                                            <button type="submit" class=" btn btn-success" data-dismiss="modal">수정
+                                                완료</button>
+                                            <button type="button" class=" btn btn-danger"
+                                                data-dismiss="modal">삭제하기</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <!-- card today study -->
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- End of Content Wrapper -->
+
+                <!-- Scroll to Top Button-->
+                <a class="scroll-to-top rounded" href="#page-top">
+                    <i class="fas fa-angle-up"></i>
+                </a>
+            </div>
+            <!-- End of Page Wrapper -->
+
+            <!-- Bootstrap core JavaScript-->
+            <script src="vendor/jquery/jquery.min.js"></script>
+            <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+            <!-- Core plugin JavaScript-->
+            <!-- <script src="vendor/jquery-easing/jquery.easing.min.js"></script> -->
+
+            <!-- Custom scripts for all pages-->
+            <!-- <script src="js/sb-admin-2.min.js"></script> -->
+
+            <!-- Page level plugins -->
+            <!-- <script src="vendor/chart.js/Chart.min.js"></script> -->
+
+            <!-- Page level custom scripts -->
+            <!-- <script src="js/demo/chart-area-demo.js"></script> -->
+            <!-- <script src="js/demo/chart-pie-demo.js"></script> -->
+    </body>
+
+
+
+</body>
+
+</html>
