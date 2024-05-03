@@ -9,6 +9,7 @@ import java.util.List;
 
 @Entity
 @Getter
+@Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -23,13 +24,13 @@ public class Member {
     private String email;         // 회원 이메일
 
     @Column(nullable = false)
-    private String name;           // 회원 이름 (닉네임)
+    private String nickname;           // 회원 이름 (닉네임)
 
     @Column
-    private String userProfile;     // 회원 프로필 사진
+    private String memberProfileImage;     // 회원 프로필 사진
 
     @Column
-    private String userDescription; // 회원 자기 소개
+    private String memberDescription; // 회원 자기 소개
 
 
 //    @OneToMany(mappedBy = "email")

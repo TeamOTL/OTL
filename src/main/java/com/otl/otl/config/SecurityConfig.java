@@ -16,7 +16,7 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        log.info("Setting up Security Filter Chain...");
+        log.info("보안 필터 체인 설정 중...");
 
         return http
                 .authorizeHttpRequests(auth -> auth
@@ -31,6 +31,12 @@ public class SecurityConfig {
                 .logout(logout -> logout
 
                         .logoutSuccessUrl("/")  // 로그아웃 성공 시 리다이렉션될 URL
+                        .invalidateHttpSession(true)  // 세션 무효화
+                        .deleteCookies("JSESSIONID")  // 쿠키 삭제
+                        .addLogoutHandler((request, response, authentication) -> {
+                            log.info("로그아웃 처리: 세션 무효화 및 JSESSIONID 쿠키 삭제");
+                        })
+                        .clearAuthentication(true)     // 인증 정보 클리어
                 )
                 .csrf(csrf -> csrf.disable())  // CSRF 보호 비활성화 (API 서버의 경우 필요)
                 .build();
