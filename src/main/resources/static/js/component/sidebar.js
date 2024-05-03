@@ -1,6 +1,12 @@
 class sidebar extends HTMLElement {
-
+    
     connectedCallback() {
+       const path = window.location.pathname;
+       let sPath = "";
+       
+       if(path.indexOf("templates") > 0)
+            sPath = "../static/";
+
        this.innerHTML = `
        <!-- Sidebar -->
        <ul class="navbar-nav bg-dong sidebar sidebar-dark accordion " id="accordionSidebar">
@@ -8,7 +14,7 @@ class sidebar extends HTMLElement {
            <!-- Sidebar - Brand -->
            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
                <div class="sidebar-brand-icon">
-                   <img src="img/main_icon.svg" />
+                   <img src="${sPath}img/main_icon.svg" />
                </div>
                <!-- <div class="sidebar-brand-text mx-3"><b1 class="text-black-50">OTL</b1></div> -->
            </a>
@@ -40,8 +46,8 @@ class sidebar extends HTMLElement {
                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                    <div class="bg-white py-2 collapse-inner rounded">
                        <h6 class="collapse-header">나의 스터디룸</h6>
-                       <a class="collapse-item" href=""><img src="img/Property 1=linux.svg">수연이와 리눅스</a>
-                       <a class="collapse-item" href=""><img src="img/Property 1=spring.svg">강현과 봄남자</a>
+                       <a class="collapse-item" href=""><img src="${sPath}img/Property 1=linux.svg">수연이와 리눅스</a>
+                       <a class="collapse-item" href=""><img src="${sPath}img/Property 1=spring.svg">강현과 봄남자</a>
                    </div>
                </div>
            </li>

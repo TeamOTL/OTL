@@ -10,4 +10,4 @@ class scrollTopBTN extends HTMLElement {
     }
 }
 
-customElements.define("custom-scrollTopBTN", scrollTopBTN);
+customElements.define("custom-scroll-top-btn", scrollTopBTN);
