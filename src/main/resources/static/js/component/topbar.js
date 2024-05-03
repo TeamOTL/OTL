@@ -23,7 +23,7 @@ class topbar extends HTMLElement {
 
                 <!-- Nav Item - User Information -->
                 <li class="nav-item dropdown no-arrow">
-                    <a class="nav-link dropdown-toggle" href="${sPath}#" id="userDropdown" role="button"
+                    <a class="nav-link dropdown-toggle" id="userDropdown" role="button"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <span class="mr-2 d-none d-lg-inline text-gray-600 small">당후니</span>
                         <img class="img-profile rounded-circle" src="${sPath}img/꺄.jpeg" />
