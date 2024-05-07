@@ -12,9 +12,9 @@ public class KakaoOAuth2UserService extends DefaultOAuth2UserService {
 
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
-        OAuth2User user = super.loadUser(userRequest);
+        OAuth2User member = super.loadUser(userRequest);
         // 카카오에서 받아온 사용자 정보를 가공하거나 추가 처리할 수 있습니다.
-        return user;
+        return member;
 
     }
 }

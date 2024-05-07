@@ -6,13 +6,30 @@
     <title>Main Page</title>
 </head>
 <body>
+
+<custom-topbar th:attr="data-nickname=${nickname}, data-profile-image=${memberProfileImage}"></custom-topbar>
+
+
 <h1>Main Page</h1>
 
 <div>
-    <p>Name: <span th:text="${name}"></span></p>
+    <p>Nickname: <span th:text="${nickname}"></span></p>
     <p>Email: <span th:text="${email}"></span></p>
-    <img th:src="${profileImage}" alt="Profile Image"/>
+    <img th:src="${memberProfileImage}" alt="Profile Image"/>
 </div>
+<div>
+    <a href="/logout">로그아웃</a>
+</div>
+
+<div>
+    <!-- 회원 탈퇴 링크 추가 -->
+    <form action="/delete-account" method="post">
+        <!-- 여기에 다른 입력 필드가 있을 수 있습니다. -->
+        <button type="submit">계정 삭제</button>
+    </form>
+</div>
+
+<script src="/static/js/component/topbar.js"></script>
 
 </body>
 </html>
