@@ -33,13 +33,13 @@ public class MemberController {
 
         String nickname = (String) profile.get("nickname");
         String email = (String) kakaoAccount.get("email");
-        String profileImage = (String) profile.get("profile_image_url");
+        String memberProfileImage = (String) profile.get("profile_image_url");
 
-        memberService.registerOrUpdateMember(nickname, email, profileImage);
+        memberService.registerOrUpdateMember(nickname, email, memberProfileImage);
 
-        model.addAttribute("name", nickname);
+        model.addAttribute("nickname", nickname);
         model.addAttribute("email", email);
-        model.addAttribute("profileImage", profileImage);
+        model.addAttribute("memberProfileImage", memberProfileImage);
 
         return "main";  // main.html 템플릿을 반환
     }
