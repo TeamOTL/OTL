@@ -265,12 +265,138 @@
                     <!-- Modal Study Create end -->
 
 
+<<<<<<< Updated upstream
                     <div class="modal" tabindex="-1">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h5 class="modal-title">Modal title</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
+=======
+                <div class="row mt-3">
+                    <div class="col">
+                        <div class="card">
+                            <div class="card-header">
+                                Board List
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">Board List </h5>
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">Bno</th>
+                                        <th scope="col">Title</th>
+                                        <th scope="col">Writer</th>
+                                        <th scope="col">RegDate</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>
+                                            <a data-toggle="modal" data-target="#boardReadModal">Title 1</a>
+                                            <custom-board-read-modal th:attr="data-board-title=${boardTitle}, data-board-content=${boardContent},
+                                            data-nickname=${nickname}, data-profile-image=${memberProfileImage}"></custom-board-read-modal>
+                                            <span class="badge progress-bar-success border"
+                                            >10</span>
+                                        </td>
+                                        <td>User 1</td>
+                                        <td>2024-05-01</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>
+<!--                                            <a href="/board/read(bno=1)">Title 1</a>-->
+                                            <a data-toggle="modal" data-target="#boardReadModal">Title 1</a>
+                                            <custom-board-read-modal th:attr="data-board-title=${boardTitle}, data-board-content=${boardContent},
+                                            data-nickname=${nickname}, data-profile-image=${memberProfileImage}"></custom-board-read-modal>
+                                            <span class="badge progress-bar-success border"
+                                            >10</span>
+                                        </td>
+                                        <td>User 1</td>
+                                        <td>2024-05-01</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>
+<!--                                            <a href="/board/read(bno=1)">Title 1</a>-->
+                                            <a data-toggle="modal" data-target="#boardReadModal">Title 1</a>
+                                            <custom-board-read-modal th:attr="data-board-title=${boardTitle}, data-board-content=${boardContent},
+                                            data-nickname=${nickname}, data-profile-image=${memberProfileImage}"></custom-board-read-modal>
+                                            <span class="badge progress-bar-success border"
+                                            >10</span>
+                                        </td>
+                                        <td>User 1</td>
+                                        <td>2024-05-01</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>
+<!--                                            <a href="/board/read(bno=1)">Title 1</a>-->
+                                            <a data-toggle="modal" data-target="#boardReadModal">Title 1</a>
+                                            <custom-board-read-modal th:attr="data-board-title=${boardTitle}, data-board-content=${boardContent},
+                                            data-nickname=${nickname}, data-profile-image=${memberProfileImage}"></custom-board-read-modal>
+                                            <span class="badge progress-bar-success border"
+                                            >10</span>
+                                        </td>
+                                        <td>User 1</td>
+                                        <td>2024-05-01</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>
+<!--                                            <a href="/board/read(bno=1)">Title 1</a>-->
+                                            <a data-toggle="modal" data-target="#boardReadModal">Title 1</a>
+                                            <custom-board-read-modal th:attr="data-board-title=${boardTitle}, data-board-content=${boardContent},
+                                            data-nickname=${nickname}, data-profile-image=${memberProfileImage}"></custom-board-read-modal>
+                                            <span class="badge progress-bar-success text-black border"
+                                            >10</span>
+                                        </td>
+                                        <td>User 1</td>
+                                        <td>2024-05-01</td>
+                                    </tr>
+
+                                    <!-- Other rows go here -->
+                                    </tbody>
+                                </table>
+                                <div class="float-end">
+                                    <ul class="pagination flex-wrap">
+                                        <li class="page-item">
+                                            <a class="page-link" data-num="0">이전</a>
+                                        </li>
+                                        <li class="page-item">
+                                            <a class="page-link" data-num="1">1</a>
+                                        </li>
+                                        <li class="page-item">
+                                            <a class="page-link" data-num="2">2</a>
+                                        </li>
+                                        <li class="page-item">
+                                            <a class="page-link" data-num="1">3</a>
+                                        </li>
+                                        <li class="page-item">
+                                            <a class="page-link" data-num="1">4</a>
+                                        </li>
+                                        <li class="page-item">
+                                            <a class="page-link" data-num="1">5</a>
+                                        </li>
+                                        <!-- Other page links go here -->
+                                        <li class="page-item">
+                                            <a class="page-link" data-num="2">다음</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div><!--end card body-->
+                        </div><!--end card-->
+                    </div><!-- end col-->
+                </div><!-- end row-->
+
+                <div class="modal" tabindex="-1">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Modal title</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+>>>>>>> Stashed changes
                                         aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
@@ -294,6 +420,7 @@
     </div>
 
 
+<<<<<<< Updated upstream
     <!-- sidebar & topbar & 스크롤 컴포넌트화 -->
     <script src="/js/component/sidebar.js"></script>
     <script src="/js/component/topbar.js"></script>
@@ -303,6 +430,19 @@
     <script src="/js/component/studyInfoModal.js"></script>
     <script src="/js/component/userDropModal.js"></script>
     <script src="/js/component/userSettingModal.js"></script>
+=======
+<!-- sidebar & topbar & 스크롤 컴포넌트화 -->
+<script src="/js/component/sidebar.js"></script>
+<script src="/js/component/topbar.js"></script>
+<script src="/js/component/scrollTopButton.js"></script>
+<!-- PopupComponent -->
+<script src="/js/component/boardCreateModal.js"></script>
+<script src="/js/component/boardReadModal.js"></script>
+<script src="/js/component/studyCreateModal.js"></script>
+<script src="/js/component/studyInfoModal.js"></script>
+<script src="/js/component/userDropModal.js"></script>
+<script src="/js/component/userSettingModal.js"></script>
+>>>>>>> Stashed changes
 
     <!-- 부트스트랩 JS (팝업을 위해 필요) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
