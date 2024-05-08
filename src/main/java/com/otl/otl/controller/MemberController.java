@@ -22,7 +22,7 @@ import java.util.Map;
 
 @Controller
 @Log4j2
-@RestController
+//@RestController
 public class MemberController {
 
     private final MemberService  memberService;
@@ -35,7 +35,7 @@ public class MemberController {
     public  String index(){
         return "index";
     }
-    @ApiOperation(value = "title POTS/GET", notes = "내용")
+//    @ApiOperation(value = "title POTS/GET", notes = "내용")
     @GetMapping("/main")
     public String getUserInfo(@AuthenticationPrincipal OAuth2User oauthUser, Model model) {
         Map<String, Object> kakaoAccount = oauthUser.getAttribute("kakao_account");
