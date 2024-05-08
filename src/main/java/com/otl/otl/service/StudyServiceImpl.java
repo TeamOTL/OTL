@@ -1,5 +1,6 @@
 package com.otl.otl.service;
 
+import com.otl.otl.dto.StudyDTO;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
@@ -13,4 +14,24 @@ import org.springframework.stereotype.Service;
 @Transactional
 public class StudyServiceImpl implements StudyService {
     private final ModelMapper modelMapper;
+
+    @Override
+    public Long register(StudyDTO studyDTO) {
+        return null;
+    }
+
+    @Override
+    public StudyDTO readStudy(Long sno) {
+        return null;
+    }
+
+    @Override
+    public void modify(StudyDTO studyDTO) {
+
+    }
+
+    @Override
+    public void remove(Long sno) {
+
+    }
 }

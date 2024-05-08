@@ -10,6 +10,6 @@ import org.springframework.stereotype.Service;
 @Log4j2
 @RequiredArgsConstructor
 @Transactional
-public class MYStudyServiceImpl implements StudyService {
+public class MYStudyServiceImpl implements MyStudyService {
     private final ModelMapper modelMapper;
 }

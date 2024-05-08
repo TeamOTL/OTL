@@ -48,27 +48,27 @@ public class Study {
 
 
     @Transient
-    private Long Dday;
+    private String dDay;
 
 
 
     //스터디 모집방 d-day
-    public String calStudyDday() {
+    public void calStudyDday() {
         LocalDate today = LocalDate.now();
         LocalDate endDateLocalDate = LocalDate.parse(endDate); // 모집 종료일을 LocalDate로 변환
         long daysDifference = ChronoUnit.DAYS.between(today, endDateLocalDate);
 
-        return "D-" + String.valueOf(daysDifference);
+        this.dDay = "D-" + String.valueOf(daysDifference);
 
     }
 
     //나의 스터디 d+day
-    public String calMyStudyDday() {
+    public void calMyStudyDday() {
         LocalDate today = LocalDate.now();
         LocalDate startDateLocalDate = LocalDate.parse(studyStartDate); // 스터디 시작일을 LocalDate로 변환
         long daysDifference = ChronoUnit.DAYS.between(today, startDateLocalDate);
 
-        return "D+" + String.valueOf(Math.abs(daysDifference));
+        this.dDay = "D+" + String.valueOf(Math.abs(daysDifference));
 
     }
 
