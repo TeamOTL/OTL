@@ -298,7 +298,7 @@ Icon
 Network Trash Folder
 Temporary Items
 .apdisk
-
+/bin/
 ### macOS Patch ###
 # iCloud generated files
 *.icloud
