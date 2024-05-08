@@ -33,7 +33,4 @@ public class Member {
     private String memberDescription; // 회원 자기 소개
 
 
-//    @OneToMany(mappedBy = "email")
-//    private List<Board> Boards;
-
 }

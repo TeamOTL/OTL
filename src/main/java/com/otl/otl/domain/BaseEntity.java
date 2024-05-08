@@ -1,3 +1,4 @@
+
 package com.otl.otl.domain;
 
 import jakarta.persistence.Column;
@@ -34,5 +35,3 @@ abstract class BaseEntity {
 }
 
 
-//    @Column(name = "board_isDeleted")
-//    private boolean isDeleted;          // 삭제여부
