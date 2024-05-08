@@ -1,6 +1,18 @@
 class topbar extends HTMLElement {
 
     connectedCallback() {
+
+        console.log('Nickname:', this.getAttribute('data-nickname'));
+        console.log('MemberProfileImage:', this.getAttribute('data-profile-image'));
+
+        this.render();
+    }
+
+    render(){
+
+        const nickname = this.getAttribute('data-nickname');  // 닉네임 속성
+        const memberProfileImage = this.getAttribute('data-profile-image');  // 프로필 이미지 속성
+
         const path = window.location.pathname;
         let sPath = "";
         
@@ -27,8 +39,8 @@ class topbar extends HTMLElement {
                 <li class="nav-item dropdown no-arrow">
                     <a class="nav-link dropdown-toggle" id="userDropdown" role="button"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <span class="mr-2 d-none d-lg-inline text-gray-600 small">당후니</span>
-                        <img class="img-profile rounded-circle" src="${sPath}img/꺄.jpeg" />
+                        <span class="mr-2 d-none d-lg-inline text-gray-600 small">${nickname}</span>
+                        <img class="img-profile rounded-circle" src="${memberProfileImage}">
                     </a>
                     <!-- Dropdown - User Information -->
                     <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"

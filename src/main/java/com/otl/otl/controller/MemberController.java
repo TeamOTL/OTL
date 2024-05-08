@@ -3,6 +3,8 @@ package com.otl.otl.controller;
 import com.otl.otl.domain.Member;
 import com.otl.otl.service.MemberService;
 
+
+import jakarta.servlet.http.HttpSession;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 
@@ -26,6 +28,11 @@ public class MemberController {
         this.memberService  = memberService;
     }
 
+    @GetMapping("/")
+    public  String index(){
+        return "index";
+    }
+
     @GetMapping("/main")
     public String getUserInfo(@AuthenticationPrincipal OAuth2User oauthUser, Model model) {
         Map<String, Object> kakaoAccount = oauthUser.getAttribute("kakao_account");
@@ -35,11 +42,15 @@ public class MemberController {
         String email = (String) kakaoAccount.get("email");
         String memberProfileImage = (String) profile.get("profile_image_url");
 
-        memberService.registerOrUpdateMember(nickname, email, memberProfileImage);
+        // memberService.registerOrUpdateMember 메소드가 Member 객체를 반환하도록 하고, 해당 객체를 사용합니다.
+        Member member = memberService.registerOrUpdateMember(nickname, email, memberProfileImage);
 
+        //모델에 사용자 정보 추가
         model.addAttribute("nickname", nickname);
         model.addAttribute("email", email);
         model.addAttribute("memberProfileImage", memberProfileImage);
+
+
 
         return "main";  // main.html 템플릿을 반환
     }
@@ -59,5 +70,32 @@ public class MemberController {
         return "redirect:/";
 
     }
+
+    @GetMapping("/board")
+    public String board(@AuthenticationPrincipal OAuth2User oauthUser, Model model){
+
+
+        if (oauthUser != null) {
+            Map<String, Object> kakaoAccount = oauthUser.getAttribute("kakao_account");
+            Map<String, Object> profile = (Map<String, Object>) kakaoAccount.get("profile");
+
+            String nickname = (String) profile.get("nickname");
+            String email = (String) kakaoAccount.get("email");
+            String memberProfileImage = (String) profile.get("profile_image_url");
+
+            model.addAttribute("nickname", nickname);
+            model.addAttribute("email", email);
+            model.addAttribute("memberProfileImage", memberProfileImage);
+
+
+        } else {
+            // 세션에 사용자 정보가 없을 경우 로그인 페이지로 리다이렉트
+            return "redirect:/";
+        }
+
+        return "board"; // board.html 템플릿을 반환
+    }
+
+
 
 }

@@ -17,15 +17,22 @@ import java.time.LocalDateTime;
 abstract class BaseEntity {
 
     @CreatedDate
-    @Column(name = "reg_date", updatable = false)
+    @Column(name = "board_createDate", updatable = false)
     private LocalDateTime regDate;      // 생성일
 
     @LastModifiedDate
-    @Column(name ="mod_date" )
+    @Column(name = "board_modDate")
     private LocalDateTime modDate;      // 수정일
 
+    public LocalDateTime getRegDate() {
+        return regDate;
+    }
 
-//    @Column
-    private boolean isDeleted;          // 삭제여부
-
+    public LocalDateTime getModDate() {
+        return modDate;
+    }
 }
+
+
+//    @Column(name = "board_isDeleted")
+//    private boolean isDeleted;          // 삭제여부
