@@ -33,13 +33,13 @@ public class Study {
     private Long maxMember;                //최대 참가 인원
 
     @Column
-    private String studyStartDate;          //스터디 시작일?
+    private String firstDate;                //스터디 시작일
 
     @Column
-    private String startDate;                  // 모집 기간_시작일
+    private String rStartDate;                  // 모집 기간_시작일
 
     @Column
-    private String endDate;                  // 모집 기간_종료일
+    private String rEndDate;                  // 모집 기간_종료일
 
 
     @OneToOne
@@ -48,27 +48,27 @@ public class Study {
 
 
     @Transient
-    private Long Dday;
+    private String dDay;
 
 
 
     //스터디 모집방 d-day
-    public String calStudyDday() {
+    public void calStudyDday() {
         LocalDate today = LocalDate.now();
-        LocalDate endDateLocalDate = LocalDate.parse(endDate); // 모집 종료일을 LocalDate로 변환
-        long daysDifference = ChronoUnit.DAYS.between(today, endDateLocalDate);
+        LocalDate rEndDateLocalDate = LocalDate.parse(rEndDate); // 모집 종료일을 LocalDate로 변환
+        long daysDifference = ChronoUnit.DAYS.between(today, rEndDateLocalDate);
 
-        return "D-" + String.valueOf(daysDifference);
+        this.dDay = "D-" + String.valueOf(daysDifference);
 
     }
 
     //나의 스터디 d+day
-    public String calMyStudyDday() {
+    public void calMyStudyDday() {
         LocalDate today = LocalDate.now();
-        LocalDate startDateLocalDate = LocalDate.parse(studyStartDate); // 스터디 시작일을 LocalDate로 변환
-        long daysDifference = ChronoUnit.DAYS.between(today, startDateLocalDate);
+        LocalDate firstDateLocalDate = LocalDate.parse(firstDate); // 스터디 시작일을 LocalDate로 변환
+        long daysDifference = ChronoUnit.DAYS.between(today, firstDateLocalDate);
 
-        return "D+" + String.valueOf(Math.abs(daysDifference));
+        this.dDay = "D+" + String.valueOf(Math.abs(daysDifference));
 
     }
 
