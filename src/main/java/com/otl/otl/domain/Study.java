@@ -5,6 +5,9 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.extern.java.Log;
 
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+
 @Entity
 @Getter
 @Builder
@@ -42,6 +45,33 @@ public class Study {
     @OneToOne
     @JoinColumn(name = "cno")
     private Category category;
+
+
+    @Transient
+    private Long Dday;
+
+
+
+    //스터디 모집방 d-day
+    public String calStudyDday() {
+        LocalDate today = LocalDate.now();
+        LocalDate endDateLocalDate = LocalDate.parse(endDate); // 모집 종료일을 LocalDate로 변환
+        long daysDifference = ChronoUnit.DAYS.between(today, endDateLocalDate);
+
+        return "D-" + String.valueOf(daysDifference);
+
+    }
+
+    //나의 스터디 d+day
+    public String calMyStudyDday() {
+        LocalDate today = LocalDate.now();
+        LocalDate startDateLocalDate = LocalDate.parse(studyStartDate); // 스터디 시작일을 LocalDate로 변환
+        long daysDifference = ChronoUnit.DAYS.between(today, startDateLocalDate);
+
+        return "D+" + String.valueOf(Math.abs(daysDifference));
+
+    }
+
 
 
 
