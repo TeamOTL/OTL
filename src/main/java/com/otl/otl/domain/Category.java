@@ -15,7 +15,7 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long cno;               // 카테고리 고유 번호
 
-    @Column(nullable = false)
+    @Column
     private String categoryName;    // 카테고리 이름
 
     @Column
