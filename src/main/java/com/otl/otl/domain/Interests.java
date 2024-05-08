@@ -18,4 +18,6 @@ public class Interests {
 
     @Column
     private String interestName;    // 관심 분야 이름
+
+
 }

@@ -22,4 +22,8 @@ public class LogFeedback {
     @JoinColumn(name = "email", referencedColumnName = "email")
     private Member member;              // 피드백 작성자
 
+    @ManyToOne
+    @JoinColumn(name = "lno")
+    private Log log;
+
 }

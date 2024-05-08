@@ -27,17 +27,23 @@ public class Study {
     private String studyPlan;               //스터디 일정 (매주 월, 목)
 
     @Column
+    private Long maxMember;                //최대 참가 인원
+
+    @Column
     private String studyStartDate;          //스터디 시작일?
 
     @Column
-    private Long max_member;                //최대 참가 인원
-
-    @ManyToOne
-    @JoinColumn(name = "ino")
-    private Interests interests;            //관심 분야
+    private String startDate;                  // 모집 기간_시작일
 
     @Column
-    private String period;                  // 모집 기간
+    private String endDate;                  // 모집 기간_종료일
+
+
+    @OneToOne
+    @JoinColumn(name = "cno")
+    private Category category;
+
+
 
 }
 
