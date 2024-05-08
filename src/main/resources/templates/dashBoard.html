@@ -1,0 +1,128 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+
+    <title>대시보드</title>
+
+    <!-- Custom fonts for this template-->
+    <link
+            th:href="@{vendor/fontawesome-free/css/all.min.css}"
+            rel="stylesheet"
+            type="text/css"
+    />
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+            crossorigin="anonymous"
+    />
+
+    <!-- Custom styles for this template -->
+    <link th:href="@{css/sb-admin-2.min.css}" rel="stylesheet" />
+
+    <style></style>
+</head>
+
+<body id="page-top">
+<!-- Page Wrapper -->
+<div id="wrapper">
+    <custom-sidebar></custom-sidebar>
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+        <!-- Main Content -->
+        <div id="content">
+            <!-- TopBar -->
+            <custom-topbar th:attr="data-nickname=${nickname}, data-profile-image=${memberProfileImage}"></custom-topbar>
+            <!-- TopBar End -->
+            <!-- container fluid -->
+
+            <div class="row justify-content-center align-items-center">
+                <div
+                        id="calendar"
+                        class="container-fluid col-8 bg-white p-3 rounded"
+                ></div>
+            </div>
+            <button class="btn btn-facebook" data-target="#todoListModal" data-toggle="modal">+++++</button>
+            <span th:text="${message}">message Thymeleaf</span>
+            <custom-todo-list></custom-todo-list>
+            <!-- End of Page Wrapper -->
+            <custom-setting-modal></custom-setting-modal>
+            <custom-scroll-top-btn></custom-scroll-top-btn>
+        </div>
+    </div>
+</div>
+
+<!-- sidebar & topbar & 스크롤 컴포넌트화 -->
+<script th:src="@{js/component/sidebar.js}"></script>
+<script th:src="@{js/component/topbar.js}"></script>
+<script th:src="@{js/component/scrollTopButton.js}"></script>
+<!-- PopupComponent -->
+<script th:src="@{js/component/studyCreateModal.js}"></script>
+<script th:src="@{js/component/studyInfoModal.js}"></script>
+<script th:src="@{js/component/userDropModal.js}"></script>
+<script th:src="@{js/component/userSettingModal.js}"></script>
+<script th:src="@{js/component/todoList.js}"></script>
+<!-- 캘린더 -->
+<script th:src="@{js/index.global.js}"></script>
+
+<!-- 부트스트랩 JS (팝업을 위해 필요) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<!-- Bootstrap core JavaScript-->
+<script th:src="@{vendor/jquery/jquery.min.js}"></script>
+
+<!-- Core plugin JavaScript-->
+<script th:src="@{vendor/jquery-easing/jquery.easing.min.js}"></script>
+
+<!-- Custom scripts for all pages-->
+<script th:src="@{js/sb-admin-2.min.js}"></script>
+<script>
+    var todos = [
+        {
+            title: '할 일 1',
+            start: '2024-05-06', // 할 일의 시작 날짜
+            end: '2024-05-08', // 할 일의 종료 날짜
+            backgroundColor: 'green', // 배경색
+            borderColor: 'green', // 테두리 색
+        },
+        {
+            title: '할 일 2',
+            start: '2024-05-10',
+            end: '2024-05-13',
+            backgroundColor: 'blue',
+            borderColor: 'blue',
+        },
+        {
+            title:'todo 3',
+            start: '2024-05-08',
+            end:'2024-05-08',
+            backgroundColor: 'black',
+            borderColor: 'rad'
+        }
+        // 추가할 할 일들을 계속해서 배열에 추가할 수 있습니다.
+    ];
+    // 캘린더 불러오기
+    document.addEventListener("DOMContentLoaded", function () {
+        var calendarEl = document.getElementById("calendar");
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: "dayGridMonth",
+            events : todos
+        });
+        calendar.render();
+    });
+</script>
+
+</body>
+</html>

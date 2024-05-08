@@ -4,8 +4,8 @@ import com.otl.otl.domain.Member;
 import com.otl.otl.service.MemberService;
 
 
-import io.swagger.annotations.ApiOperation;
-import jakarta.servlet.http.HttpSession;
+//import io.swagger.annotations.ApiOperation;
+//import jakarta.servlet.http.HttpSession;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 

@@ -1,6 +1,5 @@
 package com.otl.otl.domain;
 
-import io.swagger.models.auth.In;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.extern.java.Log;
