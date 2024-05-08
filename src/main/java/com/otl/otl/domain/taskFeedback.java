@@ -9,7 +9,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class LogFeedback {
+public class taskFeedback {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,7 +23,7 @@ public class LogFeedback {
     private Member member;              // 피드백 작성자
 
     @ManyToOne
-    @JoinColumn(name = "lno")
-    private Log log;
+    @JoinColumn(name = "tno")
+    private Task task;
 
 }
