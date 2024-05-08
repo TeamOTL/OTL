@@ -4,6 +4,7 @@ import com.otl.otl.domain.Member;
 import com.otl.otl.service.MemberService;
 
 
+import io.swagger.annotations.ApiOperation;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -14,12 +15,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 
 import java.util.Map;
 
 @Controller
 @Log4j2
+@RestController
 public class MemberController {
 
     private final MemberService  memberService;
@@ -32,7 +35,7 @@ public class MemberController {
     public  String index(){
         return "index";
     }
-
+    @ApiOperation(value = "title POTS/GET", notes = "내용")
     @GetMapping("/main")
     public String getUserInfo(@AuthenticationPrincipal OAuth2User oauthUser, Model model) {
         Map<String, Object> kakaoAccount = oauthUser.getAttribute("kakao_account");
