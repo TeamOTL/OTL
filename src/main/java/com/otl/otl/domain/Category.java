@@ -19,6 +19,6 @@ public class Category {
     private String categoryName;    // 카테고리 이름
 
     @Column
-    private String categoryImage;   // 카테고리 이미지
+    private String categoryImage;   // 카테고리 이미지 url
 
 }
