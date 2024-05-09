@@ -65,9 +65,16 @@ class boardCreateModal extends HTMLElement {
             </form>
         `;
         const form = this.querySelector("#boardForm");
-        if (form) {
+
+        const form_title = document.querySelector("#boardTitle");
+        const form_Content = document.querySelector("#boardContent");
+
             form.addEventListener('submit', (event) => {
                 event.preventDefault(); // 폼의 기본 제출을 방지
+                if(form_title.value === '' || form_Content.value === ''){
+                    alert("제목과 내용을 입력해주세요.")
+                }else{
+
 
                 const formData = {
                     boardTitle: form.querySelector("#boardTitle").value,
@@ -92,10 +99,8 @@ class boardCreateModal extends HTMLElement {
                         alert('게시글 저장에 실패했습니다: ' + error);
                     }
                 });
+                }
             });
-        } else {
-            console.log("폼을 찾을 수 없습니다.");
-        }
     }
 }
 
