@@ -45,7 +45,7 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
-	implementation "com.querydsl:querydsl-jpa:${queryDslVersion}"
+//	implementation "com.querydsl:querydsl-jpa:${queryDslVersion}"
 	implementation 'org.modelmapper:modelmapper:3.1.0'
 	implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:3.1.0'
 
@@ -65,7 +65,14 @@ dependencies {
 	implementation 'com.fasterxml.jackson.core:jackson-annotations'
 	implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml'
 
+	// Spring boot 3.x이상에서 QueryDsl 패키지를 정의하는 방법
+	implementation 'com.querydsl:querydsl-jpa:5.0.0:jakarta'
+	annotationProcessor "com.querydsl:querydsl-apt:5.0.0:jakarta"
+	annotationProcessor "jakarta.annotation:jakarta.annotation-api"
+	annotationProcessor "jakarta.persistence:jakarta.persistence-api"
 
+	testCompileOnly 'org.projectlombok:lombok'
+	testAnnotationProcessor 'org.projectlombok:lombok'
 }
 
 tasks.named('test') {

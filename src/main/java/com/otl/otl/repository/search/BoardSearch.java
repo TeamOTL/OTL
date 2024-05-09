@@ -11,4 +11,8 @@ public interface BoardSearch {
 
     // 삭제되지 않은 게시물을 페이지로 가져옵니다.
     Page<Board> findByIsDeletedFalse(Pageable pageable);
+
+    Page<Board> search1(Pageable pageable);
+
+    Page<Board> searchAll(String[] types, String keyword, Pageable pageable);
 }
