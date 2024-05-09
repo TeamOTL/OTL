@@ -36,12 +36,21 @@
             <!-- container fluid -->
             <div class="container-fluid">
                 <div class="row mt-3">
-
                     <!-- 검색 폼 -->
                     <form action="/board/list" method="get">
                         <div class="col">
                             <input type="hidden" name="size" value="10">
                             <div class="input-group">
+                                <!--게시글 작성 버튼-->
+                                <div class="input-group-append">
+                                    <button type="button" class="border-0" style="margin-right: 5px;"
+                                            data-toggle="modal" data-target="#boardCreateModal">
+                                        <img src="/img/plus.svg"
+                                             style="width: auto; height: calc(1.5em + 0.75rem + 2px);" alt="글작성"/>
+                                    </button>
+                                    <!-- Modal for Board Create -->
+                                    <custom-board-create-modal th:attr="data-nickname=${nickname}, data-email=${email}, data-profile-image=${memberProfileImage}"></custom-board-create-modal>
+                                </div>
 
                                 <div class="input-group-prepend">
                                     <select class="form-select border rounded mr-1" name="type">
@@ -60,16 +69,6 @@
                             </div>
                         </div>
                     </form>
-                </div>
-                <!--게시글 작성 버튼-->
-                <div class="input-group-append">
-                    <button type="button" class="border-0" style="margin-right: 5px;"
-                            data-toggle="modal" data-target="#boardCreateModal">
-                        <img src="/img/plus.svg"
-                             style="width: auto; height: calc(1.5em + 0.75rem + 2px);" alt="글작성"/>
-                    </button>
-                    <!-- Modal for Board Create -->
-                    <custom-board-create-modal th:attr="data-nickname=${nickname}, data-email=${email}, data-profile-image=${memberProfileImage}"></custom-board-create-modal>
                 </div>
 
                 <!-- 게시판 목록 -->
