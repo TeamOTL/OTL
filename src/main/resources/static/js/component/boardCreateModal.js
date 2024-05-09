@@ -11,45 +11,6 @@ class boardCreateModal extends HTMLElement {
         const memberProfileImage = this.getAttribute('data-profile-image');
         const email = this.getAttribute('data-email');
 
-        // 폼 제출 처리
-        const form = this.querySelector("#boardForm");
-        if (!form) {
-            console.log("폼을 찾을 수 없습니다.");
-            return;
-        }
-
-        form.addEventListener('submit', function (event) {
-            event.preventDefault(); // 폼의 기본 제출을 방지
-
-            var formData = {
-                boardTitle: form.querySelector("#boardTitle").value,
-                boardContent: form.querySelector("#boardContent").value,
-                email: form.querySelector("#email").innerText // 이메일 값을 읽어옴
-            };
-
-            console.log("폼 데이터: ", formData); // 폼 데이터 확인
-
-            $.ajax({
-                type: 'POST',
-                url: '/api/saveBoard',
-                data: JSON.stringify(formData),
-                contentType: 'application/json',
-                success: function (response) {
-                    console.log("AJAX 요청 성공: ", response); // AJAX 요청 성공 확인
-                    alert('게시글이 성공적으로 저장되었습니다.');
-                    $('#boardCreateModal').modal('hide'); // 모달 닫기
-                    // 여기에 페이지를 새로고침하거나, 리스트를 업데이트하는 코드를 추가할 수 있습니다.
-                    location.reload(); // 페이지 새로고침
-                },
-                error: function (xhr, status, error) {
-                    console.error("AJAX 요청 실패: ", error); // AJAX 요청 실패 확인
-                    alert('게시글 저장에 실패했습니다: ' + error);
-                }
-            });
-        });
-
-
-
         this.innerHTML = `
             <!-- The Modal -->
             <!-- 게시글 작성 모달 -->
@@ -95,7 +56,7 @@ class boardCreateModal extends HTMLElement {
                             </div>
                             <!-- Modal Footer -->
                             <div class="modal-footer">
-                                <button type="button" id="submitBtn" class="btn btn-primary">작성하기</button>
+                                <button type="submit" id="submitBtn" class="btn btn-primary">작성하기</button>
                                 <button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
                             </div>
                         </div>
@@ -103,8 +64,39 @@ class boardCreateModal extends HTMLElement {
                 </div>
             </form>
         `;
+        const form = this.querySelector("#boardForm");
+        if (form) {
+            form.addEventListener('submit', (event) => {
+                event.preventDefault(); // 폼의 기본 제출을 방지
 
+                const formData = {
+                    boardTitle: form.querySelector("#boardTitle").value,
+                    boardContent: form.querySelector("#boardContent").value,
+                    email: form.querySelector("#email").innerText // 이메일 값을 읽어옴
+                };
 
+                console.log("폼 데이터: ", formData); // 폼 데이터 확인
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/api/saveBoard',
+                    data: JSON.stringify(formData),
+                    contentType: 'application/json',
+                    success: function (response) {
+                        console.log("AJAX 요청 성공: ", response); // AJAX 요청 성공 확인
+                            alert('게시글이 성공적으로 저장되었습니다.');
+                            location.reload();
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("AJAX 요청 실패: ", error); // AJAX 요청 실패 확인
+                        alert('게시글 저장에 실패했습니다: ' + error);
+                    }
+                });
+            });
+        } else {
+            console.log("폼을 찾을 수 없습니다.");
+        }
     }
 }
+
 customElements.define("custom-board-create-modal", boardCreateModal);
