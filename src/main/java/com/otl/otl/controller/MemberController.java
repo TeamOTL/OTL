@@ -39,6 +39,9 @@ public class MemberController {
         this.boardService = boardService;
     }
 
+    @GetMapping("/test")
+    public String test(){ return "test"; }
+
     @GetMapping("/")
     public  String index(){
         return "index";
