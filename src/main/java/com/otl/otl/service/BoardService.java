@@ -11,5 +11,7 @@ public interface BoardService {
     BoardDTO readOne(Long bno); // 조회
     Board modify(BoardDTO boardDTO); // 수정
     void remove(Long bno); // 삭제
+
+    Page<BoardDTO> findBoards(int page, int size);
     //PageResponseDTO<BoardDTO> list(PageRequestDTO pageRequestDTO); // 목록, 검색
 }

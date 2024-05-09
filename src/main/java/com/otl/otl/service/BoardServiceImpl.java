@@ -2,6 +2,7 @@ package com.otl.otl.service;
 
 import com.otl.otl.repository.BoardRepository;
 import com.otl.otl.repository.MemberRepository;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,12 +26,6 @@ public class BoardServiceImpl implements BoardService{
     private final BoardRepository boardRepository;
     private  final MemberRepository memberRepository;
     private final ModelMapper modelMapper;
-
-    @Autowired
-    public BoardServiceImpl(BoardRepository boardRepository, MemberRepository memberRepository, ModelMapper modelMapper) {
-        this.boardRepository = boardRepository;
-        this.memberRepository = memberRepository;
-        this.modelMapper = modelMapper;
 
 
     @Override

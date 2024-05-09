@@ -9,9 +9,6 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 @Data
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
 public class BoardDTO {
     private Long bno;           // 게시물 고유번호
     private String boardTitle;  // 게시물 제목
