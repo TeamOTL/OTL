@@ -5,6 +5,8 @@ import com.otl.otl.repository.MemberRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class MemberServiceImpl implements MemberService{
     private final MemberRepository memberRepository;
@@ -31,5 +33,11 @@ public class MemberServiceImpl implements MemberService{
 
         memberRepository.deleteByEmail(email);
         System.out.println(email + " 사용자가 시스템에서 삭제되었습니다."); // 실제 구현 시 삭제
+    }
+
+    @Override
+    public String findNicknameByEmail(String email) {
+        Optional<Member> member = memberRepository.findByEmail(email);
+        return member.map(Member::getNickname).orElse("알 수 없음");
     }
 }

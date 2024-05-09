@@ -1,12 +1,16 @@
 package com.otl.otl.controller;
 
 import com.otl.otl.domain.Member;
+import com.otl.otl.dto.BoardDTO;
+import com.otl.otl.service.BoardService;
 import com.otl.otl.service.MemberService;
 
 
 import io.swagger.annotations.ApiOperation;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 
 
@@ -15,6 +19,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 
@@ -26,9 +31,12 @@ import java.util.Map;
 public class MemberController {
 
     private final MemberService  memberService;
+    private final BoardService boardService;
 
-    public MemberController(MemberService  memberService){
-        this.memberService  = memberService;
+    @Autowired
+    public MemberController(MemberService memberService, BoardService boardService) {
+        this.memberService = memberService;
+        this.boardService = boardService;
     }
 
     @GetMapping("/")
@@ -75,7 +83,14 @@ public class MemberController {
     }
 
     @GetMapping("/board")
-    public String board(@AuthenticationPrincipal OAuth2User oauthUser, Model model){
+    public String board(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size, @AuthenticationPrincipal OAuth2User oauthUser, Model model) {
+        log.info("게시판 페이지 요청 - 페이지 번호: {}, 페이지 크기: {}", page, size);
+
+        // 게시글 목록 조회 및 모델에 추가
+        Page<BoardDTO> boardPage = boardService.findBoards(page, size);
+        model.addAttribute("boards", boardPage.getContent());
+        model.addAttribute("currentPage", boardPage.getNumber());
+        model.addAttribute("totalPages", boardPage.getTotalPages());
 
 
         if (oauthUser != null) {

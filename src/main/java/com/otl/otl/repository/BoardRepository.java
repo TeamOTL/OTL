@@ -18,5 +18,6 @@ public interface BoardRepository extends JpaRepository<Board, Long>, BoardSearch
     // 데이터베이스 서버의 현재 시각 가져오기
     @Query(value = "SELECT NOW()", nativeQuery = true)
     String getTime();
+    Page<Board> findAllByOrderByModDateDesc(Pageable pageable);
 
 }
