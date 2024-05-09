@@ -57,7 +57,6 @@ class boardCreateModal extends HTMLElement {
                 </div>
             </form>
         `;
-
         const form = this.querySelector("#boardForm");
         if (form) {
             form.addEventListener('submit', (event) => {
@@ -79,14 +78,18 @@ class boardCreateModal extends HTMLElement {
                     success: function (response) {
                         console.log("AJAX 요청 성공: ", response); // AJAX 요청 성공 확인
                         alert('게시글이 성공적으로 저장되었습니다.');
-                        // JavaScript를 통해 모달 닫기
+
+                        // 모달 닫기
                         const modalElement = document.getElementById('boardCreateModal');
-                        const modalInstance = bootstrap.Modal.getOrCreateInstance(modalElement);
+                        const modalInstance = bootstrap.Modal.getInstance(modalElement);
                         if (modalInstance) {
                             modalInstance.hide();
                         }
-                        location.reload(); // 페이지 새로고침
 
+                        // 모달 닫기 후 페이지 새로고침
+                        modalElement.addEventListener('hidden.bs.modal', () => {
+                            location.reload();
+                        });
                     },
                     error: function (xhr, status, error) {
                         console.error("AJAX 요청 실패: ", error); // AJAX 요청 실패 확인
@@ -99,5 +102,7 @@ class boardCreateModal extends HTMLElement {
         }
     }
 }
+
+
 
 customElements.define("custom-board-create-modal", boardCreateModal);
