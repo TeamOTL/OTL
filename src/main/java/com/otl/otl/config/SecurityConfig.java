@@ -20,7 +20,7 @@ public class SecurityConfig {
 
         return http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/","/board", "/login","/oauth2/**","error/**","/main", "/index", "/home","/static/**","/img/**","/scss/**","/vendor/**","/아이콘/**", "/resources/**", "/templates/**", "/css/**", "/js/**", "/images/**","/oauth2/authorization/kakao").permitAll()  // 지정된 경로들은 누구나 접근 가능
+                        .requestMatchers("/","/board", "/login","/oauth2/**","error/**","/main", "/index", "/home","/static/**","/img/**","/scss/**","/vendor/**","/icon/**", "/resources/**", "/templates/**", "/css/**", "/js/**", "/images/**","/oauth2/authorization/kakao").permitAll()  // 지정된 경로들은 누구나 접근 가능
                         .anyRequest().authenticated()  // 그 외의 모든 요청은 인증을 요구
                 )
                 .oauth2Login(oauth2 -> oauth2

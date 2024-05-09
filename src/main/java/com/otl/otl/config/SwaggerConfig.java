@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 public class SwaggerConfig {
     /**
      *
-     * @return {@link http://localhost:7080/swagger-ui/index.html}
+     * @return localhost:7080/swagger-ui/index.html
      */
     @Bean
     public GroupedOpenApi publicApi() {

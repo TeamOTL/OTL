@@ -29,19 +29,12 @@ public class Board extends BaseEntity {
     @Builder.Default
     private boolean isDeleted = false; // 삭제여부, 기본값 설정
 
-    public Board(String boardTitle, String boardContent, Member member) {
-        this.boardTitle = boardTitle;
-        this.boardContent = boardContent;
-        this.member = member;
-        this.isDeleted = false; // 기본값 설정
-    }
-
-    public void change(String title, String content){        this.boardTitle = title;
+    /** 제목과 내용을 변경하는 메서드
+     * @param title 새 게시물 제목
+     * @param content 새 게시물 내용
+     */
+    public void change(String title, String content){
+        this.boardTitle = title;
         this.boardContent = content;
-    }
-
-    // 삭제 시, true로 변경
-    public void isDeleted(boolean isDeleted){
-        this.isDeleted = isDeleted;
     }
 }
