@@ -3,7 +3,6 @@ package com.otl.otl.service;
 import com.otl.otl.dto.StudyDTO;
 import org.springframework.stereotype.Service;
 
-@Service
 public interface StudyService {
     //등록
     Long register(StudyDTO studyDTO);

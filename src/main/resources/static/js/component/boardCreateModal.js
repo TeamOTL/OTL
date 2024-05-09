@@ -1,5 +1,4 @@
 class boardCreateModal extends HTMLElement {
-
     /** - 작성자 : 유지오
      *
      * data-toggle="modal" data-target="#태그아이디"에서
