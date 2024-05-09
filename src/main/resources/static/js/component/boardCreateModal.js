@@ -72,7 +72,7 @@ class boardCreateModal extends HTMLElement {
             form.addEventListener('submit', (event) => {
                 event.preventDefault(); // 폼의 기본 제출을 방지
                 if(form_title.value === '' || form_Content.value === ''){
-                    alert("제목과 내용을 입력해주세요.")
+                    alert("제목과 내용을 입력해주세요ddd.")
                 }else{
 
 
