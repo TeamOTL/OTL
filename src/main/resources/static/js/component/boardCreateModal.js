@@ -77,19 +77,8 @@ class boardCreateModal extends HTMLElement {
                     contentType: 'application/json',
                     success: function (response) {
                         console.log("AJAX 요청 성공: ", response); // AJAX 요청 성공 확인
-                        alert('게시글이 성공적으로 저장되었습니다.');
-
-                        // 모달 닫기
-                        const modalElement = document.getElementById('boardCreateModal');
-                        const modalInstance = bootstrap.Modal.getInstance(modalElement);
-                        if (modalInstance) {
-                            modalInstance.hide();
-                        }
-
-                        // 모달 닫기 후 페이지 새로고침
-                        modalElement.addEventListener('hidden.bs.modal', () => {
+                            alert('게시글이 성공적으로 저장되었습니다.');
                             location.reload();
-                        });
                     },
                     error: function (xhr, status, error) {
                         console.error("AJAX 요청 실패: ", error); // AJAX 요청 실패 확인
