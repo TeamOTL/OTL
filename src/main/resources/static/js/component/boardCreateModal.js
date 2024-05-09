@@ -1,11 +1,4 @@
 class boardCreateModal extends HTMLElement {
-
-    /** - 작성자 : 유지오
-     *
-     * data-toggle="modal" data-target="#태그아이디"에서
-     * data-target은 보여줄 태그 아이디입니다.
-     *
-     */
     connectedCallback() {
         const nickname = this.getAttribute('data-nickname');
         const memberProfileImage = this.getAttribute('data-profile-image');
@@ -72,7 +65,7 @@ class boardCreateModal extends HTMLElement {
             form.addEventListener('submit', (event) => {
                 event.preventDefault(); // 폼의 기본 제출을 방지
                 if(form_title.value === '' || form_Content.value === ''){
-                    alert("제목과 내용을 입력해주세요ddd.")
+                    alert("제목과 내용을 입력해주세요.")
                 }else{
 
 
@@ -103,5 +96,7 @@ class boardCreateModal extends HTMLElement {
             });
     }
 }
+
+
 
 customElements.define("custom-board-create-modal", boardCreateModal);
