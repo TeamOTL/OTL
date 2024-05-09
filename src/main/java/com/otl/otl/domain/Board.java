@@ -39,4 +39,9 @@ public class Board extends BaseEntity {
     public void change(String title, String content){        this.boardTitle = title;
         this.boardContent = content;
     }
+
+    // 삭제 시, true로 변경
+    public void isDeleted(boolean isDeleted){
+        this.isDeleted = isDeleted;
+    }
 }
