@@ -19,16 +19,18 @@ public class Todolist {
     private String todolistContent;         // 투두리스트 내용
 
     @Column
-    private boolean completed;      // 투두리스트 완료 여부
+    @Builder.Default
+    private boolean completed = false;      // 투두리스트 완료 여부
 
-    @Column
+    @Column(nullable = false)
     private String todoStartDate;   // 투두 시작 날짜
 
-    @Column
+    @Column(nullable = false)
     private String todoEndDate; // 투두 종료 날짜
 
     @Column
-    private boolean isDeleted;      // 투두리스트 삭제 여부
+    @Builder.Default
+    private boolean isDeleted = false;      // 투두리스트 삭제 여부
 
     @ManyToOne
     @JoinColumn(name = "email", referencedColumnName = "email")
