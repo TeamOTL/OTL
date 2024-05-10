@@ -18,17 +18,23 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 @Controller
 @Log4j2
 //@RestController
 public class MemberController {
 
-    private final MemberService  memberService;
+    private final MemberService memberService;
     private final BoardService boardService;
 
     @Autowired
@@ -38,12 +44,12 @@ public class MemberController {
     }
 
     @GetMapping("/")
-    public  String index(){
+    public String index() {
         return "index";
     }
 
 
-//    @ApiOperation(value = "title POTS/GET", notes = "내용")
+    //    @ApiOperation(value = "title POTS/GET", notes = "내용")
     @GetMapping("/main")
     public String getUserInfo(@AuthenticationPrincipal OAuth2User oauthUser, Model model) {
         Map<String, Object> kakaoAccount = oauthUser.getAttribute("kakao_account");
@@ -62,12 +68,11 @@ public class MemberController {
         model.addAttribute("memberProfileImage", memberProfileImage);
 
 
-
         return "main";  // main.html 템플릿을 반환
     }
 
     @PostMapping("/delete-account")
-    public String deleteAccount(@AuthenticationPrincipal OAuth2User  oauthUser) {
+    public String deleteAccount(@AuthenticationPrincipal OAuth2User oauthUser) {
         Map<String, Object> kakaoAccount = oauthUser.getAttribute("kakao_account");
         String email = (String) kakaoAccount.get("email"); //  OAuth2User에서 이메일 추출
 
@@ -125,7 +130,7 @@ public class MemberController {
         String memberProfileImage = (String) profile.get("profile_image_url");
 
         Member member = memberService.findByEmail(email); // 회원 정보 조회
-        String memberDescription = member.getMemberDescription(); // 회원 자기 소개
+        String memberDescription = (member != null) ? member.getMemberDescription() : "";
 
         Map<String, String> userInfo = new HashMap<>();
         userInfo.put("nickname", nickname);
@@ -136,6 +141,31 @@ public class MemberController {
         return userInfo;
     }
 
+    @PutMapping("/api/user")
+    @ResponseBody
+    public String updateUserInfo(@RequestBody Map<String, String> userInfo, @AuthenticationPrincipal OAuth2User oauthUser) throws IOException {
+        Map<String, Object> kakaoAccount = oauthUser.getAttribute("kakao_account");
+        String email = (String) kakaoAccount.get("email");
+
+        Member member = memberService.findByEmail(email);
+        if (member != null) {
+            member.setNickname(userInfo.get("nickname"));
+            member.setMemberDescription(userInfo.get("intro"));
+
+            String profileImageData = userInfo.get("profileImage");
+            if (profileImageData != null && !profileImageData.isEmpty()) {
+                member.setMemberProfileImage(profileImageData);
+            }
 
 
-}
+                memberService.save(member);
+                return "유저 정보를 성공적을 변경했습니다.";
+            } else {
+                return "유저를 찾을 수 없습니다.";
+            }
+        }
+    }
+
+
+
+

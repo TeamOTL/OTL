@@ -45,4 +45,9 @@ public class MemberServiceImpl implements MemberService{
     public Member findByEmail(String email) {
         return memberRepository.findByEmail(email).orElse(null);
     }
+
+    @Override
+    public void save(Member member) {
+        memberRepository.save(member);
+    }
 }

@@ -9,4 +9,5 @@ public interface MemberService {
     String findNicknameByEmail(String email); //이메일로 닉네임 가져오기
 
     Member findByEmail(String email);
+    void save(Member member);  // 업데이트 로직
 }
