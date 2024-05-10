@@ -48,7 +48,15 @@ public class Study {
 
     @Transient
     private String dDay;
-    
+
+
+    @OneToMany(mappedBy = "study",
+            cascade = {CascadeType.ALL}
+            ,fetch=FetchType.EAGER)
+    private List<Task> task;
+
+    @OneToMany(mappedBy = "study" ,fetch=FetchType.EAGER)
+    private List<StudyInterests> studyInterests;
 
     //스터디 모집방 d-day
     public void calStudyDday() {
