@@ -1,74 +1,73 @@
-//package com.otl.otl.repository;
-//
-//import com.otl.otl.domain.Member;
-//import com.otl.otl.domain.Todolist;
-//import groovy.util.logging.Log4j2;
-//import jakarta.transaction.Transactional;
-//import org.junit.jupiter.api.BeforeEach;
-//import org.junit.jupiter.api.Test;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.boot.test.context.SpringBootTest;
-//import org.springframework.test.annotation.Commit;
-//
-//import java.util.List;
-//import java.util.Optional;
-//import java.util.stream.IntStream;
-//
-//import static org.assertj.core.api.Assertions.assertThat;
-//
-//
-///**
-// * 더미테스트용 데이터
-// */
-//@Log4j2
-//@SpringBootTest
-//@Transactional
-//public class TodolistRepositoryTests {
-//
-//    @Autowired
-//    private TodolistRepository todolistRepository;
-//
-//    @Autowired
-//    private MemberRepository memberRepository;
-//
-//    private Member testMember;
-//
-//    @BeforeEach
-//    public void setupMember() {
-//        // not null있으면 .빌더에 추가
-//        Optional<Member> existingMember = memberRepository.findByEmail("test@example.com");
-//        if (existingMember.isPresent()) {
-//            testMember = existingMember.get();
-//        } else {
-//            testMember = Member.builder()
-//                    .email("test@example.com")
-//                    .nickname("TestUser")
-//                    .build();
-//            testMember = memberRepository.save(testMember);
-//        }
-//    }
-//
-//    @Test
-//    @Commit
-//    public void testInsert() {
-//        IntStream.rangeClosed(1, 10).forEach(i -> {
-//            Todolist todolist = Todolist.builder()
-//                    .todolistContent("content.." + i)
-//                    .startDate("2024-05-07")
-//                    .endDate("2024-05-09")
-//                    .completed(false)
-//                    .isDeleted(false)
-//                    .member(testMember)
-//                    .build();
-//
-//            Todolist result = todolistRepository.save(todolist);
-//
-//            log.info("Created Todolist: {}", result);
-//        });
-//
-//        List<Todolist> todolists = todolistRepository.findAll();
-//        assertThat(todolists).hasSize(10);
-//    }
+package com.otl.otl.repository;
+
+import com.otl.otl.domain.Member;
+import com.otl.otl.domain.Todolist;
+import jakarta.transaction.Transactional;
+import lombok.extern.log4j.Log4j2;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Commit;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.IntStream;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
+
+/**
+ * 더미테스트용 데이터
+ */
+@Log4j2
+@SpringBootTest
+@Transactional
+public class TodolistRepositoryTests {
+
+    private final MemberRepository memberRepository;
+
+
+    private final TodolistRepository todolistRepository;
+
+    private Member member;
+
+    @Autowired
+    public TodolistRepositoryTests(MemberRepository memberRepository, TodolistRepository todolistRepository) {
+        this.memberRepository = memberRepository;
+        this.todolistRepository = todolistRepository;
+    }
+
+    @BeforeEach
+    void setup() {
+        // 먼저 테스트용 멤버를 생성
+        member = Member.builder()
+                .email("test1@c.com")
+                .nickname("Test User")
+                .build();
+        member = memberRepository.save(member);
+    }
+
+    @Test
+    @Commit
+    public void testInsert() {
+        IntStream.rangeClosed(1, 10).forEach(i -> {
+            Todolist todolist = Todolist.builder()
+                    .todolistContent("Finish project report")
+                    .isCompleted(false)
+                    .todoStartDate("2024-05-0"+i)
+                    .todoEndDate("2024-05-1"+i)
+                    .isDeleted(false)
+                    .member(member)
+                    .build();
+
+            Todolist result = todolistRepository.save(todolist);
+
+            log.info("Created Todolist: {}", result);
+        });
+
+        List<Todolist> todolists = todolistRepository.findAll();
+    }
 //
 //    @Test
 //    @Commit
@@ -154,4 +153,4 @@
 //                assertThat(todolist.getMember().getEmail()).isEqualTo("test@example.com")
 //        );
 //    }
-//}
+}

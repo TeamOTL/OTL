@@ -50,7 +50,7 @@ public class MemberController {
 
 
     //    @ApiOperation(value = "title POTS/GET", notes = "내용")
-    @GetMapping("/main")
+    @GetMapping("/dashBoard")
     public String getUserInfo(@AuthenticationPrincipal OAuth2User oauthUser, Model model) {
         Map<String, Object> kakaoAccount = oauthUser.getAttribute("kakao_account");
         Map<String, Object> profile = (Map<String, Object>) kakaoAccount.get("profile");
@@ -68,7 +68,7 @@ public class MemberController {
         model.addAttribute("memberProfileImage", memberProfileImage);
 
 
-        return "main";  // main.html 템플릿을 반환
+        return "dashBoard";  // main.html 템플릿을 반환
     }
 
     @PostMapping("/delete-account")
