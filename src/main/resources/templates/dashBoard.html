@@ -1,15 +1,14 @@
-
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta
             name="viewport"
             content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
 
     <title>대시보드</title>
 
@@ -27,7 +26,7 @@
     />
 
     <!-- Custom styles for this template -->
-    <link th:href="@{css/sb-admin-2.min.css}" rel="stylesheet" />
+    <link th:href="@{css/sb-admin-2.min.css}" rel="stylesheet"/>
 
     <style></style>
 </head>
@@ -42,18 +41,171 @@
         <!-- Main Content -->
         <div id="content">
             <!-- TopBar -->
-            <custom-topbar th:attr="data-nickname=${nickname}, data-profile-image=${memberProfileImage}"></custom-topbar>
+            <custom-topbar
+                    th:attr="data-nickname=${nickname}, data-profile-image=${memberProfileImage}"></custom-topbar>
             <!-- TopBar End -->
             <!-- container fluid -->
+            <div class="container-fluid">
 
-            <div class="row justify-content-center align-items-center">
-                <div
-                        id="calendar"
-                        class="container-fluid col-8 bg-white p-3 rounded"
-                ></div>
-            </div>
-            <button class="btn btn-facebook" data-target="#todoListModal" data-toggle="modal">+++++</button>
-            <span th:text="${message}">message Thymeleaf</span>
+                <div class="row justify-content-between gap-3 ">
+                    <!-- 캘린더 -->
+                    <div id="calendar" class="col bg-white p-3 rounded"></div>
+                    <!-- 캘린더 end-->
+                </div>
+                <div class="row m-3">
+                    <div class="col bg-white shadow-lg rounded" id="todolist">
+                        <h4 class="h4">TodoList</h4>
+                        <form>
+                            <label class="row justify-content-between gap-3 m-2">
+                                <input class="col col-form-label form-control" type="text"
+                                       placeholder="할 일 입력" name="todoTitle" id="todoTitle">
+                                <button class="btn btn-facebook col-auto" onclick="submitTodo(event)">+</button>
+                            </label>
+                            <label class="row justify-content-center ">
+                                <input type="date" class="col form-control input-group" name="startDate" id="startDate">~
+                                <input type="date" class="col form-control input-group" name="endDate" id="endDate">
+                            </label>
+                        </form>
+                        <ul class="list-group-horizontal" id="todoListUl">
+                        </ul>
+                    </div>
+                </div>
+                <script th:inline="javascript"> //todolist script
+                // const email = "[[${email}]]";
+                let email = `[[${email}]]`;
+                let cTodos = [];
+                email = email.replace(/"/g, '');
+
+                document.addEventListener("DOMContentLoaded", () => {
+                    fetchAllTodos();
+                });
+
+                // todo button onclick Event
+                function submitTodo(event) {
+                    alert("할 일 리스트에 업로드 되었습니다.");
+                    event.preventDefault(); //새로고침 방지
+                    const todoTitle = document.getElementById("todoTitle").value;
+                    const startDate = document.getElementById("startDate").value;
+                    const endDate = document.getElementById("endDate").value;
+
+
+                    fetch('/api/todolists', {
+                        method: 'POST',
+                        headers: {'Content-Type': "application/json"},
+                        body: JSON.stringify({
+                            todolistContent: todoTitle,
+                            todoStartDate: startDate,
+                            todoEndDate: endDate,
+                            memberEmail: email
+
+                        })
+                    })
+                        .then(response => response.json())// json형식으로 응답 받음
+                        .then(data => {
+                            addTodoList(data);
+                            //입력값 초기화
+                            document.getElementById('todoTitle'.value = '');
+                            document.getElementById('startDate'.value = '');
+                            document.getElementById('endDate'.value = '');
+                        })
+                        .catch(error => {
+                            console.error("Error :", error);
+                        })
+                        .finally(()=>{fetchAllTodos()}); //성공 여부 상관 없이 캘린더재 호출
+                }
+
+                // add todo
+                function addTodoList(todo) {
+                    const todoList = document.getElementById('todoListUl');
+                    const listItem = document.createElement('li');
+
+                    listItem.className = 'justify-content-between m-1 row border border-gray p-2';
+                    listItem.innerHTML = `
+                            <div class="col">
+                                <strong class="row">${todo.todolistContent}</strong>
+                                <div class="row">${todo.todoStartDate} ~ ${todo.todoEndDate}</div>
+                            </div>
+                            <div class="col-auto">
+                                <button id="todoDelete" name="${todo.toNo}" onclick="deleteTodo(${todo.toNo})" class="col btn btn-danger">x</button>
+                            </div>
+                    `;
+                    todoList.appendChild(listItem);
+                }
+
+                // ALL Todo List View
+                function fetchAllTodos() {
+                    fetch(`/api/todolists`, {
+                        method: 'GET',
+                        headers: {'Content-Type': 'application/json'}
+                    })
+                        .then(response => response.json())
+                        .then(todos => {
+                            todos.forEach(addTodoList);
+
+                            cTodos = todos.map(data => ({
+                                title: data.todolistContent,
+                                start: data.todoStartDate,
+                                end: data.todoEndDate,
+                                backgroundColor: 'green',
+                                borderColor: 'green'
+                            }));
+
+                        })
+                        .catch(error => {
+                            console.error("Error :", error)
+                        })
+                        .finally(() => {calendars(cTodos);}); // 유저가 입력한 todoList
+                }
+
+                //
+                function fetchAllMyStudy() {
+                    fetch(`/api/todolists`, {
+                        method: 'GET',
+                        headers: {'Content-Type': 'application/json'}
+                    })
+                        .then(response => response.json())
+                        .then(todos => {
+                            todos.forEach(addTodoList);
+
+                            cTodos = todos.map(data => ({
+                                title: data.todolistContent,
+                                start: data.todoStartDate,
+                                end: data.todoEndDate,
+                                backgroundColor: 'blue',
+                                borderColor: 'blue'
+                            }));
+
+                        })
+                        .catch(error => {
+                            console.error("Error :", error)
+                        })
+                        .finally(() => {calendars(aaa);}); // 유저가 입력한 todoList
+                }
+
+                // 삭제 요청
+                function deleteTodo(toNo) {
+                    fetch(`/api/todolists/${toNo}`, {
+                        method: 'DELETE',
+                        headers: {'Content-Type': 'application/json'}
+                    })
+                        .then(response => response.json())
+                        .then(fetchAllTodos())
+                        .catch(error => console.error("Error : " + error));
+                }
+
+                // 캘린더 생성
+                function calendars(event) {
+                    const calendarEl = document.getElementById("calendar");
+                    let calendar = new FullCalendar.Calendar(calendarEl, {
+                        initialView: "dayGridMonth",
+                        events: event
+                    });
+                    calendar.render();
+                }
+
+                </script>
+                <button type="button" class="btn-facebook" data-target="#todoListModal" data-toggle="modal">+</button>
+            </div> <!--row end -->
             <custom-todo-list></custom-todo-list>
             <!-- End of Page Wrapper -->
             <custom-setting-modal></custom-setting-modal>
@@ -88,41 +240,7 @@
 
 <!-- Custom scripts for all pages-->
 <script th:src="@{js/sb-admin-2.min.js}"></script>
-<script>
-    var todos = [
-        {
-            title: '할 일 1',
-            start: '2024-05-06', // 할 일의 시작 날짜
-            end: '2024-05-08', // 할 일의 종료 날짜
-            backgroundColor: 'green', // 배경색
-            borderColor: 'green', // 테두리 색
-        },
-        {
-            title: '할 일 2',
-            start: '2024-05-10',
-            end: '2024-05-13',
-            backgroundColor: 'blue',
-            borderColor: 'blue',
-        },
-        {
-            title:'todo 3',
-            start: '2024-05-08',
-            end:'2024-05-08',
-            backgroundColor: 'black',
-            borderColor: 'rad'
-        }
-        // 추가할 할 일들을 계속해서 배열에 추가할 수 있습니다.
-    ];
-    // 캘린더 불러오기
-    document.addEventListener("DOMContentLoaded", function () {
-        var calendarEl = document.getElementById("calendar");
-        var calendar = new FullCalendar.Calendar(calendarEl, {
-            initialView: "dayGridMonth",
-            events : todos
-        });
-        calendar.render();
-    });
-</script>
+
 
 </body>
 </html>

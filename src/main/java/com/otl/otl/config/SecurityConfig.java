@@ -20,12 +20,12 @@ public class SecurityConfig {
 
         return http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/","/board", "/login","/oauth2/**","error/**","/main", "/index", "/home","/static/**","/img/**","/scss/**","/vendor/**","/icon/**", "/resources/**", "/templates/**", "/css/**", "/js/**", "/images/**","/oauth2/authorization/kakao").permitAll()  // 지정된 경로들은 누구나 접근 가능
+                        .requestMatchers("/","/board","dashBoard", "/login","/oauth2/**","error/**","/main", "/index", "/home","/static/**","/img/**","/scss/**","/vendor/**","/icon/**", "/resources/**", "/templates/**", "/css/**", "/js/**", "/images/**","/oauth2/authorization/kakao").permitAll()  // 지정된 경로들은 누구나 접근 가능
                         .anyRequest().authenticated()  // 그 외의 모든 요청은 인증을 요구
                 )
                 .oauth2Login(oauth2 -> oauth2
                         .loginPage("/")
-                        .defaultSuccessUrl("/main", true)  // 로그인 성공 후 리다이렉션될 기본 URL
+                        .defaultSuccessUrl("/dashBoard", true)  // 로그인 성공 후 리다이렉션될 기본 URL
                         .failureUrl("/?error=true")  // 로그인 실패 시 index로 리다이렉트하고 쿼리 파라미터 추가
                 )
                 .logout(logout -> logout
