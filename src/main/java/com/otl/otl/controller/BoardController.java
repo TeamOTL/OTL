@@ -87,4 +87,19 @@ public class BoardController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
     }
+
+    @PostMapping("/modifyBoard")
+    public ResponseEntity<BoardDTO> modifyBoard(@Valid @RequestBody BoardDTO boardDTO) {
+        // 클라이언트에서 보낸 수정된 데이터가 boardDTO에 담겨있음
+
+        // 게시글 수정 시도 로깅
+        log.info("게시글 수정 시도 : {}", boardDTO.getBno());
+
+        Board result = boardService.modify(boardDTO);
+
+        log.info("게시글이 성공적으로 수정되었습니다. 게시글 ID: {}", result.getBno());
+
+        // 수정된 데이터를 클라이언트에게 반환
+        return ResponseEntity.ok().body(boardDTO);
+    }
 }
