@@ -19,25 +19,25 @@ public class Study {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long sno;                       //스터디 고유번호
 
-    @Column
+    @Column(nullable = false)
     private String studyName;               //스터디 이름
 
-    @Column
+    @Column(nullable = false)
     private String studyDescription;        //스터디 소개
 
-    @Column
+    @Column(nullable = false)
     private String studyPlan;               //스터디 일정 (매주 월, 목)
 
-    @Column
+    @Column(nullable = false)
     private Long maxMember;                //최대 참가 인원
 
-    @Column
+    @Column(nullable = false)
     private String firstDate;                //스터디 시작일
 
-    @Column
+    @Column(nullable = false)
     private String rStartDate;                  // 모집 기간_시작일
 
-    @Column
+    @Column(nullable = false)
     private String rEndDate;                  // 모집 기간_종료일
 
 

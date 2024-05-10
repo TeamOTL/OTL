@@ -24,10 +24,12 @@ public class MemberStudy {
     private Study study;        //해당 스터디
 
     @Column
-    private boolean isAccepted;     //참가 상태 (참가중, 대기중)
+    @Builder.Default
+    private boolean isAccepted = false;     //참가 상태 (참가중, 대기중)
 
     @Column
-    private boolean isManaged;    //방장 여부 (방장, 일반)
+    @Builder.Default
+    private boolean isManaged = false;    //방장 여부 (방장, 일반)
 
     @Column
     private String comment;         // 방장에게 한마디 (nullable = true)

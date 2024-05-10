@@ -24,11 +24,12 @@ public class Todolist {
     private boolean isCompleted = false;      // 투두리스트 완료 여부
 
 
-    @Column
+    @Column(nullable = false)
     private String todoStartDate;   // 투두 시작 날짜
 
-    @Column
+    @Column(nullable = false)
     private String todoEndDate; // 투두 종료 날짜
+
 
     @Column(nullable = false)
     @Builder.Default
