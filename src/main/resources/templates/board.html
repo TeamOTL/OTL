@@ -94,10 +94,13 @@
                                     <tr th:each="board : ${boards}">
                                         <td th:text="${board.bno}">1</td>
                                         <td>
-                                            <a data-toggle="modal" data-target="#boardReadModal" th:href="@{/board/read(bno=${board.bno})}" th:text="${board.boardTitle}">Title 1</a>
-                                            <custom-board-read-modal th:attr="data-board-title=${boardTitle}, data-board-content=${boardContent},
-                                            data-nickname=${nickname}, data-profile-image=${memberProfileImage}"></custom-board-read-modal>
-
+                                            <a data-toggle="modal" th:id="'#boardReadModal-' + ${board.bno}"
+                                               th:data-target="'#boardReadModal-' + ${board.bno}"
+                                               th:href="@{/board/read(bno=${board.bno})}"
+                                               th:text="${board.boardTitle}">Title 1</a>
+                                            <custom-board-read-modal th:attr="board.bno=${board.bno}, board.boardTitle=${board.boardTitle},
+                                        board.boardContent=${board.boardContent}, board.nickname=${board.nickname}, member.memberProfileImage=${memberProfileImage},
+                                         board.regDate=${#temporals.format(board.regDate, 'yyyy-MM-dd')}, board.modDate=${#temporals.format(board.modDate, 'yyyy-MM-dd')}"></custom-board-read-modal>
                                         </td>
                                         <td th:text="${board.nickname}">User 1</td>
                                         <td th:text="${#temporals.format(board.regDate, 'yyyy-MM-dd')}">2024-05-01</td>
