@@ -27,7 +27,6 @@ public class BoardServiceImpl implements BoardService{
     private  final MemberRepository memberRepository;
     private final MemberService memberService;
     private final ModelMapper modelMapper;
-    private final MemberService memberService;
 
 
     @Override
