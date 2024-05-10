@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
+@ToString(exclude = "study")
 public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

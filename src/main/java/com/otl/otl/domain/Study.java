@@ -3,9 +3,11 @@ package com.otl.otl.domain;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.extern.java.Log;
+import org.hibernate.annotations.Fetch;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.List;
 
 @Entity
 @Getter
@@ -40,16 +42,13 @@ public class Study {
     @Column(nullable = false)
     private String rEndDate;                  // 모집 기간_종료일
 
-
     @OneToOne
     @JoinColumn(name = "cno")
     private Category category;
 
-
     @Transient
     private String dDay;
-
-
+    
 
     //스터디 모집방 d-day
     public void calStudyDday() {
