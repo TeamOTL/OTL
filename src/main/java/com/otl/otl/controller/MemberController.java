@@ -17,12 +17,10 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
+import java.util.HashMap;
 import java.util.Map;
 
 @Controller
@@ -43,6 +41,8 @@ public class MemberController {
     public  String index(){
         return "index";
     }
+
+
 //    @ApiOperation(value = "title POTS/GET", notes = "내용")
     @GetMapping("/main")
     public String getUserInfo(@AuthenticationPrincipal OAuth2User oauthUser, Model model) {
@@ -112,6 +112,28 @@ public class MemberController {
         }
 
         return "board"; // board.html 템플릿을 반환
+    }
+
+    @GetMapping("/api/user")
+    @ResponseBody
+    public Map<String, String> getUserInfo(@AuthenticationPrincipal OAuth2User oauthUser) {
+        Map<String, Object> kakaoAccount = oauthUser.getAttribute("kakao_account");
+        Map<String, Object> profile = (Map<String, Object>) kakaoAccount.get("profile");
+
+        String nickname = (String) profile.get("nickname");
+        String email = (String) kakaoAccount.get("email");
+        String memberProfileImage = (String) profile.get("profile_image_url");
+
+        Member member = memberService.findByEmail(email); // 회원 정보 조회
+        String memberDescription = member.getMemberDescription(); // 회원 자기 소개
+
+        Map<String, String> userInfo = new HashMap<>();
+        userInfo.put("nickname", nickname);
+        userInfo.put("email", email);
+        userInfo.put("profileImage", memberProfileImage);
+        userInfo.put("memberDescription", memberDescription);
+
+        return userInfo;
     }
 
 

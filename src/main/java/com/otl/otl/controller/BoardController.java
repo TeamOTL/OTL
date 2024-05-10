@@ -35,11 +35,11 @@ public class BoardController {
         // 게시글 저장 시도 로깅
         log.info("게시글 저장 시도 : {}", boardDTO);
 
-        Long boardId = boardService.register(boardDTO);
+        Long bno = boardService.register(boardDTO);
 
         // 저장 결과에 따라 적절한 응답을 반환합니다.
-        if (boardId != null) {
-            log.info("게시글이 성공적으로 저장되었습니다. 게시글 ID: {}", boardId);
+        if (bno != null) {
+            log.info("게시글이 성공적으로 저장되었습니다. 게시글 ID: {}", bno);
             return ResponseEntity.status(HttpStatus.CREATED).body("게시글이 성공적으로 등록되었습니다.");
         } else {
             log.info("게시글 저장 실패: {}", boardDTO);

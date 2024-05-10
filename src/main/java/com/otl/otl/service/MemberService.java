@@ -7,4 +7,6 @@ public interface MemberService {
     void deleteByEmail(String email);
 
     String findNicknameByEmail(String email); //이메일로 닉네임 가져오기
+
+    Member findByEmail(String email);
 }

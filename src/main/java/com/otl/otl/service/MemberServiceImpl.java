@@ -40,4 +40,9 @@ public class MemberServiceImpl implements MemberService{
         Optional<Member> member = memberRepository.findByEmail(email);
         return member.map(Member::getNickname).orElse("알 수 없음");
     }
+
+    @Override
+    public Member findByEmail(String email) {
+        return memberRepository.findByEmail(email).orElse(null);
+    }
 }

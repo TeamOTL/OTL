@@ -45,13 +45,10 @@ class topbar extends HTMLElement {
                     <!-- Dropdown - User Information -->
                     <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                         aria-labelledby="userDropdown">
-                        <a class="dropdown-item" href="${sPath}#">
-                            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                            프로필
-                        </a>
+                        
                         <a class="dropdown-item" data-toggle="modal" data-target="#settingModal">
                             <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                            설정
+                            나의 정보
                         </a>
                         <a class="dropdown-item" href="${sPath}#">
                             <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
