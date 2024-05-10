@@ -131,8 +131,8 @@ class settingModal extends HTMLElement {
                 <div class="cropper-container" id="cropperContainer">
                 <img id="cropperImage" src="">
                 <div class="cropper-buttons">
-                    <button type="button" class="btn btn-success" id="cropBtn">Crop</button>
-                    <button type="button" class="btn btn-danger" id="cancelCropBtn">Cancel</button>
+                    <button type="button" class="btn btn-success" id="cropBtn">자르기</button>
+                    <button type="button" class="btn btn-danger" id="cancelCropBtn">취소</button>
                 </div>
             </div>
             `;
