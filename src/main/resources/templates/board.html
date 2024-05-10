@@ -105,8 +105,10 @@
                                                th:href="@{/board/read(bno=${board.bno})}"
                                                th:text="${board.boardTitle}">Title 1</a>
                                             <custom-board-read-modal th:attr="board.bno=${board.bno}, board.boardTitle=${board.boardTitle},
-                                        board.boardContent=${board.boardContent}, board.nickname=${board.nickname}, member.memberProfileImage=${memberProfileImage},
-                                         board.regDate=${#temporals.format(board.regDate, 'yyyy-MM-dd')}, board.modDate=${#temporals.format(board.modDate, 'yyyy-MM-dd')}"></custom-board-read-modal>
+                                        board.boardContent=${board.boardContent}, board.email=${board.email}, board.nickname=${board.nickname}, member.memberProfileImage=${memberProfileImage},
+                                         board.regDate=${#temporals.format(board.regDate, 'yyyy-MM-dd')}, board.modDate=${#temporals.format(board.modDate, 'yyyy-MM-dd')},
+                                          data-email=${email}"></custom-board-read-modal>
+<!--                                            <custom-board-modify-modal></custom-board-modify-modal>-->
                                         </td>
                                         <td th:text="${board.nickname}">User 1</td>
                                         <td th:text="${#temporals.format(board.regDate, 'yyyy-MM-dd')}">2024-05-01</td>
