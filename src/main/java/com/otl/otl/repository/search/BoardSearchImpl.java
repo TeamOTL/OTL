@@ -13,7 +13,7 @@ import java.util.List;
 
 public class BoardSearchImpl extends QuerydslRepositorySupport implements BoardSearch {
 
-    public BoardSearchImpl(){
+    public BoardSearchImpl() {
 
         super(Board.class);
     }
@@ -59,13 +59,13 @@ public class BoardSearchImpl extends QuerydslRepositorySupport implements BoardS
         QBoard board = QBoard.board;
         JPQLQuery<Board> query = from(board);
 
-        if( (types != null && types.length > 0) && keyword != null ){ //검색 조건과 키워드가 있다면
+        if ((types != null && types.length > 0) && keyword != null) { //검색 조건과 키워드가 있다면
 
             BooleanBuilder booleanBuilder = new BooleanBuilder(); // (
 
-            for(String type: types){
+            for (String type : types) {
 
-                switch (type){
+                switch (type) {
                     case "t":
                         booleanBuilder.or(board.boardTitle.contains(keyword));
                         break;

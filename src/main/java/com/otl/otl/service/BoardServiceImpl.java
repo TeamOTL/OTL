@@ -29,7 +29,6 @@ public class BoardServiceImpl implements BoardService{
     private final ModelMapper modelMapper;
 
 
-
     @Override
     public Long register(BoardDTO boardDTO) {
         // BoardDTO에서 필요한 정보를 추출하여 Board 객체로 변환합니다.

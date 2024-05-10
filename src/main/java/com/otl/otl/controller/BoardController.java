@@ -1,8 +1,13 @@
 package com.otl.otl.controller;
 
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.otl.otl.domain.Board;
+import com.otl.otl.domain.Member;
 import com.otl.otl.dto.BoardDTO;
+import com.otl.otl.dto.MemberDTO;
+import com.otl.otl.repository.MemberRepository;
 import com.otl.otl.service.BoardService;
 import jakarta.validation.Valid;
 import lombok.extern.log4j.Log4j2;
@@ -14,6 +19,9 @@ import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+import java.util.Optional;
+
 @RestController
 @RequestMapping("/api")
 @Validated // DTO 유효성 검사를 위한 어노테이션
@@ -21,6 +29,9 @@ import org.springframework.web.bind.annotation.*;
 public class BoardController {
 
     private final BoardService boardService;
+
+    @Autowired
+    private MemberRepository memberRepository;
 
     @Autowired
     public BoardController(BoardService boardService) {
@@ -47,4 +58,33 @@ public class BoardController {
         }
     }
 
+    @GetMapping("/readBoard")
+    public ResponseEntity<MemberDTO> readBoard(@RequestParam Long bno) throws JsonProcessingException {
+        // 게시글 조회 시도 로깅
+        log.info("게시글 조회 시도 : {}", bno);
+
+        BoardDTO boardDTO = boardService.readOne(bno);
+
+        // 저장 결과에 따라 적절한 응답을 반환합니다.
+        if (boardDTO != null) {
+            // 이메일 주소로 회원 조회
+            Optional<Member> optionalMember = memberRepository.findByEmail(boardDTO.getEmail());
+
+            MemberDTO memberDTO = new MemberDTO();
+            optionalMember.ifPresent(member -> {
+                // 닉네임, 프로필이미지 가져와서 MemberDTO에 추가
+                memberDTO.setNickname(member.getNickname());
+                memberDTO.setMemberProfileImage(member.getMemberProfileImage());
+            });
+
+            // boardDTO와 memberDTO의 정보를 문자열로 조합하여 반환
+            //String response = "BoardDTO: " + boardDTO.toString() + ", MemberDTO: " + memberDTO.toString();
+
+            log.info("게시글 조회 성공: {}", bno);
+            return ResponseEntity.ok().body(memberDTO);
+        } else {
+            log.info("게시글 조회 실패: {}", bno);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+    }
 }
