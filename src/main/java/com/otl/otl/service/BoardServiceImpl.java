@@ -60,7 +60,7 @@ public class BoardServiceImpl implements BoardService{
         log.info("게시글 목록 조회: 페이지 번호 {}, 페이지 크기 {}", page, size);
 
         PageRequest pageRequest = PageRequest.of(page, size);
-        Page<Board> boardPage = boardRepository.findAllByOrderByModDateDesc(pageRequest);
+        Page<Board> boardPage = boardRepository.findByIsDeletedFalseOrderByModDateDesc(pageRequest);
 
         return boardPage.map(this::entityToDto);
     }
