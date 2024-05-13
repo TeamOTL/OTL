@@ -15,13 +15,13 @@ public class MemberStudy {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long msNo;          //스터디 참가 고유번호
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "email", referencedColumnName = "email")
-    private Member member;      //스터디 참가 멤버 이메일
+    private Member member;              //스터디 참가 멤버 이메일
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "sno")
-    private Study study;        //해당 스터디
+    private Study study;                //해당 스터디
 
     @Column
     @Builder.Default
@@ -34,6 +34,6 @@ public class MemberStudy {
     @Column
     private String comment;         // 방장에게 한마디 (nullable = true)
 
-
-
+//    @Transient
+//    private int people;           //현재 참가 인원 count 위한 필드
 }

@@ -9,7 +9,7 @@ import lombok.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
+@ToString(exclude = {"study", "member"})
 public class Interests {
 
     @Id
@@ -18,6 +18,17 @@ public class Interests {
 
     @Column
     private String interestName;    // 관심 분야 이름
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "sno")
+    private Study study;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "email", referencedColumnName = "email")
+    private Member member;
+
+
+
 
 
 }
