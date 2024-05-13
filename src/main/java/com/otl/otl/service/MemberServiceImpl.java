@@ -5,6 +5,7 @@ import com.otl.otl.repository.MemberRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
+import java.util.Base64;
 import java.util.Optional;
 
 @Service
@@ -17,14 +18,40 @@ public class MemberServiceImpl implements MemberService{
 
     @Transactional
     public Member registerOrUpdateMember(String nickname, String email, String profileImage){
-        Member member = memberRepository.findByEmail(email)
-                .orElse(new Member()); // 이메일로 기존 회원 조회, 없으면 새 객체 생성
+        Member member = memberRepository.findByEmail(email).orElse(null);
 
-        member.setNickname(nickname);
-        member.setEmail(email);
-        member.setMemberProfileImage(profileImage);
+        if (member == null) {
+            member = new Member();
+            member.setEmail(email);
+            member.setNickname(nickname);
 
-        return memberRepository.save(member); // 데이터베이스에 저장
+
+            if (profileImage != null && !profileImage.isEmpty()) {
+
+                member.setMemberProfileImage(profileImage.getBytes());  // 초기에는 카카오 프로필 URL을 그대로 저장
+            }
+        } else {
+            member.setNickname(nickname);
+
+
+            if (profileImage != null && !profileImage.isEmpty() && profileImage.startsWith("data:image")) {
+
+                try {
+                    String[] parts = profileImage.split(",");
+                    if (parts.length == 2) {
+                        byte[] imageBytes = Base64.getDecoder().decode(parts[1]);
+                        member.setMemberProfileImage(imageBytes);
+                    } else {
+                        throw new IllegalArgumentException("잘못된 프로필 이미지 형식입니다");
+                    }
+                } catch (IllegalArgumentException e) {
+                    // Log the error or handle it according to your application's requirements
+                    e.printStackTrace();
+                }
+            }
+            }
+
+        return memberRepository.save(member);
     }
 
     @Override

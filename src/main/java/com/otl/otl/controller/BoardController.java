@@ -19,6 +19,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Base64;
 import java.util.Map;
 import java.util.Optional;
 
@@ -74,7 +75,11 @@ public class BoardController {
             optionalMember.ifPresent(member -> {
                 // 닉네임, 프로필이미지 가져와서 MemberDTO에 추가
                 memberDTO.setNickname(member.getNickname());
-                memberDTO.setMemberProfileImage(member.getMemberProfileImage());
+                // Base64 인코딩된 문자열로 변환
+                if (member.getMemberProfileImage() != null) {
+                    String profileImageBase64 = "data:image/png;base64," + Base64.getEncoder().encodeToString(member.getMemberProfileImage());
+                    memberDTO.setMemberProfileImage(profileImageBase64);
+                }
             });
 
             // boardDTO와 memberDTO의 정보를 문자열로 조합하여 반환
