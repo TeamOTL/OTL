@@ -42,9 +42,13 @@ public class MemberController {
         return "index";
     }
 
-    @GetMapping("/studyJoin")
-    public String studyJoin(){ return "studyJoin";
+    @GetMapping("/main")
+    public String main() {
+        return "main";
     }
+
+
+
 
     @GetMapping("/studyRoom_yu")
     public String studyRoom_yu(){ return "studyRoom_yu"; }
@@ -178,7 +182,7 @@ public class MemberController {
     }
 
 
-    @GetMapping("/studyjoin")
+    @GetMapping("/studyJoin")
     public String studyJoin(@AuthenticationPrincipal OAuth2User oauthUser, Model model) {
         Map<String, Object> kakaoAccount = oauthUser.getAttribute("kakao_account");
         Map<String, Object> profile = (Map<String, Object>) kakaoAccount.get("profile");
@@ -196,8 +200,10 @@ public class MemberController {
         model.addAttribute("memberProfileImage", memberProfileImage);
 
 
-        return "studyjoin";  // main.html 템플릿을 반환
+        return "studyJoin";  // main.html 템플릿을 반환
     }
+
+
 }
 
 
