@@ -2,12 +2,17 @@
 //
 //import com.otl.otl.domain.Member;
 //import com.otl.otl.domain.Todolist;
+//import com.otl.otl.dto.TodolistDTO;
+//import com.otl.otl.service.TodolistService;
 //import jakarta.transaction.Transactional;
 //import lombok.extern.log4j.Log4j2;
 //import org.junit.jupiter.api.BeforeEach;
 //import org.junit.jupiter.api.Test;
+//import org.mockito.ArgumentCaptor;
+//import org.mockito.Captor;
 //import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.boot.test.context.SpringBootTest;
+//import org.springframework.boot.test.mock.mockito.MockBean;
 //import org.springframework.test.annotation.Commit;
 //
 //import java.util.List;
@@ -15,6 +20,10 @@
 //import java.util.stream.IntStream;
 //
 //import static org.assertj.core.api.Assertions.assertThat;
+//import static org.junit.jupiter.api.Assertions.assertTrue;
+//import static org.mockito.ArgumentMatchers.any;
+//import static org.mockito.Mockito.verify;
+//import static org.mockito.Mockito.when;
 //
 //
 ///**
@@ -27,10 +36,15 @@
 //
 //    private final MemberRepository memberRepository;
 //
+//    @Autowired
+//    private TodolistService todolistService;
 //
-//    private final TodolistRepository todolistRepository;
+//    @MockBean
+//    private TodolistRepository todolistRepository;
+//    @Captor
+//    ArgumentCaptor<Todolist> todolistCaptor;
 //
-//    private Member member;
+//
 //
 //    @Autowired
 //    public TodolistRepositoryTests(MemberRepository memberRepository, TodolistRepository todolistRepository) {
@@ -38,19 +52,13 @@
 //        this.todolistRepository = todolistRepository;
 //    }
 //
-//    @BeforeEach
-//    void setup() {
-//        // 먼저 테스트용 멤버를 생성
-//        member = Member.builder()
-//                .email("test1@c.com")
-//                .nickname("Test User")
-//                .build();
-//        member = memberRepository.save(member);
-//    }
+//
 //
 //    @Test
 //    @Commit
 //    public void testInsert() {
+//        Member member = new Member(6L,"test@c.com","테스트",null,null,null);
+//
 //        IntStream.rangeClosed(1, 10).forEach(i -> {
 //            Todolist todolist = Todolist.builder()
 //                    .todolistContent("Finish project report")
@@ -68,89 +76,38 @@
 //
 //        List<Todolist> todolists = todolistRepository.findAll();
 //    }
-////
-////    @Test
-////    @Commit
-////    public void testFindById() {
-////        Todolist todolist = Todolist.builder()
-////                .todolistContent("Find me")
-////                .startDate("2024-05-07")
-////                .endDate("2024-05-09")
-////                .completed(false)
-////                .isDeleted(false)
-////                .member(testMember)
-////                .build();
-////
-////        Todolist savedTodolist = todolistRepository.save(todolist);
-////
-////        Optional<Todolist> foundTodolist = todolistRepository.findById(savedTodolist.getToNo());
-////
-////        assertThat(foundTodolist).isPresent();
-////        assertThat(foundTodolist.get().getTodolistContent()).isEqualTo("Find me");
-////    }
-////
-////    @Test
-////    @Commit
-////    public void testUpdate() {
-////        Todolist todolist = Todolist.builder()
-////                .todolistContent("Original content")
-////                .startDate("2024-05-07")
-////                .endDate("2024-05-09")
-////                .completed(false)
-////                .isDeleted(false)
-////                .member(testMember)
-////                .build();
-////
-////        Todolist savedTodolist = todolistRepository.save(todolist);
-////
-////        savedTodolist.setTodolistContent("Updated content");
-////        Todolist updatedTodolist = todolistRepository.save(savedTodolist);
-////
-////        assertThat(updatedTodolist.getTodolistContent()).isEqualTo("Updated content");
-////    }
-////
-////    @Test
-////    @Commit
-////    public void testDelete() {
-////        Todolist todolist = Todolist.builder()
-////                .todolistContent("To be deleted")
-////                .startDate("2024-05-07")
-////                .endDate("2024-05-09")
-////                .completed(false)
-////                .isDeleted(false)
-////                .member(testMember)
-////                .build();
-////
-////        Todolist savedTodolist = todolistRepository.save(todolist);
-////
-////        todolistRepository.delete(savedTodolist);
-////
-////        Optional<Todolist> deletedTodolist = todolistRepository.findById(savedTodolist.getToNo());
-////
-////        assertThat(deletedTodolist).isEmpty();
-////    }
-////
-////    @Test
-////    @Commit
-////    public void testFindByMember() {
-////        IntStream.rangeClosed(1, 3).forEach(i -> {
-////            Todolist todolist = Todolist.builder()
-////                    .todolistContent("Member content " + i)
-////                    .startDate("2024-05-07")
-////                    .endDate("2024-05-09")
-////                    .completed(false)
-////                    .isDeleted(false)
-////                    .member(testMember)
-////                    .build();
-////
-////            todolistRepository.save(todolist);
-////        });
-////
-////        List<Todolist> todolistsByMember = todolistRepository.findByMember(testMember);
-////
-////        assertThat(todolistsByMember).hasSize(3);
-////        todolistsByMember.forEach(todolist ->
-////                assertThat(todolist.getMember().getEmail()).isEqualTo("test@example.com")
-////        );
-////    }
+//
+//    @Test
+//    public void testMarkTodolistAsDeleted() {
+//        Long toNo = 6L;
+//        Member member = new Member(6L,"test@c.com","테스트",null,null,null);
+//        Todolist todolist = new Todolist(toNo, "Content", false, "2021-01-01", "2021-01-02", false, member);
+//        when(todolistRepository.findById(toNo)).thenReturn(Optional.of(todolist));
+//        when(todolistRepository.save(any(Todolist.class))).thenAnswer(invocation -> invocation.getArgument(0));
+//
+//        todolistService.markTodolistAsDeleted(toNo);
+//
+//        verify(todolistRepository).save(todolistCaptor.capture());
+//        Todolist capturedTodolist = todolistCaptor.getValue();
+//        assertTrue(capturedTodolist.isDeleted(), "Todolist should be marked as deleted but it wasn't.");
+//        log.info("capturedTodolist : " + capturedTodolist);
+//        log.info("capturedTodolist.isDeleted() : " + capturedTodolist.isDeleted());
+//    }
+//
+//    @Test
+//    public void testMarkTodolistAsCompleted() {
+//        Long toNo = 1L;
+//        Member member = new Member(6L,"test@c.com","테스트",null,null,null);
+//        Todolist todolist = new Todolist(toNo, "Content", false, "2021-01-01", "2021-01-02", false, member);
+//        when(todolistRepository.findById(toNo)).thenReturn(Optional.of(todolist));
+//        when(todolistRepository.save(any(Todolist.class))).thenReturn(todolist);
+//
+//        todolistService.markTodolistAsCompleted(toNo);
+//
+//        verify(todolistRepository).save(todolistCaptor.capture());
+//        Todolist capturedTodolist = todolistCaptor.getValue();
+//        assertTrue(capturedTodolist.isCompleted(), "Todolist should be marked as completed but it wasn't.");
+//        log.info("capturedTodolist : " + capturedTodolist);
+//        log.info("capturedTodolist.isCompleted() : " + capturedTodolist.isCompleted());
+//    }
 //}

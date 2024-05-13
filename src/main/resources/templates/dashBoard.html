@@ -35,6 +35,7 @@
         z-index: 1;
         transition: right 0.5s ease-in;
     }
+
     #todolistContainer.show {
         right: 5%;
         transition: right 0.5s ease-out;
@@ -63,7 +64,8 @@
                          class="col-lg-8 bg-white p-3 rounded fc fc-media-screen fc-direction-ltr fc-theme-standard"></div>
                     <!-- 캘린더 end-->
                     <div class="col-auto">
-                        <button id="todolistPopup" class="btn border btn-facebook shadow-lg p-3 mb-5 ">👈TodoList</button>
+                        <button id="todolistPopup" class="btn border btn-facebook shadow-lg p-3 mb-5 ">👈TodoList
+                        </button>
                     </div>
 
 
@@ -90,11 +92,48 @@
                                 </label>
                                 <hr class="border border-dark">
                             </form>
-                            <ul class="list-group" id="todoListUl">
+                            <ul class="nav nav-tabs" id="todoTabs" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link active" id="all-tab" onclick="showAllTodos()"
+                                            data-bs-toggle="tab" data-bs-target="#all" type="button" role="tab"
+                                            aria-controls="all" aria-selected="true">할 일
+                                    </button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="completed-tab" onclick="showCompletedTodos()"
+                                            data-bs-toggle="tab" data-bs-target="#completed" type="button" role="tab"
+                                            aria-controls="completed" aria-selected="false">완료 목록
+                                    </button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="pending-tab" onclick="showDeletedTodos()"
+                                            data-bs-toggle="tab" data-bs-target="#pending" type="button" role="tab"
+                                            aria-controls="pending" aria-selected="false">삭제 목록
+                                    </button>
+                                </li>
                             </ul>
+                            <div class="tab-content" id="todoTabsContent">
+                                <div class="tab-pane fade show active" id="allTodo" role="tabpanel"
+                                     aria-labelledby="all-tab">
+                                    <ul class="list-group" id="todoListing">
+                                        <!-- All todos will be listed here -->
+                                    </ul>
+                                </div>
+                                <div class="tab-pane fade" id="completedTodo" role="tabpanel"
+                                     aria-labelledby="completed-tab">
+                                    <ul class="list-group" id="todoListCompleted">
+                                        <!-- Completed todos will be listed here -->
+                                    </ul>
+                                </div>
+                                <div class="tab-pane fade" id="deleteTodo" role="tabpanel"
+                                     aria-labelledby="pending-tab">
+                                    <ul class="list-group" id="todoListDeleted">
+                                        <!-- Pending todos will be listed here -->
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
                     </div>
-
                 </div>
 
                 <!--                <button type="button" class="btn-facebook" data-target="#todoListModal" data-toggle="modal">+</button>-->
@@ -113,7 +152,11 @@ let cTodos = [];
 email = email.replace(/"/g, '');
 
 document.addEventListener("DOMContentLoaded", () => {
-    fetchAllTodos();
+    fetchAllTodos();  // 모든 할 일을 가져옴
+    showAllTodos();   // 첫 탭을 초기화
+    showCompletedTodos();  // 완료된 할 일을 초기화
+    showDeletedTodos();  // 삭제된 할 일을 초기화
+    fetchAllMyStudy();
 });
 
 // todo button onclick Event
@@ -123,10 +166,10 @@ function submitTodo(e) {
     const startDate = document.getElementById("startDate").value;
     const endDate = document.getElementById("endDate").value;
 
-    if((todoTitle==null || startDate==null || endDate==null) || (todoTitle==="" || startDate==="" || endDate==="") ){
+    if ((todoTitle == null || startDate == null || endDate == null) || (todoTitle === "" || startDate === "" || endDate === "")) {
         alert("내용과 날짜를 모두 입력해주세요.");
         return;
-    }else if(new Date(startDate) > new Date(endDate)){
+    } else if (new Date(startDate) > new Date(endDate)) {
         alert("시작 날짜는 종료 날짜보다 이후일 수 없습니다.")
         return;
     }
@@ -163,7 +206,7 @@ function submitTodo(e) {
 
 // add todo
 function addTodoList(todo) {
-    const todoList = document.getElementById('todoListUl');
+    const todoList = document.getElementById('todoListing');
     const listItem = document.createElement('li');
 
     listItem.className = 'justify-content-between m-1 row shadow p-3 mb-2 bg-body rounded';
@@ -174,7 +217,8 @@ function addTodoList(todo) {
                                 <div class="row">${todo.todoStartDate} ~ ${todo.todoEndDate}</div>
                             </div>
                             <div class="col-auto">
-                                <button id="todoDelete" name="${todo.toNo}" onclick="deleteTodo(${todo.toNo})" class="col btn btn-danger">x</button>
+                                <button id="todoComplete" name="${todo.toNo}" onclick="isCompletedTrue(${todo.toNo})" class="col btn btn-info mb-1">V</button>
+                                <button id="todoDelete" name="${todo.toNo}" onclick="isDeletedTrue(${todo.toNo})" class="col btn btn-danger mt-1">X</button>
                             </div>`;
     todoList.appendChild(listItem);
 }
@@ -187,7 +231,7 @@ function fetchAllTodos() {
     })
         .then(response => response.json())
         .then(todos => {
-            const todoList = document.getElementById('todoListUl');
+            const todoList = document.getElementById('todoListing');
             todoList.innerHTML = '';
 
             todos.forEach(addTodoList);
@@ -207,6 +251,7 @@ function fetchAllTodos() {
 
             calendars(cTodos);
 
+
         })
         .catch(error => {
             console.error("Error :", error)
@@ -214,45 +259,166 @@ function fetchAllTodos() {
 }
 
 // myStrudy
-// function fetchAllMyStudy() {
-//     fetch(`/api/todolists`, {
-//         method: 'GET',
-//         headers: {'Content-Type': 'application/json'}
-//     })
-//         .then(response => response.json())
-//         .then(todos => {
-//             todos.forEach(addTodoList);
-//
-//             cTodos = todos.map(data => ({
-//                 title: data.todolistContent,
-//                 start: data.todoStartDate,
-//                 end: data.todoEndDate,
-//                 backgroundColor: 'blue',
-//                 borderColor: 'blue'
-//             }));
-//             calendars();
-//         })
-//         .catch(error => {
-//             console.error("Error :", error)
-//         })
-// }
+function fetchAllMyStudy() {
+    fetch(`/api/studyRoom_yu`, {
+        method: 'GET',
+        headers: {'Content-Type': 'application/json'}
+    })
+        .then(response => response.json())
+        .then(todos => {
+            todos.forEach(addTodoList);
+            console.log(todos)
+            cTodos = todos.map(data => ({
+                title: data.todolistContent,
+                start: data.todoStartDate,
+                end: data.todoEndDate,
+                backgroundColor: 'blue',
+                borderColor: 'blue'
+            }));
+            calendars(cTodos);
+        })
+        .catch(error => {
+            console.error("Error :", error)
+        })
+}
 
 // 삭제 요청
-function deleteTodo(toNo) {
-    fetch(`/api/todolists/${toNo}`, {
-        method: 'DELETE',
+// function deleteTodo(toNo) {
+//     fetch(`/api/todolists/${toNo}`, {
+//         method: 'DELETE',
+//         headers: {'Content-Type': 'application/json'}
+//     })
+//         // .then(response => response.json())
+//         .then(() => {
+//             // 삭제된 항목을 목록에서 제거
+//             const todoItem = document.getElementById(`todo-${toNo}`);
+//             if (todoItem) {
+//                 todoItem.remove();
+//                 fetchAllTodos();
+//             }
+//         })
+//         .catch(error => console.error("Error : " + error));
+// }
+// 삭제 요청
+function isDeletedTrue(toNo) {
+    fetch(`/api/todolists/delete/${toNo}`, {
+        method: 'PATCH',
         headers: {'Content-Type': 'application/json'}
     })
         // .then(response => response.json())
         .then(() => {
-            // 삭제된 항목을 목록에서 제거
-            const todoItem = document.getElementById(`todo-${toNo}`);
-            if (todoItem) {
-                todoItem.remove();
-                fetchAllTodos();
+            alert('Todo marked as deleted!');
+            // `allTodo` 탭에서 해당 항목을 숨깁니다.
+            const todoItem = document.querySelector(`#todo-${toNo}`);
+            if (todoItem && document.querySelector('#allTodo').contains(todoItem)) {
+                todoItem.style.display = 'none'; // 혹은 todoItem.remove()로 완전히 제거
             }
+            // `deleteTodo` 탭에 항목 추가
+            const deletedList = document.getElementById('todoListDeleted');
+            if (deletedList && todoItem) {
+                const newItem = todoItem.cloneNode(true);
+                newItem.style.display = 'flex'; // 항목을 다시 보이게 합니다
+                deletedList.appendChild(newItem);
+            }
+            fetchAllTodos();
+
         })
         .catch(error => console.error("Error : " + error));
+}
+
+// 완료 요청
+function isCompletedTrue(toNo) {
+    fetch(`/api/todolists/completed/${toNo}`, {
+        method: 'PATCH',
+        headers: {'Content-Type': 'application/json'}
+    })
+        // .then(response => response.json())
+        .then(() => {
+            alert('Todo marked as completed!');
+            // `allTodo` 탭에서 해당 항목을 숨깁니다.
+            const todoItem = document.querySelector(`#todo-${toNo}`);
+            if (todoItem && document.querySelector('#allTodo').contains(todoItem)) {
+                todoItem.style.display = 'none'; // 혹은 todoItem.remove()로 완전히 제거
+            }
+            // `completedTodo` 탭에 항목 추가
+            const completedList = document.getElementById('todoListCompleted');
+            if (completedList && todoItem) {
+                const newItem = todoItem.cloneNode(true);
+                newItem.style.display = 'flex'; // 항목을 다시 보이게 합니다
+                completedList.appendChild(newItem);
+            }
+            fetchAllTodos();
+        })
+        .catch(error => console.error("Error : " + error));
+}
+
+function addTodoItemToList(listElement, todo) {
+    const listItem = document.createElement('li');
+    listItem.className = 'justify-content-between m-1 row shadow p-3 mb-2 bg-body rounded';
+    listItem.setAttribute('id', `todo-${todo.toNo}`);
+    listItem.innerHTML = `
+        <div class="col">
+            <strong class="row">${todo.todolistContent}</strong>
+            <div class="row">${todo.todoStartDate} ~ ${todo.todoEndDate}</div>
+        </div>
+        <div class="col-auto" style="display: ${listElement.id === 'todoListing' ? 'block' : 'none'};">
+            <button id="todoComplete-${todo.toNo}" class="col btn btn-info mb-1">V</button>
+            <button id="todoDelete-${todo.toNo}" class="col btn btn-danger mt-1">X</button>
+        </div>
+      `;
+    // 이벤트 리스너 추가, 버튼이 실제로 표시될 때만
+    if (listElement.id === 'todoListing') {
+        const completeButton = listItem.querySelector(`#todoComplete-${todo.toNo}`);
+        completeButton.addEventListener('click', () => isCompletedTrue(todo.toNo));
+
+        const deleteButton = listItem.querySelector(`#todoDelete-${todo.toNo}`);
+        deleteButton.addEventListener('click', () => isDeletedTrue(todo.toNo));
+    }
+
+    listElement.appendChild(listItem);
+}
+
+
+// 할 일 전체 목록을 가져와서 표시하는 함수
+function showAllTodos() {
+    fetch('/api/todolists', {method: 'GET', headers: {'Content-Type': 'application/json'}})
+        .then(response => response.json())
+        .then(todos => {
+            const todoListing = document.getElementById('todoListing');
+            todoListing.innerHTML = '';
+            todos.forEach(todo => addTodoItemToList(todoListing, todo));
+            setActiveTab('allTodo');
+        })
+        .catch(error => console.error('Error:', error));
+}
+
+// 삭제된 할 일 목록을 가져와서 표시하는 함수
+function showDeletedTodos() {
+    fetch('/api/todolists/deleted', {method: 'GET', headers: {'Content-Type': 'application/json'}})
+        .then(response => response.json())
+        .then(data => {
+            const todoListDeleted = document.getElementById('todoListDeleted');
+            todoListDeleted.innerHTML = '';
+            data.forEach(todo => addTodoItemToList(todoListDeleted, todo));
+            setActiveTab('deleteTodo');
+        })
+        .catch(error => console.error('Error:', error));
+}
+
+//완료 목록 탭 눌렀을 때
+function showCompletedTodos() {
+    fetch('/api/todolists/completed', {
+        method: 'GET',
+        headers: {'Content-Type': 'application/json'}
+    })
+        .then(response => response.json())
+        .then(data => {
+            const todoListCompleted = document.getElementById('todoListCompleted');
+            todoListCompleted.innerHTML = '';
+            data.forEach(todo => addTodoItemToList(todoListCompleted, todo));
+            setActiveTab('completedTodo');
+        })
+        .catch(error => console.error('Error:', error));
 }
 
 // 캘린더 생성
@@ -265,6 +431,21 @@ function calendars(event) {
     calendar.render();
 }
 
+// 탭이 변경될 때 호출되는 함수
+function setActiveTab(tabName) {
+    // 모든 탭 컨텐츠를 숨깁니다
+    const tabs = document.querySelectorAll('.tab-pane');
+
+    tabs.forEach(tab => {
+        tab.classList.remove('show');
+        tab.classList.remove('active');
+    });
+
+    // 지정된 탭만 활성화합니다
+    const activeTab = document.getElementById(tabName);
+    activeTab.classList.add('show');
+    activeTab.classList.add('active');
+}
 </script>
 <script>
     //timeout many click Exception
@@ -274,20 +455,20 @@ function calendars(event) {
         const todolistContainer = document.getElementById("todolistContainer");
         event.stopPropagation(); // 이벤트 전파 중지
         clearTimeout(todolistExitTimeout);
-        todolistContainer.classList.remove("fade","d-none");
-        todolistPopupTimeout = setTimeout(()=>{
+        todolistContainer.classList.remove("fade", "d-none");
+        todolistPopupTimeout = setTimeout(() => {
             todolistContainer.classList.add("show");
-        },0);
+        }, 0);
     });
     document.getElementById("todolistExit").addEventListener("click", () => {
         const todolistContainer = document.getElementById("todolistContainer");
         clearTimeout(todolistPopupTimeout);
-        todolistExitTimeout = setTimeout(()=>{
+        todolistExitTimeout = setTimeout(() => {
             todolistContainer.classList.remove("show");
-        },0);
-        todolistExitTimeout = setTimeout(()=>{
-            todolistContainer.classList.add("fade","d-none");
-        },600);
+        }, 0);
+        todolistExitTimeout = setTimeout(() => {
+            todolistContainer.classList.add("fade", "d-none");
+        }, 600);
 
 
     });
@@ -299,12 +480,12 @@ function calendars(event) {
         if (!isClickInside) {
             // 클릭이 TodoList 컨테이너 외부에서 발생했을 경우
             clearTimeout(todolistPopupTimeout);
-            todolistExitTimeout = setTimeout(()=>{
+            todolistExitTimeout = setTimeout(() => {
                 todolistContainer.classList.remove("show");
-            },0);
-            todolistExitTimeout = setTimeout(()=>{
-                todolistContainer.classList.add("fade","d-none");
-            },600);
+            }, 0);
+            todolistExitTimeout = setTimeout(() => {
+                todolistContainer.classList.add("fade", "d-none");
+            }, 600);
         }
     });
 

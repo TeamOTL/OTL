@@ -59,11 +59,22 @@ public class TodolistServiceImpl implements TodolistService {
     }
 
     @Override
-    public List<TodolistDTO> getAllTodos(String email) {
+    public List<TodolistDTO> findByMemberEmail(String email) {
         return todolistRepository.findByMemberEmail(email).stream()
                 .map(this::toDTO)
                 .collect(Collectors.toList());
     }
+
+
+    @Override
+    public List<TodolistDTO> getTodosListIsCompleteFalseANDIsDeletedFalse(String email) {
+        return todolistRepository.findByMemberEmailAndIsCompletedFalseAndIsDeletedFalse(email).stream()
+                .map(this::toDTO) // toDTO 메서드를 사용하여 엔티티를 DTO로 변환
+                .collect(Collectors.toList());
+    }
+
+
+
 
     @Override
     public TodolistDTO addTodo(TodolistDTO todolistDTO) {
@@ -87,6 +98,31 @@ public class TodolistServiceImpl implements TodolistService {
     public Optional<TodolistDTO> findById(Long toNo) {
         return todolistRepository.findById(toNo)
                 .map(this::toDTO);
+    }
+
+    @Override
+    public void updateIsDeletedToTrueByToNo(Long toNo) {
+        Todolist todolist = todolistRepository.findById(toNo)
+                .orElseThrow(() -> new RuntimeException("Todolist not found with id: " + toNo));
+        todolistRepository.updateIsDeletedToTrueByToNo(toNo);
+
+    }
+
+    @Override
+    public void updateIsCompletedToTrueByToNo(Long toNo) {
+        Todolist todolist = todolistRepository.findById(toNo)
+                .orElseThrow(() -> new RuntimeException("Todolist not found with id: " + toNo));
+        todolistRepository.updateIsCompletedToTrueByToNo(toNo);
+    }
+
+    @Override
+    public List<Todolist> getCompletedTodolists(String email) {
+        return todolistRepository.findByMember_EmailAndIsCompletedTrue(email);
+    }
+
+    @Override
+    public List<Todolist> getDeletedTodolists(String email) {
+        return todolistRepository.findByMember_EmailAndIsDeletedTrue(email);
     }
 
 
