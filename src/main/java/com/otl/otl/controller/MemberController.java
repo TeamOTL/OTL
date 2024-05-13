@@ -11,6 +11,8 @@ import com.otl.otl.service.MemberService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 
 
@@ -143,27 +145,37 @@ public class MemberController {
 
     @PutMapping("/api/user")
     @ResponseBody
-    public String updateUserInfo(@RequestBody Map<String, String> userInfo, @AuthenticationPrincipal OAuth2User oauthUser) throws IOException {
+    public ResponseEntity<Map<String, String>> updateUserInfo(@RequestBody Map<String, String> userInfo, @AuthenticationPrincipal OAuth2User oauthUser) {
         Map<String, Object> kakaoAccount = oauthUser.getAttribute("kakao_account");
         String email = (String) kakaoAccount.get("email");
 
         Member member = memberService.findByEmail(email);
         if (member != null) {
             member.setNickname(userInfo.get("nickname"));
-            member.setMemberDescription(userInfo.get("intro"));
+            member.setMemberDescription(userInfo.get("memberDescription"));
 
             String profileImageData = userInfo.get("profileImage");
             if (profileImageData != null && !profileImageData.isEmpty()) {
-                member.setMemberProfileImage(profileImageData);
+                try {
+                    String[] parts = profileImageData.split(",");
+                    if (parts.length == 2) {
+                        byte[] imageBytes = Base64.getDecoder().decode(parts[1]);
+                        member.setMemberProfileImage(imageBytes);
+                    } else {
+                        throw new IllegalArgumentException("잘못된 프로필 이미지 형식입니다");
+                    }
+                } catch (IllegalArgumentException e) {
+                    log.error("Error decoding profile image", e);
+                    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("message", "프로필 이미지 디코딩 오류"));
+                }
             }
 
-
-                memberService.save(member);
-                return "유저 정보를 성공적을 변경했습니다.";
-            } else {
-                return "유저를 찾을 수 없습니다.";
-            }
+            memberService.save(member);
+            return ResponseEntity.ok(Map.of("message", "유저 정보를 성공적으로 변경했습니다."));
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("message", "유저를 찾을 수 없습니다."));
         }
+    }
     }
 
 

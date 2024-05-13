@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const user = await response.json();
             // 사용자 정보를 커스텀 컴포넌트에 설정
             settingModalElement.setUserInfo(user.nickname, user.profileImage, user.email, user.memberDescription);
+            console.log('사용자 정보 불러오기 성공:', user);
         } catch (error) {
             console.error('에러:', error);
         }
@@ -67,6 +68,10 @@ class settingModal extends HTMLElement {
                     padding: 20px;
                     border-radius: 10px;
                 }
+                
+            div#cropperContainer{
+            display: none;
+            }    
                 .cropper-container img {
                     max-width: 100%;
                 }
@@ -74,6 +79,11 @@ class settingModal extends HTMLElement {
                     text-align: center;
                     margin-top: 10px;
                 }
+<<<<<<< Updated upstream
+=======
+                
+                
+>>>>>>> Stashed changes
             </style>
             <div class="modal fade" id="settingModal" tabindex="-1" role="dialog"
                     aria-labelledby="settingModalLabel" aria-hidden="true" data-backdrop="static" style="color:black;">
@@ -187,19 +197,25 @@ class settingModal extends HTMLElement {
         this.querySelector('#userForm').addEventListener('submit', async (event) => {
             event.preventDefault();
             const nickname = this.querySelector('#nicknameInput').value;
-            const intro = this.querySelector('#introInput').value;
+            const memberDescription = this.querySelector('#introInput').value;
             const profileImage = this.querySelector('#profileImage').src;
 
             try {
+                console.log('사용자 정보 업데이트 시도:', { nickname, memberDescription, profileImage });
                 const response = await fetch('/api/user', {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({ nickname, intro, profileImage: profileImageSrc, }),
+                    body: JSON.stringify({ nickname, memberDescription, profileImage: profileImage, }),
                 });
 
+                console.log('서버 응답 상태:', response.status);
+                const responseData = await response.json();
+                console.log('서버 응답 데이터:', responseData);
+
                 if (!response.ok) {
+                    console.error('서버 응답 오류 메시지:', responseData.message);
                     throw new Error('나의 정보 업데이트 실패');
                 }
 
@@ -207,7 +223,7 @@ class settingModal extends HTMLElement {
                 alert('나의 정보를 성공적으로 수정완료 했습니다.');
                 location.reload();
             } catch (error) {
-                console.error('Error updating user info:', error);
+                console.error('에러 나의 정보 업데이트:', error);
                 alert('나의 정보 수정실패 했습니다.');
             }
         });
@@ -233,9 +249,11 @@ class settingModal extends HTMLElement {
                 removeBtn.innerText = '×';
                 removeBtn.onclick = () => {
                     selectedCategoriesDiv.removeChild(categoryItem);
+                    console.log('카테고리 제거됨:', selectedOption);
                 };
                 categoryItem.appendChild(removeBtn);
                 selectedCategoriesDiv.appendChild(categoryItem);
+                console.log('카테고리 추가됨:', selectedOption);
             }
         });
     }
@@ -247,6 +265,7 @@ class settingModal extends HTMLElement {
             this.querySelector('#profileImage').src = profileImage;
             this.querySelector('#nicknameInput').value = nickname;
             this.querySelector('#introInput').value = memberDescription;
+            console.log('사용자 정보 설정됨:', { nickname, profileImage, email, memberDescription });
 
         }
     }

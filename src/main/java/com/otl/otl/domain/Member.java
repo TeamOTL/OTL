@@ -26,8 +26,9 @@ public class Member {
     @Column(nullable = false)
     private String nickname;           // 회원 이름 (닉네임)
 
-    @Column
-    private String memberProfileImage;     // 회원 프로필 사진
+    @Lob
+    @Column(columnDefinition = "LONGBLOB")
+    private byte[] memberProfileImage;     // 회원 프로필 사진
 
     @Column
     private String memberDescription; // 회원 자기 소개
