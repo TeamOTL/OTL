@@ -6,25 +6,24 @@ import com.otl.otl.dto.TodolistDTO;
 import com.otl.otl.repository.MemberRepository;
 import com.otl.otl.repository.TodolistRepository;
 import lombok.extern.log4j.Log4j2;
-import org.apache.catalina.User;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
 @Log4j2
 public class TodolistServiceImpl implements TodolistService {
-    @Autowired
-    private  TodolistRepository todolistRepository;
 
-    @Autowired
-    private MemberRepository memberRepository;
+    private final TodolistRepository todolistRepository;
+
+    private final MemberRepository memberRepository;
+
+    public TodolistServiceImpl(TodolistRepository todolistRepository, MemberRepository memberRepository) {
+        this.todolistRepository = todolistRepository;
+        this.memberRepository = memberRepository;
+    }
 
 
     // DTO -> Domain 변환
@@ -39,8 +38,9 @@ public class TodolistServiceImpl implements TodolistService {
                 .member(member)
                 .build();
     }
+
     // Domain -> DTO 변환
-    public  TodolistDTO toDTO(Todolist todolist) {
+    public TodolistDTO toDTO(Todolist todolist) {
         return TodolistDTO.builder()
                 .toNo(todolist.getToNo())
                 .todolistContent(todolist.getTodolistContent())
@@ -75,6 +75,12 @@ public class TodolistServiceImpl implements TodolistService {
             throw new RuntimeException("Todolist not found with id: " + toNo);
         }
         todolistRepository.deleteById(toNo);
+    }
+
+    @Override
+    public Optional<TodolistDTO> findById(Long toNo) {
+        return todolistRepository.findById(toNo)
+                .map(this::toDTO);
     }
 
 

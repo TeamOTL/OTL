@@ -4,32 +4,21 @@ import com.otl.otl.domain.Member;
 import com.otl.otl.dto.BoardDTO;
 import com.otl.otl.service.BoardService;
 import com.otl.otl.service.MemberService;
-
-
-//import io.swagger.annotations.ApiOperation;
-//import jakarta.servlet.http.HttpSession;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-
-
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
-
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 
 @Controller
 @Log4j2
@@ -72,7 +61,7 @@ public class MemberController {
 
         return "dashBoard";  // dashBoard.html 템플릿을 반환
     }
-
+    @Operation(summary = "제목",description = "내용")
     @PostMapping("/delete-account")
     public String deleteAccount(@AuthenticationPrincipal OAuth2User oauthUser) {
         Map<String, Object> kakaoAccount = oauthUser.getAttribute("kakao_account");
@@ -182,7 +171,7 @@ public class MemberController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("message", "유저를 찾을 수 없습니다."));
         }
     }
-    }
+}
 
 
 

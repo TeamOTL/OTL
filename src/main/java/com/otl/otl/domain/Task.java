@@ -3,8 +3,6 @@ package com.otl.otl.domain;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalDateTime;
-
 @Getter
 @Entity
 @Builder
@@ -19,9 +17,6 @@ public class Task {
     @ManyToOne
     @JoinColumn(name = "sno")
     private Study study; // study테이블 스터디 외래키
-
-    @Column
-    private int taskWeek; // 스터디 회의록 주 차
 
     @Column
     private String taskTitle; // 스터디 회의록 주제
@@ -43,10 +38,6 @@ public class Task {
 
     @Column
     private boolean isCompleted; // 스더티 회의록 주 차완료 여부
-
-    @Column
-    private String planDate; // 스터디 예정일
-
 
 
 }

@@ -28,10 +28,20 @@
     <!-- Custom styles for this template -->
     <link th:href="@{css/sb-admin-2.min.css}" rel="stylesheet"/>
 
-    <style></style>
 </head>
-
+<style>
+    #todolistContainer {
+        right: -100%;
+        z-index: 1;
+        transition: right 0.5s ease-in;
+    }
+    #todolistContainer.show {
+        right: 5%;
+        transition: right 0.5s ease-out;
+    }
+</style>
 <body id="page-top">
+
 <!-- Page Wrapper -->
 <div id="wrapper">
     <custom-sidebar></custom-sidebar>
@@ -47,28 +57,69 @@
             <!-- container fluid -->
             <div class="container-fluid">
 
-                <div class="row justify-content-between gap-3 ">
+                <div class="row justify-content-center gap-3 h-600 ">
                     <!-- 캘린더 -->
-                    <div id="calendar" class="col bg-white p-3 rounded"></div>
+                    <div id="calendar"
+                         class="col-lg-8 bg-white p-3 rounded fc fc-media-screen fc-direction-ltr fc-theme-standard"></div>
                     <!-- 캘린더 end-->
-                </div>
-                <div class="row m-3">
-                    <div class="col bg-white shadow-lg rounded" id="todolist">
-                        <h4 class="h4">TodoList</h4>
-                        <form>
-                            <label class="row justify-content-between gap-3 m-2">
-                                <input class="col col-form-label form-control" type="text"
-                                       placeholder="할 일 입력" name="todoTitle" id="todoTitle">
-                                <button class="btn btn-facebook col-auto" onclick="submitTodo(event)">+</button>
-                            </label>
-                            <label class="row justify-content-center ">
-                                <input type="date" class="col form-control input-group" name="startDate" id="startDate">~
-                                <input type="date" class="col form-control input-group" name="endDate" id="endDate">
-                            </label>
-                        </form>
-                        <ul class="list-group-horizontal" id="todoListUl">
-                        </ul>
+                    <div class="col-auto">
+                        <button id="todolistPopup" class="btn border btn-facebook shadow-lg p-3 mb-5 ">👈TodoList</button>
                     </div>
+
+
+                    <div id="todolistContainer" class="row position-absolute col-lg-6 col-md-6 col-sm-3 fade d-none">
+                        <!--                    todoList Start -->
+                        <div class="bg-white shadow-lg rounded" id="todolist">
+                            <div class="row justify-content-center">
+                                <h4 class="h4 p-4 col">TodoList</h4>
+                                <h4 class="h4 p-4 col-auto">
+                                    <button type="button" id="todolistExit" class="btn btn-danger col-auto">X</button>
+                                </h4>
+                            </div>
+                            <form>
+                                <label class="row justify-content-between gap-3 m-2">
+                                    <input class="col col-form-label form-control" type="text"
+                                           placeholder="할 일 입력" name="todoTitle" id="todoTitle">
+                                    <button class="btn btn-facebook col-auto" onclick="submitTodo(e)">+</button>
+                                </label>
+                                <label class="row justify-content-center gap-5">
+                                    <input type="date" class="col-lg-4 col-sm-3 col-md-3  form-control input-group"
+                                           name="startDate" id="startDate">~
+                                    <input type="date" class="col-lg-4 col-sm-3 col-md-3 form-control input-group"
+                                           name="endDate" id="endDate">
+                                </label>
+                                <hr class="border border-dark">
+                            </form>
+                            <ul class="list-group" id="todoListUl">
+                            </ul>
+                        </div>
+                    </div>
+                    <script>
+                        //timeout many click Exception
+                        let todolistPopupTimeout, todolistExitTimeout;
+
+                        document.getElementById("todolistPopup").addEventListener("click", () => {
+                            const todolistContainer = document.getElementById("todolistContainer");
+                            clearTimeout(todolistExitTimeout);
+                            todolistContainer.classList.remove("fade","d-none");
+                            todolistPopupTimeout = setTimeout(()=>{
+                                todolistContainer.classList.add("show");
+                            },0);
+                        });
+                        document.getElementById("todolistExit").addEventListener("click", () => {
+                            const todolistContainer = document.getElementById("todolistContainer");
+                            clearTimeout(todolistPopupTimeout);
+                            todolistExitTimeout = setTimeout(()=>{
+                                todolistContainer.classList.remove("show");
+                            },0);
+                            todolistExitTimeout = setTimeout(()=>{
+                                todolistContainer.classList.add("fade","d-none");
+                            },600);
+
+
+                        });
+
+                    </script>
                 </div>
                 <script th:inline="javascript"> //todolist script
                 // const email = "[[${email}]]";
@@ -81,9 +132,9 @@
                 });
 
                 // todo button onclick Event
-                function submitTodo(event) {
+                function submitTodo(e) {
                     alert("할 일 리스트에 업로드 되었습니다.");
-                    event.preventDefault(); //새로고침 방지
+                    e.preventDefault(); //새로고침 방지
                     const todoTitle = document.getElementById("todoTitle").value;
                     const startDate = document.getElementById("startDate").value;
                     const endDate = document.getElementById("endDate").value;
@@ -104,14 +155,15 @@
                         .then(data => {
                             addTodoList(data);
                             //입력값 초기화
-                            document.getElementById('todoTitle'.value = '');
-                            document.getElementById('startDate'.value = '');
-                            document.getElementById('endDate'.value = '');
+                            document.getElementById('todoTitle').value = '';
+                            document.getElementById('startDate').value = '';
+                            document.getElementById('endDate').value = '';
+
+                            fetchAllTodos();
                         })
                         .catch(error => {
                             console.error("Error :", error);
-                        })
-                        .finally(()=>{fetchAllTodos()}); //성공 여부 상관 없이 캘린더재 호출
+                        });
                 }
 
                 // add todo
@@ -119,7 +171,8 @@
                     const todoList = document.getElementById('todoListUl');
                     const listItem = document.createElement('li');
 
-                    listItem.className = 'justify-content-between m-1 row border border-gray p-2';
+                    listItem.className = 'justify-content-between m-1 row shadow p-3 mb-2 bg-body rounded';
+                    listItem.setAttribute('id', `todo-${todo.toNo}`);
                     listItem.innerHTML = `
                             <div class="col">
                                 <strong class="row">${todo.todolistContent}</strong>
@@ -127,8 +180,7 @@
                             </div>
                             <div class="col-auto">
                                 <button id="todoDelete" name="${todo.toNo}" onclick="deleteTodo(${todo.toNo})" class="col btn btn-danger">x</button>
-                            </div>
-                    `;
+                            </div>`;
                     todoList.appendChild(listItem);
                 }
 
@@ -140,47 +192,55 @@
                     })
                         .then(response => response.json())
                         .then(todos => {
+                            const todoList = document.getElementById('todoListUl');
+                            todoList.innerHTML = '';
+
                             todos.forEach(addTodoList);
 
-                            cTodos = todos.map(data => ({
-                                title: data.todolistContent,
-                                start: data.todoStartDate,
-                                end: data.todoEndDate,
-                                backgroundColor: 'green',
-                                borderColor: 'green'
-                            }));
+                            cTodos = todos.map(data => {
+                                let endDate = new Date(data.todoEndDate);
+                                endDate.setDate(endDate.getDate() + 1); // Adjust end date by +1 day
+
+                                return {
+                                    title: data.todolistContent,
+                                    start: data.todoStartDate,
+                                    end: endDate.toISOString().split('T')[0], // Format back to 'YYYY-MM-DD'
+                                    backgroundColor: 'green',
+                                    borderColor: 'green'
+                                };
+                            });
+
+                            calendars(cTodos);
 
                         })
                         .catch(error => {
                             console.error("Error :", error)
-                        })
-                        .finally(() => {calendars(cTodos);}); // 유저가 입력한 todoList
+                        });
                 }
 
+                // myStrudy
+                // function fetchAllMyStudy() {
+                //     fetch(`/api/todolists`, {
+                //         method: 'GET',
+                //         headers: {'Content-Type': 'application/json'}
+                //     })
+                //         .then(response => response.json())
+                //         .then(todos => {
+                //             todos.forEach(addTodoList);
                 //
-                function fetchAllMyStudy() {
-                    fetch(`/api/todolists`, {
-                        method: 'GET',
-                        headers: {'Content-Type': 'application/json'}
-                    })
-                        .then(response => response.json())
-                        .then(todos => {
-                            todos.forEach(addTodoList);
-
-                            cTodos = todos.map(data => ({
-                                title: data.todolistContent,
-                                start: data.todoStartDate,
-                                end: data.todoEndDate,
-                                backgroundColor: 'blue',
-                                borderColor: 'blue'
-                            }));
-
-                        })
-                        .catch(error => {
-                            console.error("Error :", error)
-                        })
-                        .finally(() => {calendars(aaa);}); // 유저가 입력한 todoList
-                }
+                //             cTodos = todos.map(data => ({
+                //                 title: data.todolistContent,
+                //                 start: data.todoStartDate,
+                //                 end: data.todoEndDate,
+                //                 backgroundColor: 'blue',
+                //                 borderColor: 'blue'
+                //             }));
+                //             calendars();
+                //         })
+                //         .catch(error => {
+                //             console.error("Error :", error)
+                //         })
+                // }
 
                 // 삭제 요청
                 function deleteTodo(toNo) {
@@ -188,8 +248,15 @@
                         method: 'DELETE',
                         headers: {'Content-Type': 'application/json'}
                     })
-                        .then(response => response.json())
-                        .then(fetchAllTodos())
+                        // .then(response => response.json())
+                        .then(() => {
+                            // 삭제된 항목을 목록에서 제거
+                            const todoItem = document.getElementById(`todo-${toNo}`);
+                            if (todoItem) {
+                                todoItem.remove();
+                                fetchAllTodos();
+                            }
+                        })
                         .catch(error => console.error("Error : " + error));
                 }
 
@@ -204,7 +271,7 @@
                 }
 
                 </script>
-                <button type="button" class="btn-facebook" data-target="#todoListModal" data-toggle="modal">+</button>
+                <!--                <button type="button" class="btn-facebook" data-target="#todoListModal" data-toggle="modal">+</button>-->
             </div> <!--row end -->
             <custom-todo-list></custom-todo-list>
             <!-- End of Page Wrapper -->
