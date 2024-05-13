@@ -25,7 +25,7 @@ public class MemberStudy {
 
     @Column
     @Builder.Default
-    private boolean isAccepted = false;     //참가 상태 (참가중, 대기중)
+    private boolean isAccepted = true;     //참가 상태 (참가중, 대기중)
 
     @Column
     @Builder.Default
