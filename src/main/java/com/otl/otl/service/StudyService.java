@@ -53,4 +53,10 @@ public interface StudyService {
     List<StudyListDTO> getAllStudyJoin();
 
     List<Study> getAllStudyJoin2();
+
+
+    Study getStudyById(Long sno);
+
+    // 추가된 메서드
+    List<Study> findUserStudies(String email);
 }

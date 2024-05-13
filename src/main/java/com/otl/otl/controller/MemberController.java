@@ -42,6 +42,13 @@ public class MemberController {
         return "index";
     }
 
+    @GetMapping("/studyJoin")
+    public String studyJoin(){ return "studyJoin";
+    }
+
+    @GetMapping("/studyRoom_yu")
+    public String studyRoom_yu(){ return "studyRoom_yu"; }
+
 
     //    @ApiOperation(value = "title POTS/GET", notes = "내용")
     @GetMapping("/dashBoard")
@@ -117,20 +124,15 @@ public class MemberController {
     @ResponseBody
     public Map<String, String> getUserInfo(@AuthenticationPrincipal OAuth2User oauthUser) {
         Map<String, Object> kakaoAccount = oauthUser.getAttribute("kakao_account");
+        Map<String, Object> profile = (Map<String, Object>) kakaoAccount.get("profile");
+
+
+        String nickname = (String) profile.get("nickname");
         String email = (String) kakaoAccount.get("email");
+        String memberProfileImage = (String) profile.get("profile_image_url");
 
         Member member = memberService.findByEmail(email); // 회원 정보 조회
-        String nickname = member.getNickname();
-        String memberDescription = member.getMemberDescription();
-        String memberProfileImage = null;
-
-        if (member.getMemberProfileImage() != null) {
-            memberProfileImage = "data:image/png;base64," + Base64.getEncoder().encodeToString(member.getMemberProfileImage());
-        } else {
-            Map<String, Object> profile = (Map<String, Object>) kakaoAccount.get("profile");
-            memberProfileImage = (String) profile.get("profile_image_url");
-        }
-
+        String memberDescription = (member != null) ? member.getMemberDescription() : "";
 
         Map<String, String> userInfo = new HashMap<>();
         userInfo.put("nickname", nickname);
@@ -153,7 +155,7 @@ public class MemberController {
             member.setMemberDescription(userInfo.get("memberDescription"));
 
             String profileImageData = userInfo.get("profileImage");
-            if (profileImageData != null && !profileImageData.isEmpty()) {
+            if (profileImageData != null && !profileImageData.isEmpty() && profileImageData.startsWith("data:image")) {
                 try {
                     String[] parts = profileImageData.split(",");
                     if (parts.length == 2) {
@@ -163,7 +165,7 @@ public class MemberController {
                         throw new IllegalArgumentException("잘못된 프로필 이미지 형식입니다");
                     }
                 } catch (IllegalArgumentException e) {
-                    log.error("Error decoding profile image", e);
+                    log.error("프로필 이미지 디코딩 오류", e);
                     return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("message", "프로필 이미지 디코딩 오류"));
                 }
             }
@@ -174,6 +176,7 @@ public class MemberController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("message", "유저를 찾을 수 없습니다."));
         }
     }
+
 
     @GetMapping("/studyjoin")
     public String studyJoin(@AuthenticationPrincipal OAuth2User oauthUser, Model model) {

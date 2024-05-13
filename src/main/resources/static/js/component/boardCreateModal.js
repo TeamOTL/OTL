@@ -6,10 +6,27 @@ class boardCreateModal extends HTMLElement {
      *
      */
     connectedCallback() {
-        const nickname = this.getAttribute('data-nickname');
-        const memberProfileImage = this.getAttribute('data-profile-image');
-        const email = this.getAttribute('data-email');
+        this.fetchUserInfo();
+    }
 
+    async fetchUserInfo() {
+        try {
+            const response = await fetch('/api/user');
+            if (!response.ok) {
+                throw new Error('사용자 정보를 가져오는데 실패 했습니다.');
+            }
+            const user = await response.json();
+            console.log('Nickname:', user.nickname);
+            console.log('MemberProfileImage:', user.profileImage);
+            console.log('Email:', user.email);
+
+            this.render(user.nickname, user.profileImage, user.email);
+        } catch (error) {
+            console.error('에러:', error);
+        }
+    }
+
+    render(nickname, memberProfileImage, email) {
         this.innerHTML = `
             <!-- The Modal -->
             <!-- 게시글 작성 모달 -->

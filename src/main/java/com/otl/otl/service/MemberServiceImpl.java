@@ -2,13 +2,16 @@ package com.otl.otl.service;
 
 import com.otl.otl.domain.Member;
 import com.otl.otl.repository.MemberRepository;
+import groovy.util.logging.Log4j2;
 import jakarta.transaction.Transactional;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.Base64;
 import java.util.Optional;
 
 @Service
+@Slf4j
 public class MemberServiceImpl implements MemberService{
     private final MemberRepository memberRepository;
 
@@ -45,8 +48,8 @@ public class MemberServiceImpl implements MemberService{
                         throw new IllegalArgumentException("잘못된 프로필 이미지 형식입니다");
                     }
                 } catch (IllegalArgumentException e) {
-                    // Log the error or handle it according to your application's requirements
-                    e.printStackTrace();
+                    log.error("프로필 이미지 디코딩 오류", e);
+                    throw e;
                 }
             }
             }

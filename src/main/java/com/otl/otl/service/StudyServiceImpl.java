@@ -3,6 +3,7 @@ package com.otl.otl.service;
 import com.otl.otl.domain.*;
 import com.otl.otl.dto.*;
 import com.otl.otl.repository.CategoryRepository;
+import com.otl.otl.repository.MemberStudyRepository;
 import com.otl.otl.repository.StudyRepository;
 import com.otl.otl.repository.TaskRepository;
 import jakarta.transaction.Transactional;
@@ -23,6 +24,12 @@ import java.util.stream.Collectors;
 @Transactional
 public class StudyServiceImpl implements StudyService {
     private final ModelMapper modelMapper;
+    private  final CategoryRepository categoryRepository;
+    private final StudyRepository studyRepository;
+    private final TaskRepository taskRepository;
+    private final MemberStudyService memberStudyService;
+
+    private final MemberStudyRepository memberStudyRepository;
 
     @Override
     public List<StudyListDTO> getAllStudyJoin() {
@@ -30,9 +37,7 @@ public class StudyServiceImpl implements StudyService {
     }
 //    private final StudyListDTOConverter studyListDTOConverter;
 
-    private  final CategoryRepository categoryRepository;
-    private final StudyRepository studyRepository;
-    private final TaskRepository taskRepository;
+
 //
 //        public StudyListDTO toDTO(Study study) {
 //            // StudyListDTO 객체 생성
@@ -110,8 +115,6 @@ public class StudyServiceImpl implements StudyService {
     @Override
     public Long addStudy(StudyDTO studyDTO) {
 
-
-
         // BoardDTO를 Board 엔티티로 변환
         Study study = Study.builder()
                 .studyName(studyDTO.getStudyName())
@@ -175,4 +178,19 @@ public class StudyServiceImpl implements StudyService {
     public List<Study> getAllStudyJoin2() {
         return studyRepository.findAllByCurDate();
     }
+
+    @Override
+    public Study getStudyById(Long sno) {
+        return studyRepository.findById(sno).orElse(null);
+    }
+
+    @Override
+    public List<Study> findUserStudies(String email) {
+        List<MemberStudy> memberStudies = memberStudyRepository.findByMemberEmail(email);
+        return memberStudies.stream()
+                .map(MemberStudy::getStudy)
+                .collect(Collectors.toList());
+    }
+
+
 }
