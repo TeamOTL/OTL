@@ -33,5 +33,11 @@ public class Member {
     @Column
     private String memberDescription; // 회원 자기 소개
 
+    @OneToMany(mappedBy = "member",
+            cascade = {CascadeType.ALL}
+            , fetch = FetchType.LAZY)
+    @Builder.Default
+    private List<Interests> interests = new ArrayList<>();
+
 
 }

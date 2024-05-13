@@ -4,6 +4,7 @@ import com.otl.otl.domain.Member;
 import com.otl.otl.dto.BoardDTO;
 import com.otl.otl.service.BoardService;
 import com.otl.otl.service.MemberService;
+import com.otl.otl.service.StudyService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,11 +28,13 @@ public class MemberController {
 
     private final MemberService memberService;
     private final BoardService boardService;
+    private final StudyService studyService;
 
     @Autowired
-    public MemberController(MemberService memberService, BoardService boardService) {
+    public MemberController(MemberService memberService, BoardService boardService, StudyService studyService) {
         this.memberService = memberService;
         this.boardService = boardService;
+        this.studyService = studyService;
     }
 
     @GetMapping("/")
@@ -170,6 +173,27 @@ public class MemberController {
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("message", "유저를 찾을 수 없습니다."));
         }
+    }
+
+    @GetMapping("/studyjoin")
+    public String studyJoin(@AuthenticationPrincipal OAuth2User oauthUser, Model model) {
+        Map<String, Object> kakaoAccount = oauthUser.getAttribute("kakao_account");
+        Map<String, Object> profile = (Map<String, Object>) kakaoAccount.get("profile");
+
+        String nickname = (String) profile.get("nickname");
+        String email = (String) kakaoAccount.get("email");
+        String memberProfileImage = (String) profile.get("profile_image_url");
+
+        // memberService.registerOrUpdateMember 메소드가 Member 객체를 반환하도록 하고, 해당 객체를 사용합니다.
+        Member member = memberService.registerOrUpdateMember(nickname, email, memberProfileImage);
+
+        //모델에 사용자 정보 추가
+        model.addAttribute("nickname", nickname);
+        model.addAttribute("email", email);
+        model.addAttribute("memberProfileImage", memberProfileImage);
+
+
+        return "studyjoin";  // main.html 템플릿을 반환
     }
 }
 
