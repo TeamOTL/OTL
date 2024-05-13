@@ -181,15 +181,16 @@ class boardReadModal extends HTMLElement {
                     success: function (response) {
                         // 서버에서 받은 응답을 처리하는 부분
                         console.log("수정 내용이 성공적으로 저장되었습니다.");
+                        location.reload();
 
                         // 게시글 입력 필드를 다시 readonly로 변경
-                        document.getElementById("boardTitle").readOnly = true;
-                        document.getElementById("boardContent").readOnly = true;
+                        //document.getElementById("boardTitle").readOnly = true;
+                        //document.getElementById("boardContent").readOnly = true;
 
                         // 저장하기 버튼과 삭제하기 버튼 숨기기
-                        document.getElementById("boardModifyBtn").style.display = "inline-block";
-                        boardModifyFinishBtn.style.display = "none";
-                        document.getElementById("boardDeleteBtn").style.display = "none";
+                        //document.getElementById("boardModifyBtn").style.display = "inline-block";
+                        //boardModifyFinishBtn.style.display = "none";
+                        //document.getElementById("boardDeleteBtn").style.display = "none";
                     },
                     error: function (xhr, status, error) {
                         console.error("수정 내용을 저장하는데 실패했습니다: ", error);
@@ -201,35 +202,43 @@ class boardReadModal extends HTMLElement {
 
         // 3: 게시글 삭제
         // 삭제하기 버튼 클릭 시
-        // const boardDeleteBtn = this.querySelector("#boardDeleteBtn");
-        // boardDeleteBtn.addEventListener("click", () => {
-        //     // 사용자에게 확인 메시지 표시
-        //     if (confirm("정말로 삭제하시겠습니까?")) {
-        //
-        //         // 확인 버튼을 눌렀을 때
-        //         // AJAX를 통해 게시글을 서버에서 삭제
-        //         $.ajax({
-        //             type: 'POST',
-        //             url: '/api/deletedBoard',
-        //             data: {
-        //                 bno: bno
-        //             },
-        //             success: function (response) {
-        //                 // 서버에서 받은 응답을 처리하는 부분
-        //                 console.log("게시글이 성공적으로 삭제되었습니다.");
-        //                 // 모달 닫기
-        //                 $("#boardReadModal-" + bno).modal("hide");
-        //             },
-        //             error: function (xhr, status, error) {
-        //                 console.error("게시글 삭제 중 에러가 발생했습니다: ", error);
-        //                 // 에러 처리 부분
-        //             }
-        //         });
-        //     } else {
-        //         // 취소 버튼을 눌렀을 때
-        //         alert("삭제가 취소되었습니다.");
-        //     }
-        // });
+        const boardDeleteBtn = this.querySelector("#boardDeleteBtn");
+        boardDeleteBtn.addEventListener("click", () => {
+
+            // 삭제할 데이터를 객체에 담기
+            const deleteData = {
+                bno: bno
+            };
+
+            // 사용자에게 확인 메시지 표시
+            const confirmDelete = confirm("정말로 삭제하시겠습니까?");
+
+            console.log("게시글이 삭제될 예정입니다.");
+
+            if (confirmDelete) {
+
+                // 확인 버튼을 눌렀을 때
+                // AJAX를 통해 게시글을 서버에서 삭제
+                $.ajax({
+                    type: 'POST',
+                    url: '/api/deleteBoard',
+                    contentType: 'application/json', // 데이터 형식을 JSON으로 설정
+                    data: JSON.stringify(deleteData), // JSON 형식으로 데이터 전송
+                    success: function (response) {
+                        alert("삭제가 완료되었습니다.");
+                        location.reload();
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("게시글 삭제 중 에러가 발생했습니다: ", error);
+                        console.error("상태 코드: ", status);
+                        console.error("XHR 객체: ", xhr);
+                    }
+                });
+            } else {
+                // 취소 버튼을 눌렀을 때
+                alert("삭제가 취소되었습니다.");
+            }
+        });
 
 
         // 4. 취소 버튼 클릭 시
@@ -249,36 +258,6 @@ class boardReadModal extends HTMLElement {
             boardTitleInput.value = originalTitle;
             boardContentTextarea.value = originalContent;
         });
-
-        // 2 : 게시글 수정 모달창로 화면 전환
-        // const modalContent = this; // 모달 요소 자체에 이벤트를 붙여야 함
-        //
-        // // 수정하기 버튼 클릭 시
-        // modalContent.querySelector('#boardModifyBtn').addEventListener('click', function () {
-        //     console.log("수정 버튼이 클릭되었습니다.");
-        //
-        //     const bno = modalContent.getAttribute('board.bno'); // 게시글 번호 확인
-        //
-        //     // 현재 열려 있는 조회 모달을 닫음
-        //     $('#boardReadModal-' + bno).modal('hide');
-        //
-        //     // 게시글 정보를 수정 모달에 전달
-        //     const modifyModal = document.querySelector('custom-board-modify-modal');
-        //     modifyModal.setAttribute('board-bno', bno); // 게시글 번호
-        //     modifyModal.setAttribute('board-boardTitle', boardTitle); // 제목
-        //     modifyModal.setAttribute('board-boardContent', boardContent); // 내용
-        //     modifyModal.setAttribute('board-nickname', nickname); // 작성자
-        //     modifyModal.setAttribute('board-memberProfileImage', memberProfileImage); // 작성자 프로필 이미지
-        //     modifyModal.setAttribute('board-regDate', regDate); // 작성일
-        //     modifyModal.setAttribute('board-modDate', modDate); // 수정일
-        //
-        //     console.log("수정할 게시글 번호:", bno);
-        //     console.log("수정 모달 ID:", '#boardModifyModal-' + bno); // 모달 ID 확인
-        //
-        //     // 게시글 수정 모달창 open
-        //     $('#boardModifyModal-' + bno).modal('show');
-        //     console.log("게시글 수정 모달창 open되었습니다.");
-        // });
     }
 }
 

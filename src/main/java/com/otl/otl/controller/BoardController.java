@@ -102,4 +102,22 @@ public class BoardController {
         // 수정된 데이터를 클라이언트에게 반환
         return ResponseEntity.ok().body(boardDTO);
     }
+
+    @PostMapping("/deleteBoard")
+    public ResponseEntity<Void> deleteBoard(@RequestBody BoardDTO boardDTO) {
+        // 클라이언트에서 보낸 삭제 처리된 게시글의 번호를 가져옴
+        Long bno = boardDTO.getBno();
+
+        // BoardServiceImpl에서 is_deleted 가 true가 된 상황
+
+        // 게시글 삭제 시도 로깅
+        log.info("게시글 삭제 시도 : {}", bno);
+
+        boardService.remove(bno);
+
+        log.info("게시글이 성공적으로 삭제되었습니다. 게시글 ID: {}", bno);
+
+        // 수정된 데이터를 클라이언트에게 반환
+        return ResponseEntity.ok().build();
+    }
 }
