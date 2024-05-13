@@ -70,7 +70,7 @@ public class MemberController {
         model.addAttribute("memberProfileImage", memberProfileImage);
 
 
-        return "dashBoard";  // main.html 템플릿을 반환
+        return "dashBoard";  // dashBoard.html 템플릿을 반환
     }
 
     @PostMapping("/delete-account")
@@ -125,14 +125,20 @@ public class MemberController {
     @ResponseBody
     public Map<String, String> getUserInfo(@AuthenticationPrincipal OAuth2User oauthUser) {
         Map<String, Object> kakaoAccount = oauthUser.getAttribute("kakao_account");
-        Map<String, Object> profile = (Map<String, Object>) kakaoAccount.get("profile");
-
-        String nickname = (String) profile.get("nickname");
         String email = (String) kakaoAccount.get("email");
-        String memberProfileImage = (String) profile.get("profile_image_url");
 
         Member member = memberService.findByEmail(email); // 회원 정보 조회
-        String memberDescription = (member != null) ? member.getMemberDescription() : "";
+        String nickname = member.getNickname();
+        String memberDescription = member.getMemberDescription();
+        String memberProfileImage = null;
+
+        if (member.getMemberProfileImage() != null) {
+            memberProfileImage = "data:image/png;base64," + Base64.getEncoder().encodeToString(member.getMemberProfileImage());
+        } else {
+            Map<String, Object> profile = (Map<String, Object>) kakaoAccount.get("profile");
+            memberProfileImage = (String) profile.get("profile_image_url");
+        }
+
 
         Map<String, String> userInfo = new HashMap<>();
         userInfo.put("nickname", nickname);

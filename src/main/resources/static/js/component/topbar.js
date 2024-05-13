@@ -1,11 +1,25 @@
 class topbar extends HTMLElement {
 
     connectedCallback() {
+        this.fetchUserInfo();
+    }
 
-        console.log('Nickname:', this.getAttribute('data-nickname'));
-        console.log('MemberProfileImage:', this.getAttribute('data-profile-image'));
+    async fetchUserInfo() {
+        try {
+            const response = await fetch('/api/user');
+            if (!response.ok) {
+                throw new Error('사용자 정보를 가져오는데 실패 했습니다.');
+            }
+            const user = await response.json();
+            console.log('Nickname:', user.nickname);
+            console.log('MemberProfileImage:', user.profileImage);
 
-        this.render();
+            this.setAttribute('data-nickname', user.nickname);
+            this.setAttribute('data-profile-image', user.profileImage);
+            this.render();
+        } catch (error) {
+            console.error('에러:', error);
+        }
     }
 
     render(){
