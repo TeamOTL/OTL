@@ -11,7 +11,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const user = await response.json();
             // 사용자 정보를 커스텀 컴포넌트에 설정
             settingModalElement.setUserInfo(user.nickname, user.profileImage, user.email, user.memberDescription);
-            console.log('사용자 정보 불러오기 성공:', user);
         } catch (error) {
             console.error('에러:', error);
         }
@@ -19,10 +18,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
     fetchUserInfo();
 });
+
 class settingModal extends HTMLElement {
     connectedCallback() {
+        // Cropper.js CSS 및 JS 동적 추가
+        const cropperCssLink = document.createElement('link');
+        cropperCssLink.rel = 'stylesheet';
+        cropperCssLink.href = 'https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css';
+        document.head.appendChild(cropperCssLink);
 
+        const cropperJsScript = document.createElement('script');
+        cropperJsScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js';
 
+        // Cropper.js 로드 완료 후에 실행
+        cropperJsScript.onload = () => {
+            console.log('Cropper.js 로드됨');
+            this.initializeModal();
+        };
+        document.head.appendChild(cropperJsScript);
+    }
+
+    initializeModal() {
         // Modal HTML을 설정
         this.innerHTML = `
             <style>
@@ -36,9 +52,9 @@ class settingModal extends HTMLElement {
                 height: 50px;
             }
             #selectedCategories {
-                    display: flex;
-                    flex-wrap: wrap;
-                    gap: 5px;
+                display: flex;
+                flex-wrap: wrap;
+                gap: 5px;
             }
             .category-item {
                 display: inline-flex;
@@ -49,8 +65,6 @@ class settingModal extends HTMLElement {
                 margin: 5px;
                 font-size: 14px;
                 color: white;
-                
-                
             }
             .category-item .remove-btn {
                 margin-left: 8px;
@@ -58,99 +72,94 @@ class settingModal extends HTMLElement {
                 color: red;
             }
             .cropper-container {
-                    display: none;
-                    position: absolute;
-                    top: 50%;
-                    left: 50%;
-                    transform: translate(-50%, -50%);
-                    z-index: 1050;
-                    background-color: white;
-                    padding: 20px;
-                    border-radius: 10px;
-                }
-                
-            div#cropperContainer{
-            display: none;
-            }    
-                .cropper-container img {
-                    max-width: 100%;
-                }
-                .cropper-buttons {
-                    text-align: center;
-                    margin-top: 10px;
-                }
-<<<<<<< Updated upstream
-=======
-                
-                
->>>>>>> Stashed changes
+                display: block;
+                position: fixed;
+                top: 30%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                z-index: 1050;
+                background-color: white;
+                padding: 20px;
+                border-radius: 10px;
+                box-shadow: 0px 0px 15px rgba(0,0,0,0.5);
+            }
+            div#cropperContainer {
+                display: none;
+            }
+            .cropper-container img {
+                max-width: 100%;
+            }
+            .cropper-buttons {
+                text-align: center;
+                margin-top: 10px;
+            }
             </style>
-            <div class="modal fade" id="settingModal" tabindex="-1" role="dialog"
-                    aria-labelledby="settingModalLabel" aria-hidden="true" data-backdrop="static" style="color:black;">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h4 class="modal-title" id="settingLabel">나의 정보</h4>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <form id="userForm">
-                                <div class="modal-body">
-                                    <div class="rounded p-2" style="background-color: silver;">
-                                        <div class="profile-container d-flex align-items-center justify-content-between">
-                                            <img id="profileImage" alt="프로필 이미지" class="rounded-circle">
-                                            <span id="profileNickname"></span>
-                                            <div>
-                                                <input type="file" id="profileImageInput" accept="image/*" style="display: none;">
-                                                <button type="button" class="btn btn-primary" id="changeImageBtn">이미지 변경</button>
-                                            </div>
+            <div class="modal fade" id="settingModal" tabindex="-1" role="dialog" aria-labelledby="settingModalLabel" aria-hidden="true" data-backdrop="static" style="color:black;">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="settingLabel">나의 정보</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <form id="userForm">
+                            <div class="modal-body">
+                                <div class="rounded p-2" style="background-color: silver;">
+                                    <div class="profile-container d-flex align-items-center justify-content-between">
+                                        <img id="profileImage" alt="프로필 이미지" class="rounded-circle">
+                                        <span id="profileNickname"></span>
+                                        <div>
+                                            <input type="file" id="profileImageInput" accept="image/*" style="display: none;">
+                                            <button type="button" class="btn btn-primary" id="changeImageBtn">이미지 변경</button>
                                         </div>
                                     </div>
-                                    <br>
-                                    <h6>닉네임</h6>
-                                    <input type="text" id="nicknameInput" class="form-control rounded mr-3">
-                                    <br>
-                                    <h6>관심 분야</h6>
-                                    <select class="form-select rounded" aria-label="Default select example" style="width: 100%;" id="mySelect">
-                                        <option selected disabled>카테고리</option>
-                                        <option value="1">자바</option>
-                                        <option value="2">리눅스</option>
-                                        <option value="3">김강현</option>
-                                    </select>
-                                    <div id="selectedCategories" class="category-container"></div>
-                                    
-                                    <br>
-                                                                      
-                                    <br>
-                                    <h6>한 줄 자기소개</h6>
-                                    <input type="text" id="introInput" class="form-control rounded mr-3" placeholder="최대 15글자 이하입니다.">
-                                    <br>
-                                    <h6>자기 소개</h6>
-                                    <input type="text" id="descriptionInput" class="form-control rounded mr-3" placeholder="자기소개를 입력하세요.">
                                 </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-danger" id="logoutBtn">로그아웃</button>
-                                    <button type="submit" class="btn btn-success">수정 완료</button>
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
-                                </div>
-                            </form>
-                        </div>
+                                <br>
+                                <h6>닉네임</h6>
+                                <input type="text" id="nicknameInput" class="form-control rounded mr-3">
+                                <br>
+                                <h6>관심 분야</h6>
+                                <select class="form-select rounded" aria-label="Default select example" style="width: 100%;" id="mySelect">
+                                    <option selected disabled>카테고리</option>
+                                    <option value="1">자바</option>
+                                    <option value="2">리눅스</option>
+                                    <option value="3">김강현</option>
+                                </select>
+                                <div id="selectedCategories" class="category-container"></div>
+                                <br>
+                                
+                                <br>
+                                <h6>자기 소개</h6>
+                                <input type="text" id="descriptionInput" class="form-control rounded mr-3" placeholder="자기소개를 입력하세요.">
+                                <br>
+                                <br>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" id="logoutBtn">로그아웃</button>
+                                <button type="submit" class="btn btn-success">수정 완료</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
-                <div class="cropper-container" id="cropperContainer">
+            </div>
+            <div class="cropper-container" id="cropperContainer">
+                <div class="cropper-header">이미지 크롭</div>
                 <img id="cropperImage" src="">
                 <div class="cropper-buttons">
                     <button type="button" class="btn btn-success" id="cropBtn">자르기</button>
                     <button type="button" class="btn btn-danger" id="cancelCropBtn">취소</button>
                 </div>
             </div>
-            `;
+        `;
+
         let cropper;
 
         // 이미지 변경 버튼 클릭 시 파일 입력 클릭
         this.querySelector('#changeImageBtn').addEventListener('click', () => {
             this.querySelector('#profileImageInput').click();
+            console.log('이미지 변경 버튼 클릭됨');
         });
 
         // 이미지 파일이 선택되면 미리보기와 업로드 준비
@@ -163,12 +172,30 @@ class settingModal extends HTMLElement {
                     cropperImage.src = e.target.result;
                     this.querySelector('#cropperContainer').style.display = 'block';
 
+                    console.log('이미지 파일 선택됨');
+
                     if (cropper) {
                         cropper.destroy();
+                        console.log('기존 크로퍼 삭제됨');
                     }
                     cropper = new Cropper(cropperImage, {
                         aspectRatio: 1,
                         viewMode: 1,
+                        autoCropArea: 1,
+                        responsive: true,
+                        background: false,
+                        cropBoxResizable: true,
+                        movable: true,
+                        zoomable: true,
+                        rotatable: true,
+                        scalable: true,
+                        ready() {
+                            console.log('크로퍼 초기화됨');
+                            cropperImage.classList.remove('cropper-hidden');
+                        },
+                        crop(event) {
+                            console.log('크롭 이벤트:', event.detail);
+                        }
                     });
                 };
                 reader.readAsDataURL(file);
@@ -177,69 +204,69 @@ class settingModal extends HTMLElement {
 
         // 크롭 버튼 클릭 시 크롭된 이미지 설정
         this.querySelector('#cropBtn').addEventListener('click', () => {
-            const canvas = cropper.getCroppedCanvas({
-                width: 200,
-                height: 200,
-            });
-            const profileImage = this.querySelector('#profileImage');
-            profileImage.src = canvas.toDataURL();
-            this.querySelector('#cropperContainer').style.display = 'none';
+            if (cropper) {
+                const canvas = cropper.getCroppedCanvas({
+                    width: 200,
+                    height: 200,
+                });
+                const profileImage = this.querySelector('#profileImage');
+                profileImage.src = canvas.toDataURL();
+                this.querySelector('#cropperContainer').style.display = 'none';
+                console.log('이미지 크롭 및 설정 완료');
+            } else {
+                console.error('크로퍼가 초기화되지 않음');
+            }
         });
 
         // 크롭 취소 버튼 클릭 시 크롭 취소
         this.querySelector('#cancelCropBtn').addEventListener('click', () => {
             this.querySelector('#cropperContainer').style.display = 'none';
-            cropper.destroy();
+            if (cropper) {
+                cropper.destroy();
+                console.log('크로퍼 삭제됨');
+            }
         });
-
 
         // 폼 제출 이벤트 리스너 추가
         this.querySelector('#userForm').addEventListener('submit', async (event) => {
             event.preventDefault();
             const nickname = this.querySelector('#nicknameInput').value;
-            const memberDescription = this.querySelector('#introInput').value;
+            const memberDescription = this.querySelector('#descriptionInput').value;
             const profileImage = this.querySelector('#profileImage').src;
 
             try {
-                console.log('사용자 정보 업데이트 시도:', { nickname, memberDescription, profileImage });
                 const response = await fetch('/api/user', {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({ nickname, memberDescription, profileImage: profileImage, }),
+                    body: JSON.stringify({ nickname, memberDescription, profileImage }),
                 });
 
-                console.log('서버 응답 상태:', response.status);
-                const responseData = await response.json();
-                console.log('서버 응답 데이터:', responseData);
+                const result = await response.json();  // 응답을 JSON으로 파싱
 
                 if (!response.ok) {
-                    console.error('서버 응답 오류 메시지:', responseData.message);
-                    throw new Error('나의 정보 업데이트 실패');
+                    throw new Error(result.message || '나의 정보 업데이트 실패');
                 }
 
                 // 성공적으로 업데이트되었을 때 처리
-                alert('나의 정보를 성공적으로 수정완료 했습니다.');
+                alert(result.message);
                 location.reload();
             } catch (error) {
-                console.error('에러 나의 정보 업데이트:', error);
-                alert('나의 정보 수정실패 했습니다.');
+                console.error('Error updating user info:', error);
+                alert('나의 정보 수정 실패했습니다.');
             }
         });
-
 
         // 카테고리 선택 시 이벤트 리스너 추가
         this.querySelector('#mySelect').addEventListener('change', (event) => {
             const selectedOption = event.target.options[event.target.selectedIndex].text;
             const selectedCategoriesDiv = this.querySelector('#selectedCategories');
 
-            // "카테고리" 옵션을 선택했을 경우 무시
             if (selectedOption === "카테고리") {
                 return;
             }
 
-            // 기존에 선택된 카테고리들과 중복되지 않도록 체크
             if (!Array.from(selectedCategoriesDiv.children).some(category => category.innerText.includes(selectedOption))) {
                 const categoryItem = document.createElement('div');
                 categoryItem.className = 'category-item';
@@ -249,28 +276,22 @@ class settingModal extends HTMLElement {
                 removeBtn.innerText = '×';
                 removeBtn.onclick = () => {
                     selectedCategoriesDiv.removeChild(categoryItem);
-                    console.log('카테고리 제거됨:', selectedOption);
                 };
                 categoryItem.appendChild(removeBtn);
                 selectedCategoriesDiv.appendChild(categoryItem);
-                console.log('카테고리 추가됨:', selectedOption);
             }
         });
     }
 
-        // 사용자 정보를 설정하는 메소드 추가
-        setUserInfo(nickname, profileImage, email, memberDescription)
-        {
-            this.querySelector('#profileNickname').innerText = nickname;
-            this.querySelector('#profileImage').src = profileImage;
-            this.querySelector('#nicknameInput').value = nickname;
-            this.querySelector('#introInput').value = memberDescription;
-            console.log('사용자 정보 설정됨:', { nickname, profileImage, email, memberDescription });
-
-        }
+    // 사용자 정보를 설정하는 메소드 추가
+    setUserInfo(nickname, profileImage, email, memberDescription) {
+        this.querySelector('#profileNickname').innerText = nickname;
+        this.querySelector('#profileImage').src = profileImage;
+        this.querySelector('#nicknameInput').value = nickname;
+        this.querySelector('#descriptionInput').value = memberDescription;
     }
-
-
-
+}
 
 customElements.define('custom-setting-modal', settingModal);
+
+console.log('Script loaded');
