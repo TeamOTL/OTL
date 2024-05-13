@@ -70,7 +70,7 @@ public class TodolistController {
                 todolistService.deleteTodolist(toNo);
                 return ResponseEntity.ok().build();
 
-            } else {
+            }else{
                 log.error("Unauthorized access attempt to delete todolist: {}", toNo);
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
             }

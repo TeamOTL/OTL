@@ -5,10 +5,17 @@ import com.otl.otl.domain.Todolist;
 import com.otl.otl.dto.TodolistDTO;
 import com.otl.otl.repository.MemberRepository;
 import com.otl.otl.repository.TodolistRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.log4j.Log4j2;
+import org.apache.catalina.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -38,7 +45,6 @@ public class TodolistServiceImpl implements TodolistService {
                 .member(member)
                 .build();
     }
-
     // Domain -> DTO 변환
     public TodolistDTO toDTO(Todolist todolist) {
         return TodolistDTO.builder()
