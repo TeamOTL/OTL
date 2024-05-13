@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int tno; // Task 고유 식발자
+    private Long tno; // Task 고유 식발자
 
     @ManyToOne
     @JoinColumn(name = "sno")
