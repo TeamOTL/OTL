@@ -66,7 +66,9 @@ public class TodolistController {
     public ResponseEntity<?> deleteTodolist(@PathVariable("toNo") Long toNo, @AuthenticationPrincipal OAuth2User oauthUser) {
         try {
             Optional<TodolistDTO> todo = todolistService.findById(toNo);
-            if (todo.isPresent() && todo.get().getMemberEmail().equals(oauthUser.getAttribute("kakao_account"))) {
+            Map<String, Object> kakaoAccount = oauthUser.getAttribute("kakao_account");
+            String email = (String) kakaoAccount.get("email");
+            if (todo.isPresent() && todo.get().getMemberEmail().equals(email)) {
                 todolistService.deleteTodolist(toNo);
                 return ResponseEntity.ok().build();
 
