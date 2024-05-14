@@ -36,4 +36,14 @@ public class MemberStudy {
 
 //    @Transient
 //    private int people;           //현재 참가 인원 count 위한 필드
+
+
+public MemberStudy(Long msNo, Study study, Boolean isAccepted, Boolean isManaged, String comment) {
+    this.msNo = msNo;
+    this.study = study;
+    this.isAccepted = isAccepted;
+    this.isManaged = isManaged;
+    this.comment = comment;
+}
+
 }

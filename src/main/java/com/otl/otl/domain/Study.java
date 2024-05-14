@@ -64,28 +64,6 @@ public class Study {
     private List<Interests> interests = new ArrayList<>();
 
 
-//    //스터디방 생성시 주차 추가
-//    public void addTask(Integer taskWeek, String taskTitle, Study study) {
-//
-//        Task task = Task.builder()
-//                .taskWeek(taskWeek)
-//                .taskTitle(taskTitle)
-//                .study(study) // Study 엔터티
-//                .build();
-//        tasks.add(task);
-//
-//    }
-//
-//    //스터디방 생성시 주차 추가
-//    public void interests(String interersts_name, Study study) {
-//
-//        Task task = Task.builder()
-//                .interests_name(/)
-//                .Study(study) // Study 엔터티
-//                .build();
-//        tasks.add(task);
-//
-//    }
 
 
     // 날짜 계산 메서드
@@ -108,6 +86,28 @@ public class Study {
 
     public void setDDay(String dDay) {
         this.dDay = dDay;
+    }
+
+    public void addTask(String taskDate, String taskTitle) {
+
+        Task task = Task.builder()
+                .taskDate(taskDate)
+                .taskTitle(taskTitle)
+                .study(this) // Study 엔터티
+                .build();
+        tasks.add(task);
+
+    }
+
+    //스터디방 생성시 흥미 추가
+    public void addInterest(String interestName) {
+
+        Interests interest = Interests.builder()
+                .interestName(interestName)
+                .study(this)
+                .build();
+        interests.add(interest);
+
     }
 
 }
