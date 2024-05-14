@@ -56,21 +56,14 @@ public class StudyListDTO {
     private Long cno;               // 카테고리 고유 번호 pk
     private String categoryName;    // 카테고리 이름
 
-    private Long sno;
-    private String studyName;
-    private String studyDescription;
-    private String studyPlan;
-    private Long maxMember;
-    private String firstDate;
-    private String rStartDate;
-    private String rEndDate;
+
     private Long categoryCno;
 
-    private String categoryName;
+
 
     private String categoryImage;
 
-    private String dDay;
+
 
     private List<TaskDTO> tasks;
     private List<InterestsDTO> interests;

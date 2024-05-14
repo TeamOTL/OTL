@@ -1,5 +1,6 @@
 package com.otl.otl.domain;
 
+import com.otl.otl.dto.TaskDTO;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -37,7 +38,7 @@ public class Task {
     private String taskContent;  // 스터디 회의록 - 내용
 
     @Column
-    private boolean isCompleted; // 스더티 회의록 - 스터디 완료 여부
+    private Boolean isCompleted; // 스더티 회의록 - 스터디 완료 여부
 
 
 //    @Override
@@ -48,5 +49,18 @@ public class Task {
 //    public void changeStudy(Study study){
 //        this.study = study;
 //    }
+
+    public TaskDTO toDTO() {
+        return TaskDTO.builder()
+                .tno(this.tno)
+                .taskTitle(this.taskTitle)
+                .taskDate(this.taskDate)
+                .taskTime(this.taskTime)
+                .taskPlace(this.taskPlace)
+                .taskMember(this.taskMember)
+                .taskContent(this.taskContent)
+                .isCompleted(this.isCompleted)
+                .build();
+    }
 
 }

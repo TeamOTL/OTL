@@ -18,6 +18,6 @@ public class TaskDTO {
     private String taskPlace;       // 스터디 회의록 - 스터디 장소
     private String taskMember;      // 스터디 회의록 - 참석자
     private String taskContent;     // 스터디 회의록 - 내용
-    private boolean isCompleted;    // 스더티 회의록 - 스터디 완료 여부
+    private Boolean isCompleted;    // 스더티 회의록 - 스터디 완료 여부
 
 }

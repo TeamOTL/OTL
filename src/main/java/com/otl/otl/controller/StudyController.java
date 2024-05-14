@@ -15,10 +15,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
@@ -36,12 +33,12 @@ public class StudyController {
         this.studyService = studyService;
     }
 
-    @GetMapping("/studyRoom_yu")
-    public ResponseEntity<List<Study>> getUserStudies(@AuthenticationPrincipal OAuth2User oauthUser) {
+    @GetMapping("/studyRooms")
+    public ResponseEntity<List<String>> getUserStudyNames(@AuthenticationPrincipal OAuth2User oauthUser) {
         Map<String, Object> kakaoAccount = oauthUser.getAttribute("kakao_account");
         String email = (String) kakaoAccount.get("email");
-        List<Study> studies = studyService.findUserStudies(email);
-        return ResponseEntity.ok(studies);
+        List<String> studyNames = studyService.findUserStudyNames(email);
+        return ResponseEntity.ok(studyNames);
     }
 
 
@@ -60,5 +57,8 @@ public ResponseEntity<String> studyCreate(@RequestBody StudyDTO studyDTO) {
     return ResponseEntity.status(HttpStatus.CREATED).body("스터디 성공적으로 등록되었습니다.");
 
 }
+
+
+
 
 }

@@ -92,105 +92,28 @@
                         <a href=""><img src="/icon/plus.svg" alt="추가하기" class="mr-3 me-3"></a>
                     </div>
                     <ul class="list-group">
-                        <!--1주차-->
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <a href="">
-                                <img src="/icon/timeer.svg" alt="icon" class="rounded-circle mr-3 me-3">
-                                <span class="flex-grow-1 font-weight-bolder text-dark" style="margin-right: 15px;">1주차</span>
-                                <span class="flex-grow-1 font-weight-bold text-dark">객체 지향의 이해</span>
-                            </a>
-                            <!--Dropdown: 주차별 회의록 삭제-->
-                            <div class="week dropdown no-arrow" style="margin-left: 10px">
-                                <div class="week dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <img src="/icon/dotdotdot.svg" alt="회의록으로" class="">
-                                </div>
-                                <div class="week dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
-                                    <div class="dropdown-header">회의록</div>
-                                    <!-- Button to Delete -->
-                                    <button type="button" class="dropdown-item">삭제하기</button>
-                                </div>
-                            </div>
-                        </li>
-                        <!--2주차-->
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <a href="">
-                                <img src="/icon/timeer.svg" alt="icon" class="rounded-circle mr-3 me-3">
-                                <span class="flex-grow-1 font-weight-bolder text-dark" style="margin-right: 15px;">2주차</span>
-                                <span class="flex-grow-1 font-weight-bold text-dark">객체 지향의 이해</span>
-                            </a>
-                            <!--Dropdown: 주차별 회의록 삭제-->
-                            <div class="week dropdown no-arrow" style="margin-left: 10px">
-                                <div class="week dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <img src="/icon/dotdotdot.svg" alt="회의록으로" class="">
-                                </div>
-                                <div class="week dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
-                                    <div class="dropdown-header">회의록</div>
-                                    <!-- Button to Delete -->
-                                    <button type="button" class="dropdown-item">삭제하기</button>
-                                </div>
-                            </div>
-                        </li>
-                        <!--3주차-->
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <a href="">
-                                <img src="/icon/timeer.svg" alt="icon" class="rounded-circle mr-3 me-3">
-                                <span class="flex-grow-1 font-weight-bolder text-dark" style="margin-right: 15px;">3주차</span>
-                                <span class="flex-grow-1 font-weight-bold text-dark">객체 지향의 이해</span>
-                            </a>
-                            <!--Dropdown: 주차별 회의록 삭제-->
-                            <div class="week dropdown no-arrow" style="margin-left: 10px">
-                                <div class="week dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <img src="/icon/dotdotdot.svg" alt="회의록으로" class="">
-                                </div>
-                                <div class="week dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
-                                    <div class="dropdown-header">회의록</div>
-                                    <!-- Button to Delete -->
-                                    <button type="button" class="dropdown-item">삭제하기</button>
-                                </div>
-                            </div>
-                        </li>
-                        <!--4주차-->
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <a href="">
-                                <img src="/icon/timeer.svg" alt="icon" class="rounded-circle mr-3 me-3">
-                                <span class="flex-grow-1 font-weight-bolder text-dark" style="margin-right: 15px;">4주차</span>
-                                <span class="flex-grow-1 font-weight-bold text-dark">객체 지향의 이해</span>
-                            </a>
-                            <!--Dropdown: 주차별 회의록 삭제-->
-                            <div class="week dropdown no-arrow" style="margin-left: 10px">
-                                <div class="week dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <img src="/icon/dotdotdot.svg" alt="회의록으로" class="">
-                                </div>
-                                <div class="week dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
-                                    <div class="dropdown-header">회의록</div>
-                                    <!-- Button to Delete -->
-                                    <button type="button" class="dropdown-item">삭제하기</button>
-                                </div>
-                            </div>
-                        </li>
-                        <!--5주차-->
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <a href="">
-                                <img src="/icon/timeer.svg" alt="icon" class="rounded-circle mr-3 me-3">
-                                <span class="flex-grow-1 font-weight-bolder text-dark" style="margin-right: 15px;">5주차</span>
-                                <span class="flex-grow-1 font-weight-bold text-dark">객체 지향의 이해</span>
-                            </a>
-                            <!--Dropdown: 주차별 회의록 삭제-->
-                            <div class="week dropdown no-arrow" style="margin-left: 10px">
-                                <div class="week dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <img src="/icon/dotdotdot.svg" alt="회의록으로" class="">
-                                </div>
-                                <div class="week dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
-                                    <div class="dropdown-header">회의록</div>
-                                    <!-- Button to Delete -->
-                                    <button type="button" class="dropdown-item">삭제하기</button>
-                                </div>
-                            </div>
+                        <li th:each="study : ${studies}" class="list-group-item d-flex justify-content-between align-items-center">
+                            <ul class="list-group w-100">
+                                <li th:each="task : ${study.tasks}" class="list-group-item d-flex justify-content-between align-items-center">
+                                    <a th:href="@{/task/{id}(id=${task.tno})}">
+                                        <img src="/icon/timeer.svg" alt="icon" class="rounded-circle mr-3 me-3">
+                                        <span class="flex-grow-1 font-weight-bolder text-dark" th:text="'주차 ' + ${task.tno}" style="margin-right: 15px;"></span>
+                                        <span class="flex-grow-1 font-weight-bold text-dark" th:text="${task.taskTitle}"></span>
+                                    </a>
+                                    <div class="week dropdown no-arrow" style="margin-left: 10px">
+                                        <div class="week dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <img src="/icon/dotdotdot.svg" alt="회의록으로" class="">
+                                        </div>
+                                        <div class="week dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+                                            <div class="dropdown-header">회의록</div>
+                                            <button type="button" class="dropdown-item">삭제하기</button>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
                         </li>
                     </ul>
                 </div>
-
-                <!-- 스터디_모집_카드 1 End -->
 
                 <!-- 스터디_모집_카드 2 -->
                 <div class="col-xl-7 col-lg-5 mb-3">

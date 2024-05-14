@@ -58,5 +58,5 @@ public interface StudyService {
     Study getStudyById(Long sno);
 
     // 추가된 메서드
-    List<Study> findUserStudies(String email);
+    List<String> findUserStudyNames(String email);
 }

@@ -2,10 +2,7 @@ package com.otl.otl.controller;
 
 import com.otl.otl.domain.Member;
 import com.otl.otl.domain.MemberStudy;
-import com.otl.otl.dto.BoardDTO;
-import com.otl.otl.dto.MemberStudyDTO;
-import com.otl.otl.dto.StudyDTO;
-import com.otl.otl.dto.StudyListDTO;
+import com.otl.otl.dto.*;
 import com.otl.otl.repository.MemberRepository;
 import com.otl.otl.repository.MemberStudyRepository;
 import com.otl.otl.service.BoardService;
@@ -86,6 +83,18 @@ public class MemberController {
                     .map(Member::getNickname)
                     .collect(Collectors.toList()));
             studyDTO.setStudyPlan(ms.getStudy().getStudyPlan());
+            studyDTO.setTasks(ms.getStudy().getTasks().stream().map(task -> {
+                TaskDTO taskDTO = new TaskDTO();
+                taskDTO.setTno(task.getTno());
+                taskDTO.setTaskTitle(task.getTaskTitle());
+                taskDTO.setTaskDate(task.getTaskDate());
+                taskDTO.setTaskTime(task.getTaskTime());
+                taskDTO.setTaskPlace(task.getTaskPlace());
+                taskDTO.setTaskMember(task.getTaskMember());
+                taskDTO.setTaskContent(task.getTaskContent());
+                taskDTO.setIsCompleted(task.getIsCompleted() != null ? task.getIsCompleted() : false); // 기본값 설정
+                return taskDTO;
+            }).collect(Collectors.toList()));
             return studyDTO;
         }).collect(Collectors.toList());
 

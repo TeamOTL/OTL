@@ -152,7 +152,7 @@ WHERE sno = ?
 AND is_accepted = 0;
  */
     @Override
-    public List<MemberStudy> findMemberBySnoAndAccptYet(Long sno, Boolean isAccepted) {
+    public List<MemberStudy> findMemberBySnoAndAcceptYet(Long sno, Boolean isAccepted) {
         QMemberStudy qMemberStudy = QMemberStudy.memberStudy;
 
         // QueryDSL을 사용하여 쿼리 작성

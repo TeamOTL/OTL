@@ -43,7 +43,7 @@ public class CustomConverters {
                     .taskPlace(task.getTaskPlace())
                     .taskMember(task.getTaskMember())
                     .taskContent(task.getTaskContent())
-                    .isCompleted(task.isCompleted())
+                    .isCompleted(task.getIsCompleted() != null ? task.getIsCompleted() : false)// 기본값 설정
                     .build();
             taskDTOList.add(taskDTO);
         }

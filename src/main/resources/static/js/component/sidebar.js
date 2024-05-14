@@ -4,8 +4,7 @@ class sidebar extends HTMLElement {
         const path = window.location.pathname;
         let sPath = "";
 
-        if(path.indexOf("templates") > 0)
-            sPath = "../static/";
+        if (path.indexOf("templates") > 0) sPath = "../static/";
 
         this.innerHTML = `
        <!-- Sidebar -->
@@ -39,15 +38,16 @@ class sidebar extends HTMLElement {
            <!-- Nav Item - Pages Collapse Menu -->
            <li class="nav-item">
                <a class="nav-link list-group-item-action list-group-item-danger rounded text-gray-900" href="#"
-                   data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                   data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo"
+                   id="studyRoomToggle">
                    <i class="fas fa-fw fa-users"></i>
                    <span>스터디룸</span>
                </a>
                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                    <div class="bg-white py-2 collapse-inner rounded">
                        <h6 class="collapse-header">나의 스터디룸</h6>
-                       <a class="collapse-item" href="/studyRoom_yu"><img src="${sPath}img/Property 1=linux.svg">수연이와 리눅스</a>
-                       <a class="collapse-item" href=""><img src="${sPath}img/Property 1=spring.svg">강현과 봄남자</a>
+                       <div id="myStudyRooms" href="studyRoom_yu"></div>
+                       
                    </div>
                </div>
            </li>
@@ -72,7 +72,53 @@ class sidebar extends HTMLElement {
        </ul>
        <!-- End of Sidebar -->
        `;
+        this.setupEventListeners();
+    }
+
+    setupEventListeners() {
+        const studyRoomToggle = this.querySelector('#studyRoomToggle');
+        studyRoomToggle.addEventListener('click', async (event) => {
+            event.preventDefault();
+            await this.loadStudyRooms();
+            const collapseElement = this.querySelector('#collapseTwo');
+            if (!collapseElement.classList.contains('show')) {
+                await this.loadStudyRooms();
+            }
+            collapseElement.classList.toggle('show');
+        });
+    }
+    // 스터디룸 데이터를 로드하는 함수
+    async loadStudyRooms() {
+        try {
+            console.log("스터디룸 데이터 로드 시도"); // 디버그 로그
+            const response = await fetch('/api/studyRooms'); // 올바른 API 엔드포인트로 수정
+            if (!response.ok) {
+                throw new Error("API 요청 실패");
+            }
+            const studyRooms = await response.json();
+            console.log("스터디룸 데이터 로드 성공", studyRooms); // 디버그 로그
+            if (!Array.isArray(studyRooms)) {
+                throw new Error("API 응답이 배열이 아닙니다.");
+            }
+            this.updateStudyRooms(studyRooms);
+        } catch (error) {
+            console.error('스터디룸 데이터 로드 중 오류:', error); // 한글 로그
+        }
+    }
+
+    // 스터디룸 데이터를 업데이트하는 함수
+    updateStudyRooms(studyRooms) {
+        const studyRoomsContainer = this.querySelector('#myStudyRooms');
+        studyRoomsContainer.innerHTML = ''; // 기존 내용 초기화
+
+        studyRooms.forEach(room => {
+            const roomElement = document.createElement('a');
+            roomElement.className = 'collapse-item';
+            roomElement.href = `/studyRoom_yu`; //
+            roomElement.innerHTML = `<div>${room}</div>`; // 단순한 문자열로 간주하여 표시
+            studyRoomsContainer.appendChild(roomElement);
+        });
     }
 }
-
+// customElements.define을 사용하여 custom-sidebar 태그를 Sidebar 클래스와 연결
 customElements.define("custom-sidebar", sidebar);

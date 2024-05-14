@@ -28,13 +28,12 @@ public class StudyServiceImpl implements StudyService {
     private final StudyRepository studyRepository;
     private final TaskRepository taskRepository;
     private final MemberStudyService memberStudyService;
-
     private final MemberStudyRepository memberStudyRepository;
 
-    @Override
-    public List<StudyListDTO> getAllStudyJoin() {
-        return List.of();
-    }
+//    @Override
+//    public List<StudyListDTO> getAllStudyJoin() {
+//        return List.of();
+//    }
 //    private final StudyListDTOConverter studyListDTOConverter;
 
 
@@ -85,12 +84,7 @@ public class StudyServiceImpl implements StudyService {
 //
 //            return studyListDTO;
 //        }
-//
-//
-//
-//
-//
-//
+
 
     @Override
     public Long register(StudyDTO studyDTO) {
@@ -160,19 +154,16 @@ public class StudyServiceImpl implements StudyService {
         return studyRepository.findByCategoryCno(cno);
     }
 
-//    @Override
-//    public Optional<Study> getStudiesByIno(Long ino) {
-//        return studyRepository.findByInterestsIno(ino);
-//    }
 
 
-//    @Override
-//    public List<StudyListDTO> getAllStudyJoin() {
-//        return studyRepository.findAllByCurDate()
-//                .stream()
-//                .map(studyListDTOConverter::convertToDTO) // Convert Study to StudyListDTO
-//                .collect(Collectors.toList());
-//    }
+
+    @Override
+    public List<StudyListDTO> getAllStudyJoin() {
+        return studyRepository.findAllByCurDate()
+                .stream()
+                .map(study -> modelMapper.map(study, StudyListDTO.class))
+                .collect(Collectors.toList());
+    }
 
     @Override
     public List<Study> getAllStudyJoin2() {
@@ -185,12 +176,20 @@ public class StudyServiceImpl implements StudyService {
     }
 
     @Override
-    public List<Study> findUserStudies(String email) {
+    public List<String> findUserStudyNames(String email) {
         List<MemberStudy> memberStudies = memberStudyRepository.findByMemberEmail(email);
         return memberStudies.stream()
-                .map(MemberStudy::getStudy)
+                .map(memberStudy -> memberStudy.getStudy().getStudyName())
                 .collect(Collectors.toList());
     }
+    private Study dtoToEntity(StudyDTO dto) {
+        return modelMapper.map(dto, Study.class);
+    }
+
+    private StudyDTO entityToDto(Study entity) {
+        return modelMapper.map(entity, StudyDTO.class);
+    }
+
 
 
 }

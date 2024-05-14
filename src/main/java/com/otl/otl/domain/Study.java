@@ -1,5 +1,6 @@
 package com.otl.otl.domain;
 
+import com.otl.otl.dto.StudyDTO;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -8,6 +9,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Getter
@@ -147,6 +149,22 @@ public class Study {
                 .build();
         interests.add(interest);
 
+    }
+
+    public StudyDTO toDTO() {
+        return StudyDTO.builder()
+                .sno(this.sno)
+                .studyName(this.studyName)
+                .studyDescription(this.studyDescription)
+                .studyPlan(this.studyPlan)
+                .maxMember(this.maxMember)
+                .firstDate(this.firstDate)
+                .rStartDate(this.rStartDate)
+                .rEndDate(this.rEndDate)
+                .dDay(this.calCombinedDday())
+                .memberNicknames(this.getMembers().stream().map(Member::getNickname).collect(Collectors.toList()))
+                .tasks(this.tasks.stream().map(Task::toDTO).collect(Collectors.toList()))
+                .build();
     }
 
 

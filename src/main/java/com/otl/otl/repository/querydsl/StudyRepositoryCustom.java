@@ -37,7 +37,7 @@ public interface StudyRepositoryCustom {
     // FROM member_study ms
     // WHERE sno = ?
     // AND is_accepted = 0;
-    List<MemberStudy> findMemberBySnoAndAccptYet(Long sno, Boolean isAccpeted);
+    List<MemberStudy> findMemberBySnoAndAcceptYet(Long sno, Boolean isAccpeted);
 
 
 
