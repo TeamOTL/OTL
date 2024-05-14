@@ -50,7 +50,7 @@ public class StudyRepositoryCustomImpl extends QuerydslRepositorySupport impleme
     }
 
     @Override
-    public List<MemberStudyProjectionImpl> findMemberStudyByEmailAndIsAccepted2(String email) {
+    public List<MemberStudyProjectionImpl> findMemberStudyByEmailAndIsAcceptedProjection(String email) {
         QMemberStudy qMemberStudy = QMemberStudy.memberStudy;
         QStudy qStudy = QStudy.study;
 

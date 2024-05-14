@@ -52,13 +52,18 @@ public class MemberStudyRepositoryTests {
         interests=[Interests(ino=2, interestName=리눅스, 도커)]), isAccepted=true, isManaged=false, comment=afdsfasdf)]
  */
 
+
+
+//     <참가중 다건  - Projection 적용 member 제외>
+//     WHERE email = ?
+//     AND is_accpeted = 1
     @Test
-    public void findMemberStudyByEmailAndIsAccepted2(){
+    public void findMemberStudyByEmailAndIsAcceptedProJectionMember(){
         // Given
         String email = "test1"; // 테스트할 member
 
         // When
-        List<MemberStudyProjectionImpl> memberStudyList = memberStudyRepository.findMemberStudyByEmailAndIsAccepted2(email);
+        List<MemberStudyProjectionImpl> memberStudyList = memberStudyRepository.findMemberStudyByEmailAndIsAcceptedProjection(email);
 
         //Then
         log.info(memberStudyList);

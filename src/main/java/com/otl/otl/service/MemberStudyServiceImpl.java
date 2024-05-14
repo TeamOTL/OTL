@@ -1,25 +1,46 @@
 package com.otl.otl.service;
 
-import com.otl.otl.domain.MemberStudy;
+import com.otl.otl.domain.*;
+import com.otl.otl.dto.InterestsDTO;
+import com.otl.otl.dto.MemberStudyDTO;
+import com.otl.otl.dto.MemberStudyProjection.MemberStudyProjectionImpl;
+import com.otl.otl.dto.StudyListDTO;
+import com.otl.otl.dto.TaskDTO;
 import com.otl.otl.repository.MemberStudyRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.otl.otl.service.converter.CustomConverters;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class MemberStudyServiceImpl implements MemberStudyService{
+public class MemberStudyServiceImpl implements MemberStudyService {
 
     private final MemberStudyRepository memberStudyRepository;
 
-    @Autowired
-    public MemberStudyServiceImpl(MemberStudyRepository memberStudyRepository) {
+    private final CustomConverters customConverters;
+
+    public MemberStudyServiceImpl(MemberStudyRepository memberStudyRepository, CustomConverters customConverters) {
         this.memberStudyRepository = memberStudyRepository;
+        this.customConverters = customConverters;
     }
+
+
+    public StudyListDTO ProjectionToDTO(MemberStudyProjectionImpl projection) {
+        return customConverters.ProjectionToDTO(projection);
+    }
+
+    public StudyListDTO StudyToDto(Study study) {
+        return customConverters.StudyToDto(study);
+    }
+
+    public MemberStudy MemberStudyDTOToDomain(MemberStudyDTO memberStudyDTO, MemberStudy memberStudy) {
+        return customConverters.MemberStudyDTOToDomain(memberStudyDTO, memberStudy);
+    }
+
 
     @Override
     public List<MemberStudy> findByMemberEmail(String email) {
         return memberStudyRepository.findByMemberEmail(email);
     }
-
 }

@@ -9,21 +9,17 @@ import java.util.List;
 public interface StudyRepositoryCustom {
 
 
-
+    //전체 멤버 테이블 빼고 보내기
 //    List<Long> findSnoByEmailAndAccepted(String email);
 
     // email = ? AND is_accpeted = 1;   //참가 중  //다건 날짜 계산 적용
     List<MemberStudy> findMemberStudyByEmailAndIsAccepted(String email);
 
-    List<MemberStudyProjectionImpl> findMemberStudyByEmailAndIsAccepted2(String email);
-
+    // email = ? AND is_accpeted = 1;   //참가 중  //다건 날짜 계산 적용 projection
+    List<MemberStudyProjectionImpl> findMemberStudyByEmailAndIsAcceptedProjection(String email);
 
     // email = ? AND sno = ? AND is_accepted = 1; 참가중 단건  :   /sno=?
     List<MemberStudy> findMemberStudyByEmailAndIsAcceptedAndSno(String email, Long sno);
-
-
-    // email = ? AND is_accepted = 0; 참가 대기 중
-    List<Study> findAllByCurDate();
 
 
     // SELECT ms.eamil, ms.sno, m.nickname, m.member_profile_image
@@ -55,11 +51,9 @@ public interface StudyRepositoryCustom {
     List<MemberStudy> findMemberBySnoAndIsAccepted(Long sno, Boolean isAccepted);
 
 
-    //  어떤 스터디의 참가 멤버
-    /*
-        SELECT member
-     */
 
+    // email = ? AND is_accepted = 0; 참가 대기 중
+    List<Study> findAllByCurDate();
 
 
 
