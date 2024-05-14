@@ -42,51 +42,45 @@
             <!-- container fluid -->
             <div class="container-fluid">
                 <div class="row mt-3">
-                    <!-- 검색 폼 -->
-                    <form action="/board/list" method="get">
                         <div class="col">
                             <input type="hidden" name="size" value="10">
                             <div class="input-group">
-
-
+                                <!--게시글 작성 버튼-->
+                                <div class="input-group-append">
+                                    <button type="button" class="border-0" style="margin-right: 5px;"
+                                            data-toggle="modal" data-target="#boardCreateModal">
+                                        <img src="/img/plus.svg"
+                                             style="width: auto; height: calc(1.5em + 0.75rem + 2px);" alt="글작성"/>
+                                    </button>
+                                    <!-- Modal for Board Create -->
+                                    <custom-board-create-modal th:attr="data-nickname=${nickname}, data-email=${email}, data-profile-image=${memberProfileImage}"></custom-board-create-modal>
+                                </div>
+                                <!--게시글 검색-->
                                 <div class="input-group-prepend">
                                     <select class="form-select border rounded mr-1" name="type">
                                         <option value="">---</option>
                                         <option value="t">제목</option>
                                         <option value="c">내용</option>
-                                        <option value="w">작성자</option>
+                                        <option value="n">작성자</option>
                                         <option value="tc">제목 내용</option>
-                                        <option value="tcw">제목 내용 작성자</option>
+                                        <option value="tcn">제목 내용 작성자</option>
                                     </select>
                                 </div>
                                 <input type="text" class="form-control rounded" name="keyword">
                                 <div class="input-group-append">
-                                    <button type="submit" class="btn btn-success rounded font-weight-bolder mx-1">검색</button>
+                                    <button id="searchBtn" type="button" class="btn btn-success rounded font-weight-bolder mx-1">검색</button>
                                 </div>
                             </div>
                         </div>
-                    </form>
-                </div>
-                <!--게시글 작성 버튼-->
-                <div class="input-group-append">
-                    <button type="button" class="border-0" style="margin-right: 5px;"
-                            data-toggle="modal" data-target="#boardCreateModal">
-                        <img src="/img/plus.svg"
-                             style="width: auto; height: calc(1.5em + 0.75rem + 2px);" alt="글작성"/>
-                    </button>
-                    <!-- Modal for Board Create -->
-                    <custom-board-create-modal th:attr="data-nickname=${nickname}, data-email=${email}, data-profile-image=${memberProfileImage}"></custom-board-create-modal>
+
                 </div>
 
                 <!-- 게시판 목록 -->
-                <div class="row mt-3">
+                <div id="boardSearch" class="row mt-3">
                     <div class="col">
                         <div class="card">
-                            <div class="card-header">
-                                Board List
-                            </div>
                             <div class="card-body">
-                                <h5 class="card-title">Board List</h5>
+<!--                                <h5 class="card-title">Board List</h5>-->
                                 <table class="table">
                                     <thead>
                                     <tr>
@@ -172,6 +166,8 @@
 <!-- Page level custom scripts -->
 <!-- <script src="js/demo/chart-area-demo.js"></script>
 <script src="js/demo/chart-pie-demo.js"></script> -->
+
+<script src="/js/board.js"></script>
 
 <!-- sidebar & topbar & 스크롤 컴포넌트화 -->
 <script src="/js/component/sidebar.js"></script>
