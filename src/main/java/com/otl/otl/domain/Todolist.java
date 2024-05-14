@@ -1,5 +1,6 @@
 package com.otl.otl.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -37,6 +38,7 @@ public class Todolist {
 
     @ManyToOne
     @JoinColumn(name = "email", referencedColumnName = "email")
+    @JsonBackReference
     private Member member;          // 투두리스트 작성자
 
 }
