@@ -65,6 +65,7 @@ public class Study {
     private List<Interests> interests = new ArrayList<>();
 
 
+
     @OneToMany(mappedBy = "study", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
     @Builder.Default
     private List<MemberStudy> memberStudies = new ArrayList<>();
@@ -94,6 +95,7 @@ public class Study {
 //    }
 
 
+
     // 날짜 계산 메서드
     public String calCombinedDday() {
         LocalDate today = LocalDate.now();
@@ -116,6 +118,7 @@ public class Study {
         this.dDay = dDay;
     }
 
+
     public List<Member> getMembers() {
         List<Member> members = new ArrayList<>();
         for (MemberStudy memberStudy : memberStudies) {
@@ -123,5 +126,29 @@ public class Study {
         }
         return members;
     }
+
+    public void addTask(String taskDate, String taskTitle) {
+
+        Task task = Task.builder()
+                .taskDate(taskDate)
+                .taskTitle(taskTitle)
+                .study(this) // Study 엔터티
+                .build();
+        tasks.add(task);
+
+    }
+
+    //스터디방 생성시 흥미 추가
+    public void addInterest(String interestName) {
+
+        Interests interest = Interests.builder()
+                .interestName(interestName)
+                .study(this)
+                .build();
+        interests.add(interest);
+
+    }
+
+
 }
 

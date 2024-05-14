@@ -13,6 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 public class StudyListDTO {
+
     private StudyDTO studyDTO;
     private TaskDTO taskDTO;
 
@@ -54,23 +55,24 @@ public class StudyListDTO {
 
     private Long cno;               // 카테고리 고유 번호 pk
     private String categoryName;    // 카테고리 이름
+
+    private Long sno;
+    private String studyName;
+    private String studyDescription;
+    private String studyPlan;
+    private Long maxMember;
+    private String firstDate;
+    private String rStartDate;
+    private String rEndDate;
+    private Long categoryCno;
+
+    private String categoryName;
+
     private String categoryImage;
 
+    private String dDay;
 
-    private Long ino;               // 관심 분야 고유번호
-    private String interestName;    // 관심 분야 이름
-
-
-
-    private int tno;
-    private int taskWeek;
-    private String taskTitle;
-    private String taskDate;
-    private String taskTime;
-    private String taskPlace;
-    private String taskMember;
-    private String taskContent;
-    private boolean isCompleted;
-    private String planDate;
+    private List<TaskDTO> tasks;
+    private List<InterestsDTO> interests;
 
 }

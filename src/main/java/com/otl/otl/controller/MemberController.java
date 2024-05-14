@@ -130,14 +130,50 @@ public class MemberController {
     }
 
     @GetMapping("/board")
-    public String board(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size, @AuthenticationPrincipal OAuth2User oauthUser, Model model) {
+    public String board(@RequestParam(defaultValue = "0") int page,
+                        @RequestParam(defaultValue = "10") int size,
+                        @AuthenticationPrincipal OAuth2User oauthUser,
+                        Model model,
+                        @RequestParam(required = false) String type,
+                        @RequestParam(required = false) String keyword) {
         log.info("게시판 페이지 요청 - 페이지 번호: {}, 페이지 크기: {}", page, size);
 
         // 게시글 목록 조회 및 모델에 추가
-        Page<BoardDTO> boardPage = boardService.findBoards(page, size);
+        Page<BoardDTO> boardPage;
+        // 일반 요청일 경우
+        boardPage = boardService.findBoards(page, size);
+        log.info("게시판 목록 요청 - 페이지 번호: {}, 페이지 크기: {}", page, size);
+
         model.addAttribute("boards", boardPage.getContent());
         model.addAttribute("currentPage", boardPage.getNumber());
         model.addAttribute("totalPages", boardPage.getTotalPages());
+
+
+        if (type != null && keyword != null && !type.isEmpty() && !keyword.isEmpty()) {
+            // 검색 요청일 경우
+            boardPage = boardService.searchBoards(type, keyword, page, size);
+            log.info("게시판 검색 요청 - 페이지 번호: {}, 페이지 크기: {}", page, size);
+
+            model.addAttribute("boards", boardPage.getContent());
+            model.addAttribute("currentPage", boardPage.getNumber());
+            model.addAttribute("totalPages", boardPage.getTotalPages());
+
+            model.addAttribute("type", type);
+            model.addAttribute("keyword", keyword);
+        } else {
+            // 일반 요청일 경우
+            boardPage = boardService.findBoards(page, size);
+            log.info("게시판 목록 요청 - 페이지 번호: {}, 페이지 크기: {}", page, size);
+
+            model.addAttribute("boards", boardPage.getContent());
+            model.addAttribute("currentPage", boardPage.getNumber());
+            model.addAttribute("totalPages", boardPage.getTotalPages());
+
+        }
+//        model.addAttribute("boards", boardPage.getContent());
+//        model.addAttribute("currentPage", boardPage.getNumber());
+//        model.addAttribute("totalPages", boardPage.getTotalPages());
+
 
         if (oauthUser != null) {
             Map<String, Object> kakaoAccount = oauthUser.getAttribute("kakao_account");

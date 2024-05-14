@@ -2,6 +2,7 @@ package com.otl.otl.repository;
 
 import com.otl.otl.repository.search.BoardSearch;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -20,4 +21,13 @@ public interface BoardRepository extends JpaRepository<Board, Long>, BoardSearch
     String getTime();
     Page<Board> findAllByOrderByModDateDesc(Pageable pageable);
 
+    Page<Board> findByBoardTitleContainingIgnoreCaseAndIsDeletedFalse(String keyword, PageRequest pageRequest);
+
+    Page<Board> findByBoardContentContainingIgnoreCaseAndIsDeletedFalse(String keyword, PageRequest pageRequest);
+
+    Page<Board> findByMember_NicknameContainingIgnoreCaseAndIsDeletedFalse(String keyword, PageRequest pageRequest);
+
+    Page<Board> findByBoardTitleContainingIgnoreCaseOrBoardContentContainingIgnoreCaseAndIsDeletedFalse(String keyword, String keyword1, PageRequest pageRequest);
+
+    Page<Board> findByBoardTitleContainingIgnoreCaseOrBoardContentContainingIgnoreCaseOrMember_NicknameContainingIgnoreCaseAndIsDeletedFalse(String keyword, String keyword1, String keyword2, PageRequest pageRequest);
 }
