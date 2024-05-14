@@ -26,4 +26,8 @@ public interface BoardRepository extends JpaRepository<Board, Long>, BoardSearch
     Page<Board> findByBoardContentContainingIgnoreCaseAndIsDeletedFalse(String keyword, PageRequest pageRequest);
 
     Page<Board> findByMember_NicknameContainingIgnoreCaseAndIsDeletedFalse(String keyword, PageRequest pageRequest);
+
+    Page<Board> findByBoardTitleContainingIgnoreCaseOrBoardContentContainingIgnoreCaseAndIsDeletedFalse(String keyword, String keyword1, PageRequest pageRequest);
+
+    Page<Board> findByBoardTitleContainingIgnoreCaseOrBoardContentContainingIgnoreCaseOrMember_NicknameContainingIgnoreCaseAndIsDeletedFalse(String keyword, String keyword1, String keyword2, PageRequest pageRequest);
 }

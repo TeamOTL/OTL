@@ -20,19 +20,23 @@ $(document).ready(function() {
 
                 console.log(response);
 
-                // 성공한 경우, #boardSearch 부분만 업데이트
-                let contentWrapper = $(response).find('#boardSearch').html();
-                $('#boardSearch').html(contentWrapper);
+                // // 성공한 경우, #boardSearch 부분만 업데이트
+                // let contentWrapper = $(response).find('#boardSearch').html();
+                // $('#boardSearch').html(contentWrapper);
 
-                // // 검색 결과가 있는지 확인
-                // if ($(response).find('#boardTableBody').children().length === 0) {
-                //     // 실패한 경우
-                //     alert("검색 결과가 없습니다.");
-                // } else {
-                //     // 성공한 경우, #content-wrapper 부분만 업데이트
-                //     let contentWrapper = $(response).find('#content-wrapper').html();
-                //     $('#content-wrapper').html(contentWrapper);
-                // }
+                // 성공한 경우
+                let contentWrapper = $(response).find('#boardSearch').html();
+
+                // 검색 결과가 있는지 확인
+                let hasResults = $(contentWrapper).find('tbody').children().length > 0;
+
+                if (hasResults) {
+                    // 결과가 있으면 업데이트
+                    $('#boardSearch').html(contentWrapper);
+                } else {
+                    // 결과가 없으면 알림창 표시
+                    alert('검색 결과가 없습니다.');
+                }
             },
             error: function(xhr, status, error) { // 실패했을 때 실행될 콜백 함수
                 console.error("검색 요청 실패:", error);

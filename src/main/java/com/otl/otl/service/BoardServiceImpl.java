@@ -88,6 +88,12 @@ public class BoardServiceImpl<QBoard> implements BoardService{
             case "n":
                 boardPage = boardRepository.findByMember_NicknameContainingIgnoreCaseAndIsDeletedFalse(keyword, pageRequest);
                 break;
+            case "tc":
+                boardPage = boardRepository.findByBoardTitleContainingIgnoreCaseOrBoardContentContainingIgnoreCaseAndIsDeletedFalse(keyword, keyword, pageRequest);
+                break;
+            case "tcn":
+                boardPage = boardRepository.findByBoardTitleContainingIgnoreCaseOrBoardContentContainingIgnoreCaseOrMember_NicknameContainingIgnoreCaseAndIsDeletedFalse(keyword, keyword, keyword, pageRequest);
+                break;
             default:
                 boardPage = boardRepository.findByIsDeletedFalse(pageRequest);
         }

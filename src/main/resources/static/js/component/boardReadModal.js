@@ -92,7 +92,7 @@ class boardReadModal extends HTMLElement {
                                     <button id="boardCancelBtn" type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
                                 </div>
                                 <!-- 댓글 -->
-                                <div class="modal-footer2">
+                                <div id="replyAll" class="modal-footer2">
                                         <div class="row mt-3">
                                             <!-- 댓글 리스트가 들어가는 곳 -->
                                             <div class="col-sm-13">
@@ -160,6 +160,8 @@ class boardReadModal extends HTMLElement {
 
         const email = this.getAttribute('data-email'); // 로그인한 사용자
 
+        const replyAll = this.querySelector("#replyAll"); // 댓글 부분 전체
+
         // 수정하기 버튼 클릭 시
         modifyBtn.addEventListener("click", () => {
 
@@ -178,6 +180,9 @@ class boardReadModal extends HTMLElement {
                 // 저장하기 버튼과 삭제하기 버튼 보이게 설정
                 modifyFinishBtn.style.display = "inline-block";
                 deleteBtn.style.display = "inline-block";
+
+                // 댓글 비활성화
+                replyAll.style.display = "none";
             }
         });
 
@@ -265,17 +270,15 @@ class boardReadModal extends HTMLElement {
             // 수정하기 버튼 활성화
             modifyBtn.style.display = "inline-block";
 
+            // 댓글 활성화
+            replyAll.style.display = "inline-block";
+
             // 저장하기 버튼과 삭제하기 버튼 숨기기
             modifyFinishBtn.style.display = "none";
             deleteBtn.style.display = "none";
 
-            // 제목과 내용 입력란의 readOnly 속성 다시 설정
-            boardTitleInput.setAttribute("readonly", true);
-            boardContentTextarea.setAttribute("readonly", true);
-
-            // 제목과 내용 원래 값으로 되돌리기 (수정 전 값으로)
-            boardTitleInput.value = originalTitle;
-            boardContentTextarea.value = originalContent;
+            $('#boardReadModal-' + bno).modal('hide');
+            location.reload();
         });
 
         // 5. 댓글 작성
