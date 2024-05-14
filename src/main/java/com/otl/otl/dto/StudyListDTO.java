@@ -46,6 +46,8 @@ public class StudyListDTO {
     private String rEndDate;                  // 모집 기간_종료일
     private String dDay;                       //dday
 
+    private List<String> memberNicknames;     // 멤버 닉네임 리스트 추가
+
     private List<TaskDTO> taskDTOList;
     private List<InterestsDTO> interestsDTOList;
 

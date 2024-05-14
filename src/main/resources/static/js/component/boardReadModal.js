@@ -2,12 +2,6 @@
 let originalTitle, originalContent;
 
 class boardReadModal extends HTMLElement {
-    /** - 작성자 : 유지오
-     *
-     * data-toggle="modal" data-target="#태그아이디"에서
-     * data-target은 보여줄 태그 아이디입니다.
-     *
-     */
     connectedCallback() {
         const bno = this.getAttribute('board.bno');
         const boardTitle = this.getAttribute('board.boardTitle');
@@ -16,14 +10,6 @@ class boardReadModal extends HTMLElement {
         const memberProfileImage = this.getAttribute('memberProfileImage');
         const regDate = this.getAttribute('board.regDate');
         const modDate = this.getAttribute('board.modDate');
-
-        // console.log('bno : ' + bno);
-        // console.log('boardTitle');
-        // console.log('boardContent');
-        // console.log('nickname');
-        // console.log('MemberProfileImage');
-        // console.log('regDate');
-        // console.log('modDate');
 
         // 현재 제목과 내용을 저장
         originalTitle = boardTitle;
@@ -116,7 +102,7 @@ class boardReadModal extends HTMLElement {
                 memberProfileImageElement.parentNode.replaceChild(imgElement, memberProfileImageElement);
             },
             error: function (xhr, status, error) {
-                console.error("작성자 프로필 이미지을 불러오는데 실패했습니다: ", error);
+                console.error("작성자 프로필 이미지를 불러오는데 실패했습니다: ", error);
                 // 에러 처리 부분
             }
         });
@@ -137,7 +123,7 @@ class boardReadModal extends HTMLElement {
             const boardemail = this.getAttribute('board.email'); // 게시글 작성자
             const email = this.getAttribute('data-email'); // 로그인한 사용자
 
-            if(boardemail !== email){
+            if (boardemail !== email) {
                 alert("게시글 작성자와 일치하지 않습니다.");
             } else {
                 // 제목과 내용 입력란의 readOnly 속성 제거

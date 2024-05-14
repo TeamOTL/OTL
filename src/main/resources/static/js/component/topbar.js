@@ -22,17 +22,9 @@ class topbar extends HTMLElement {
         }
     }
 
-    render(){
-
+    render() {
         const nickname = this.getAttribute('data-nickname');  // 닉네임 속성
         const memberProfileImage = this.getAttribute('data-profile-image');  // 프로필 이미지 속성
-
-        const path = window.location.pathname;
-        let sPath = "";
-        
-        if(path.indexOf("templates") > 0)
-             sPath = "../static/";
-
 
         this.innerHTML = `
         <!-- Topbar -->
@@ -42,13 +34,8 @@ class topbar extends HTMLElement {
                 <i class="fa fa-bars"></i>
             </button>
 
-            <!-- Topbar Search -->
-
-
             <!-- Topbar Navbar -->
             <ul class="navbar-nav ml-auto">
-                <!-- Nav Item - Search Dropdown (Visible Only XS) -->
-
                 <!-- Nav Item - User Information -->
                 <li class="nav-item dropdown no-arrow">
                     <a class="nav-link dropdown-toggle" id="userDropdown" role="button"
@@ -59,17 +46,16 @@ class topbar extends HTMLElement {
                     <!-- Dropdown - User Information -->
                     <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                         aria-labelledby="userDropdown">
-                        
                         <a class="dropdown-item" data-toggle="modal" data-target="#settingModal">
                             <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                             나의 정보
                         </a>
-                        <a class="dropdown-item" href="${sPath}#">
+                        <a class="dropdown-item" href="#">
                             <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
                             나의 스터디
                         </a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="${sPath}#" data-toggle="modal" data-target="#logoutModal">
+                        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                             <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                             로그아웃
                         </a>

@@ -1,6 +1,5 @@
 package com.otl.otl.domain;
 
-
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -27,17 +26,13 @@ public class Member {
     private String nickname;           // 회원 이름 (닉네임)
 
     @Lob
-    @Column(columnDefinition = "LONGBLOB")
-    private byte[] memberProfileImage;     // 회원 프로필 사진
+    @Column(columnDefinition = "TEXT")
+    private String memberProfileImage;     // 회원 프로필 사진 URL
 
     @Column
     private String memberDescription; // 회원 자기 소개
 
-    @OneToMany(mappedBy = "member",
-            cascade = {CascadeType.ALL}
-            , fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "member", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
     @Builder.Default
     private List<Interests> interests = new ArrayList<>();
-
-
 }

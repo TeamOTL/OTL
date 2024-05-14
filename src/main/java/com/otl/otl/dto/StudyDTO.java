@@ -27,5 +27,8 @@ public class StudyDTO {
     private List<InterestsDTO> interestsDTO;
     private List<TaskDTO> taskDTO;
 
+    // 새로운 필드 추가
+    private List<String> memberNicknames; // 멤버 닉네임 리스트
+
 
 }
