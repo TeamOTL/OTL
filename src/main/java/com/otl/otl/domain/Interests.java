@@ -19,7 +19,8 @@ public class Interests {
     @Column
     private String interestName;    // 관심 분야 이름
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    //interests.sno NULL허용
+    @ManyToOne(fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "sno")
     private Study study;
 

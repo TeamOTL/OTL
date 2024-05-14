@@ -7,5 +7,6 @@ import java.util.List;
 public interface MemberStudyService {
 
     List<MemberStudy> findByMemberEmail(String email);
-    
+
+
 }
