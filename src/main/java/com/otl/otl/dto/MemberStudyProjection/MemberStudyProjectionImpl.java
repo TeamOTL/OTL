@@ -2,7 +2,6 @@ package com.otl.otl.dto.MemberStudyProjection;
 
 import com.otl.otl.domain.Study;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -18,6 +17,7 @@ public class MemberStudyProjectionImpl implements MemberStudyProjection {
     private Boolean isManaged;
     private String comment;
 
+
     public MemberStudyProjectionImpl(Long msNo, Study study, String email, Boolean isAccepted, Boolean isManaged, String comment) {
         this.msNo = msNo;
         this.study = study;
@@ -26,6 +26,7 @@ public class MemberStudyProjectionImpl implements MemberStudyProjection {
         this.isManaged = isManaged;
         this.comment = comment;
     }
+
 
     @Override
     public Long getMsNo() {

@@ -1,7 +1,9 @@
 package com.otl.otl.domain;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.DynamicUpdate;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
@@ -49,11 +51,14 @@ public class Study {
     @Transient
     private String dDay;
 
+    @Transient
+    private String People;
 
     @OneToMany(mappedBy = "study",
             cascade = {CascadeType.ALL}
             , fetch = FetchType.LAZY)
     @Builder.Default
+    @JsonManagedReference
     private List<Task> tasks = new ArrayList<>();
 
 
@@ -61,6 +66,7 @@ public class Study {
             cascade = {CascadeType.ALL}
             , fetch = FetchType.LAZY)
     @Builder.Default
+    @JsonManagedReference
     private List<Interests> interests = new ArrayList<>();
 
 
@@ -84,8 +90,13 @@ public class Study {
     }
 
 
+
     public void setDDay(String dDay) {
         this.dDay = dDay;
+    }
+
+    public void setPeople(String people) {
+        this.People = people;
     }
 
     public void addTask(String taskDate, String taskTitle) {

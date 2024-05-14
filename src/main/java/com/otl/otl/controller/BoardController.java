@@ -78,7 +78,7 @@ public class BoardController {
                 // Base64 인코딩된 문자열로 변환
                 if (member.getMemberProfileImage() != null) {
                     String profileImageBase64 = "data:image/png;base64," + Base64.getEncoder().encodeToString(member.getMemberProfileImage());
-                    memberDTO.setMemberProfileImage(profileImageBase64);
+                    memberDTO.setMemberProfileImage(profileImageBase64.getBytes());
                 }
             });
 

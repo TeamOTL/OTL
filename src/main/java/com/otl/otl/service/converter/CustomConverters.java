@@ -80,22 +80,7 @@ public class CustomConverters {
                 .interests(toInterestsDTOList(study.getInterests()))
                 .build();
     }
-    //    public MemberStudy MemberStudyDTOToDomain(MemberStudyDTO memberStudyDTO, MemberStudy memberStudy) {
-//        member.builder()
-//                .email(memberStudyDTO.getMember().getEmail()
-//
-//        study.builder()
-//                .sno(memberStudyDTO.getStudy().getSno())
-//
-//        return MemberStudy.builder()
-//                .msNo(memberStudyDTO.getMsNo())
-//                .member(memberStudyDTO.getMember())
-//                .study(memberStudyDTO.getStudy())
-//                .isAccepted(memberStudyDTO.isAccepted())
-//                .isManaged(memberStudyDTO.isManaged())
-//                .comment(memberStudyDTO.getComment())
-//                .build();
-//    }
+
     public MemberStudy MemberStudyDTOToDomain(MemberStudyDTO memberStudyDTO, MemberStudy memberStudy) {
         Member member = Member.builder().email(memberStudyDTO.getMember().getEmail()).build(); // DTO에서 멤버의 이메일 값을 가져와서 Member 엔티티를 생성
         Study study = Study.builder().sno(memberStudyDTO.getStudy().getSno()).build(); // DTO에서 스터디 고유번호 값을 가져와서 Study 엔티티를 생성

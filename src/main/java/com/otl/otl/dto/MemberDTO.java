@@ -15,7 +15,7 @@ public class MemberDTO {
 
     private String nickname;           // 회원 이름 (닉네임)
 
-    private String memberProfileImage;     // 회원 프로필 사진
+    private byte[] memberProfileImage;
 
     private String memberDescription; // 회원 자기 소개
 

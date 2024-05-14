@@ -1,5 +1,6 @@
 package com.otl.otl.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -16,6 +17,7 @@ public class Task {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "sno")
+    @JsonBackReference
     private Study study; // study테이블 스터디 외래키
 
     @Column
