@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
@@ -37,7 +38,8 @@ public class StudyController {
 
     @GetMapping("/studyRoom_yu")
     public ResponseEntity<List<Study>> getUserStudies(@AuthenticationPrincipal OAuth2User oauthUser) {
-        String email = oauthUser.getAttribute("email");
+        Map<String, Object> kakaoAccount = oauthUser.getAttribute("kakao_account");
+        String email = (String) kakaoAccount.get("email");
         List<Study> studies = studyService.findUserStudies(email);
         return ResponseEntity.ok(studies);
     }

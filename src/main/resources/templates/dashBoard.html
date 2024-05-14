@@ -149,15 +149,10 @@
 // const email = "[[${email}]]";
 let email = `[[${email}]]`;
 let cTodos = [];
+let calenderJson = [];
 email = email.replace(/"/g, '');
 
-document.addEventListener("DOMContentLoaded", () => {
-    fetchAllTodos();  // 모든 할 일을 가져옴
-    showAllTodos();   // 첫 탭을 초기화
-    showCompletedTodos();  // 완료된 할 일을 초기화
-    showDeletedTodos();  // 삭제된 할 일을 초기화
-    fetchAllMyStudy();
-});
+
 
 // todo button onclick Event
 function submitTodo(e) {
@@ -223,64 +218,6 @@ function addTodoList(todo) {
     todoList.appendChild(listItem);
 }
 
-// ALL Todo List View
-function fetchAllTodos() {
-    fetch(`/api/todolists`, {
-        method: 'GET',
-        headers: {'Content-Type': 'application/json'}
-    })
-        .then(response => response.json())
-        .then(todos => {
-            const todoList = document.getElementById('todoListing');
-            todoList.innerHTML = '';
-
-            todos.forEach(addTodoList);
-
-            cTodos = todos.map(data => {
-                let endDate = new Date(data.todoEndDate);
-                endDate.setDate(endDate.getDate() + 1); // Adjust end date by +1 day
-
-                return {
-                    title: data.todolistContent,
-                    start: data.todoStartDate,
-                    end: endDate.toISOString().split('T')[0], // Format back to 'YYYY-MM-DD'
-                    backgroundColor: 'green',
-                    borderColor: 'green'
-                };
-            });
-
-            calendars(cTodos);
-
-
-        })
-        .catch(error => {
-            console.error("Error :", error)
-        });
-}
-
-// myStrudy
-function fetchAllMyStudy() {
-    fetch(`/api/studyRoom_yu`, {
-        method: 'GET',
-        headers: {'Content-Type': 'application/json'}
-    })
-        .then(response => response.json())
-        .then(todos => {
-            todos.forEach(addTodoList);
-            console.log(todos)
-            cTodos = todos.map(data => ({
-                title: data.todolistContent,
-                start: data.todoStartDate,
-                end: data.todoEndDate,
-                backgroundColor: 'blue',
-                borderColor: 'blue'
-            }));
-            calendars(cTodos);
-        })
-        .catch(error => {
-            console.error("Error :", error)
-        })
-}
 
 // 삭제 요청
 // function deleteTodo(toNo) {
@@ -419,6 +356,87 @@ function showCompletedTodos() {
             setActiveTab('completedTodo');
         })
         .catch(error => console.error('Error:', error));
+}
+
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    Promise.all([fetchAllTodos(), fetchAllMyStudy()])
+        .then(() => {
+            calendars(calenderJson);  // 모든 데이터 로드 후 캘린더 렌더링
+            fetchAllTodos();  // 모든 할 일을 가져옴
+            showAllTodos();   // 첫 탭을 초기화
+            showCompletedTodos();  // 완료된 할 일을 초기화
+            showDeletedTodos();  // 삭제된 할 일을 초기화
+            fetchAllMyStudy();
+        })
+        .catch(error => {
+            console.error('Error loading all data:', error);
+        });
+
+});
+
+// ALL Todo List View
+function fetchAllTodos() {
+    return new Promise((resolve, reject) => {
+        fetch(`/api/todolists`, {
+            method: 'GET',
+            headers: {'Content-Type': 'application/json'}
+        })
+            .then(response => response.json())
+            .then(todos => {
+                const todoList = document.getElementById('todoListing');
+                todoList.innerHTML = '';
+
+                todos.forEach(addTodoList);
+
+                const cTodos = todos.map(data => {
+                    let endDate = new Date(data.todoEndDate);
+                    endDate.setDate(endDate.getDate() + 1); // Adjust end date by +1 day
+                    return {
+                        title: data.todolistContent,
+                        start: data.todoStartDate,
+                        end: endDate.toISOString().split('T')[0], // Format back to 'YYYY-MM-DD'
+                        backgroundColor: '#ffb480',
+                        borderColor: '#ffb480'
+                    };
+                });
+                Array.prototype.push.apply(calenderJson, cTodos);
+                resolve();
+            })
+            .catch(error => {
+                console.error("Error :", error);
+                reject(error);
+            });
+    });
+}
+
+function fetchAllMyStudy() {
+    return new Promise((resolve, reject) => {
+        fetch(`/api/todolists/tasks/${email}`, {
+            method: 'GET',
+            headers: {'Content-Type': 'application/json'}
+        })
+            .then(response => response.json())
+            .then(todos => {
+                const cTodos = todos.map(data => {
+                    return {
+                        title: data.study.studyName,
+                        start: data.study.firstDate,
+                        end: data.study.stEndDate, // Format back to 'YYYY-MM-DD'
+                        backgroundColor: '#9d94ff',
+                        borderColor: '#9d94ff'
+                    };
+                });
+
+                Array.prototype.push.apply(calenderJson, cTodos);
+                resolve();
+            })
+            .catch(error => {
+                console.error("Error :", error);
+                reject(error);
+            })
+    });
 }
 
 // 캘린더 생성

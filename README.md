@@ -1,4 +1,4 @@
-# Project Title
+# OTL ( 좌절 금지 )
 
 <!--배지-->
 ![MIT License][license-shield] ![Repository Size][repository-size-shield] ![Issue Closed][issue-closed-shield]
@@ -30,6 +30,7 @@
 *다음 내용을 고려하여 프로젝트에 대한 **전반적인 정보**를 적으세요.*
 
 - ❗️짧은❗️ 도입부/제작 동기
+- 
 - 무슨 프로젝트인지
 - 왜 이 프로젝트를 사용해야하는지
 

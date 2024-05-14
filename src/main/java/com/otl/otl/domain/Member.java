@@ -1,6 +1,7 @@
 package com.otl.otl.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -37,6 +38,7 @@ public class Member {
             cascade = {CascadeType.ALL}
             , fetch = FetchType.LAZY)
     @Builder.Default
+    @JsonManagedReference
     private List<Interests> interests = new ArrayList<>();
 
 
