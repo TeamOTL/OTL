@@ -2,12 +2,16 @@ package com.otl.otl.service;
 
 import com.otl.otl.repository.BoardRepository;
 import com.otl.otl.repository.MemberRepository;
+import com.querydsl.core.BooleanBuilder;
+import com.querydsl.jpa.JPQLQuery;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import com.otl.otl.domain.Board;
 import com.otl.otl.domain.Member;
@@ -15,13 +19,14 @@ import com.otl.otl.dto.BoardDTO;
 
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
 @Log4j2
 @RequiredArgsConstructor
 @Transactional
-public class BoardServiceImpl implements BoardService{
+public class BoardServiceImpl<QBoard> implements BoardService{
 
     private final BoardRepository boardRepository;
     private  final MemberRepository memberRepository;
@@ -61,6 +66,31 @@ public class BoardServiceImpl implements BoardService{
 
         PageRequest pageRequest = PageRequest.of(page, size);
         Page<Board> boardPage = boardRepository.findByIsDeletedFalseOrderByModDateDesc(pageRequest);
+
+        return boardPage.map(this::entityToDto);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Page<BoardDTO> searchBoards(String type, String keyword, int page, int size) {
+        log.info("게시글 검색: 타입 {}, 키워드 {}, 페이지 {}, 크기 {}", type, keyword, page, size);
+
+        PageRequest pageRequest = PageRequest.of(page, size);
+
+        Page<Board> boardPage;
+        switch (type) {
+            case "t":
+                boardPage = boardRepository.findByBoardTitleContainingIgnoreCaseAndIsDeletedFalse(keyword, pageRequest);
+                break;
+            case "c":
+                boardPage = boardRepository.findByBoardContentContainingIgnoreCaseAndIsDeletedFalse(keyword, pageRequest);
+                break;
+            case "n":
+                boardPage = boardRepository.findByMember_NicknameContainingIgnoreCaseAndIsDeletedFalse(keyword, pageRequest);
+                break;
+            default:
+                boardPage = boardRepository.findByIsDeletedFalse(pageRequest);
+        }
 
         return boardPage.map(this::entityToDto);
     }
