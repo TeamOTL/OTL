@@ -1,8 +1,6 @@
 package com.otl.otl.controller;
 
-
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.otl.otl.domain.Board;
 import com.otl.otl.domain.Member;
 import com.otl.otl.dto.BoardDTO;
@@ -15,12 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Base64;
-import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -30,15 +25,13 @@ import java.util.Optional;
 public class BoardController {
 
     private final BoardService boardService;
+    private final MemberRepository memberRepository;
 
     @Autowired
-    private MemberRepository memberRepository;
-
-    @Autowired
-    public BoardController(BoardService boardService) {
+    public BoardController(BoardService boardService, MemberRepository memberRepository) {
         this.boardService = boardService;
+        this.memberRepository = memberRepository;
     }
-
 
     // POST 요청을 처리하는 메소드, 게시글 저장
     @PostMapping("/saveBoard")
@@ -75,15 +68,10 @@ public class BoardController {
             optionalMember.ifPresent(member -> {
                 // 닉네임, 프로필이미지 가져와서 MemberDTO에 추가
                 memberDTO.setNickname(member.getNickname());
-                // Base64 인코딩된 문자열로 변환
                 if (member.getMemberProfileImage() != null) {
-                    String profileImageBase64 = "data:image/png;base64," + Base64.getEncoder().encodeToString(member.getMemberProfileImage());
-                    memberDTO.setMemberProfileImage(profileImageBase64);
+                    memberDTO.setMemberProfileImage(member.getMemberProfileImage());
                 }
             });
-
-            // boardDTO와 memberDTO의 정보를 문자열로 조합하여 반환
-            //String response = "BoardDTO: " + boardDTO.toString() + ", MemberDTO: " + memberDTO.toString();
 
             log.info("게시글 조회 성공: {}", bno);
             return ResponseEntity.ok().body(memberDTO);

@@ -6,6 +6,7 @@ import lombok.*;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Entity
@@ -65,6 +66,35 @@ public class Study {
 
 
 
+    @OneToMany(mappedBy = "study", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
+    @Builder.Default
+    private List<MemberStudy> memberStudies = new ArrayList<>();
+
+
+//    //스터디방 생성시 주차 추가
+//    public void addTask(Integer taskWeek, String taskTitle, Study study) {
+//
+//        Task task = Task.builder()
+//                .taskWeek(taskWeek)
+//                .taskTitle(taskTitle)
+//                .study(study) // Study 엔터티
+//                .build();
+//        tasks.add(task);
+//
+//    }
+//
+//    //스터디방 생성시 주차 추가
+//    public void interests(String interersts_name, Study study) {
+//
+//        Task task = Task.builder()
+//                .interests_name(/)
+//                .Study(study) // Study 엔터티
+//                .build();
+//        tasks.add(task);
+//
+//    }
+
+
 
     // 날짜 계산 메서드
     public String calCombinedDday() {
@@ -88,6 +118,15 @@ public class Study {
         this.dDay = dDay;
     }
 
+
+    public List<Member> getMembers() {
+        List<Member> members = new ArrayList<>();
+        for (MemberStudy memberStudy : memberStudies) {
+            members.add(memberStudy.getMember());
+        }
+        return members;
+    }
+
     public void addTask(String taskDate, String taskTitle) {
 
         Task task = Task.builder()
@@ -109,6 +148,7 @@ public class Study {
         interests.add(interest);
 
     }
+
 
 }
 

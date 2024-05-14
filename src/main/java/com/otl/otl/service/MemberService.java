@@ -1,6 +1,9 @@
 package com.otl.otl.service;
 
 import com.otl.otl.domain.Member;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 public interface MemberService {
     Member registerOrUpdateMember(String nickname, String email, String profileImage);
@@ -10,4 +13,5 @@ public interface MemberService {
 
     Member findByEmail(String email);
     void save(Member member);  // 업데이트 로직
+    void updateProfileImage(Long memberId, MultipartFile file) throws IOException;
 }
