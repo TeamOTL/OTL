@@ -78,30 +78,19 @@ public class ReplyServiceImpl implements ReplyService{
     }
 
     @Override
-    public Page<ReplyDTO> findRepliesByBno(Long bno, int page, int size) {
-        log.info("댓글 목록 조회 - 게시글 번호: {}, 페이지 번호: {}, 페이지 크기: {}", bno, page, size);
+    public List<ReplyDTO> findRepliesByBno(Long bno) {
+        log.info("댓글 목록 조회 - 게시글 번호: {}", bno);
 
         // 해당 게시글 번호에 해당하는 댓글 목록을 데이터베이스에서 가져옵니다.
-        Pageable pageable = PageRequest.of(page, size);
-        Page<Reply> replyPage = replyRepository.findByBoard_Bno(bno, pageable);
+        List<Reply> replyList = replyRepository.findByBoard_Bno(bno);
 
         // 가져온 댓글 목록을 ReplyDTO로 변환합니다.
-        List<ReplyDTO> replyDTOList = replyPage.getContent().stream()
-                .map(reply -> modelMapper.map(reply, ReplyDTO.class))
+        List<ReplyDTO> replyDTOList = replyList.stream()
+                .map(this::entityToDto)
                 .collect(Collectors.toList());
 
-        return replyPage.map(this::entityToDto);
+        return replyDTOList;
     }
-
-//    @Override
-//    public Page<ReplyDTO> findReplyies(int page, int size) {
-//        log.info("댓글 목록 조회: 페이지 번호 {}, 페이지 크기 {}", page, size);
-//
-//        // 댓글 조회
-//        PageRequest pageRequest = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "modDate"));
-//        Page<Reply> replyPage = replyRepository.findAll(pageRequest);
-//        return replyPage.map(this::entityToDto);
-//    }
 
     // Reply 엔티티를 ReplyDTO로 변환하는 메서드
     private ReplyDTO entityToDto(Reply reply) {
@@ -112,5 +101,4 @@ public class ReplyServiceImpl implements ReplyService{
                 .email(email) // 회원 이메일 처리
                 .build();
     }
-
 }

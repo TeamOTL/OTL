@@ -55,76 +55,31 @@ public class ReplyController {
 
     @GetMapping("/replyList")
     @ResponseBody
-    public ResponseEntity<Map<String, Object>> replyList(@RequestParam Long bno, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
-        log.info("댓글 요청 - 게시글 번호: {}, 페이지 번호: {}, 페이지 크기: {}", bno, page, size);
+    public ResponseEntity<Map<String, Object>> replyList(@RequestParam Long bno) {
+        log.info("댓글 요청 - 게시글 번호: {}", bno);
 
         // 특정 게시글 번호에 해당하는 댓글 목록 조회
-        Page<ReplyDTO> replyPage = replyService.findRepliesByBno(bno, page, size);
+        List<ReplyDTO> replyList = replyService.findRepliesByBno(bno);
 
         // 댓글 목록을 담을 리스트 생성
-        List<Map<String, Object>> replyList = new ArrayList<>();
+        List<Map<String, Object>> formattedReplyList = new ArrayList<>();
 
         // 각 댓글의 정보를 담아서 리스트에 추가
-        for (ReplyDTO replyDTO : replyPage.getContent()) {
+        for (ReplyDTO replyDTO : replyList) {
             Map<String, Object> replyInfo = new HashMap<>();
             replyInfo.put("replyNo", replyDTO.getReplyNo());
+            replyInfo.put("email", replyDTO.getEmail());
             replyInfo.put("nickname", memberService.findNicknameByEmail(replyDTO.getEmail()));
             replyInfo.put("replyContent", replyDTO.getReplyContent());
-            replyList.add(replyInfo);
+            formattedReplyList.add(replyInfo);
         }
 
         // JSON 데이터를 담을 Map 생성
         Map<String, Object> response = new HashMap<>();
-        response.put("content", replyList); // 댓글 목록
-        response.put("currentPage", replyPage.getNumber()); // 현재 페이지 번호
-        response.put("totalPages", replyPage.getTotalPages()); // 전체 페이지 수
+        response.put("content", formattedReplyList); // 댓글 목록
 
         return ResponseEntity.ok(response);
     }
-
-
-//    @GetMapping("/replyList")
-//    @ResponseBody
-//    public ResponseEntity<Map<String, Object>> reply(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
-//        log.info("댓글 요청 - 페이지 번호: {}, 페이지 크기: {}", page, size);
-//
-//        // 댓글 목록 조회
-//        Page<ReplyDTO> replyPage = replyService.findReplyies(page, size);
-//
-//        // JSON 데이터를 담을 Map 생성
-//        Map<String, Object> response = new HashMap<>();
-//        response.put("content", replyPage.getContent()); // 댓글 목록
-//        response.put("currentPage", replyPage.getNumber()); // 현재 페이지 번호
-//        response.put("totalPages", replyPage.getTotalPages()); // 전체 페이지 수
-//
-//        // 각 댓글의 작성자 이메일을 가져와서 닉네임을 찾음
-//        List<String> emails = replyPage.getContent().stream()
-//                .map(replyDTO -> replyDTO.getEmail())
-//                .collect(Collectors.toList());
-//
-//        // 각 이메일에 해당하는 닉네임을 찾아서 닉네임 리스트에 추가
-//        List<String> nicknames = new ArrayList<>();
-//        for (String email : emails) {
-//            String nickname = memberService.findNicknameByEmail(email);
-//            nicknames.add(nickname);
-//        }
-//        // 결과에 닉네임 리스트 추가
-//        response.put("nicknames", nicknames);
-//
-//        // 댓글 번호 리스트 초기화
-//        List<Long> replyNos = new ArrayList<>();
-//
-//        // 각 댓글의 댓글 번호를 가져와서 리스트에 추가
-//        for (ReplyDTO replyDTO : replyPage.getContent()) {
-//            Long replyNo = replyDTO.getReplyNo();
-//            replyNos.add(replyNo);
-//        }
-//
-//        // 결과에 댓글 번호 리스트 추가
-//        response.put("replyNos", replyNos);
-//
-//        return ResponseEntity.ok(response);
-//    }
 
     @PostMapping("/deleteReply")
     public ResponseEntity<Void> deleteReply(@RequestBody ReplyDTO replyDTO) {
