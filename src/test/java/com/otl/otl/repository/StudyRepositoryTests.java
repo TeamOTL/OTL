@@ -1,8 +1,11 @@
 package com.otl.otl.repository;
 
 import com.otl.otl.domain.Category;
+import com.otl.otl.domain.Member;
 import com.otl.otl.domain.MemberStudy;
 import com.otl.otl.domain.Study;
+import com.otl.otl.dto.InterestsDTO;
+import com.otl.otl.dto.TaskDTO;
 import jakarta.transaction.Transactional;
 import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Test;
@@ -66,6 +69,9 @@ public class StudyRepositoryTests {
     Study(sno=5, studyName=ㅁㅇㄴㅎ, studyDescription=ㅁㄴㅇㅎㅁㄴㅇㅎㅁ, studyPlan=ㅇㅇㅇ, maxMember=2, firstDate=2024-05-16, rStartDate=2024-04-05, rEndDate=2024-05-30,
         category=Category(cno=2, categoryName=프론트엔드, categoryImage=22), dDay=D-16, tasks=[], interests=[])]
     */
+
+
+
 
 }
 

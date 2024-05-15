@@ -36,10 +36,10 @@ public class Study {
     @Column(nullable = false)
     private String firstDate;                //스터디 시작일
 
-    @Column(nullable = false)
+//    @Column(nullable = false)
     private String rStartDate;                  // 모집 기간_시작일
 
-    @Column(nullable = false)
+//    @Column(nullable = false)
     private String rEndDate;                  // 모집 기간_종료일
 
     @ManyToOne
