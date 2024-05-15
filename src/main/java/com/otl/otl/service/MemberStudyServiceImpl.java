@@ -79,10 +79,19 @@ public class MemberStudyServiceImpl implements MemberStudyService {
 //    public List<MemberStudy> getMyStudyAccptedAndSno(String email, Long sno) {
 //        return memberStudyRepository.findMemberStudyByEmailAndIsAcceptedAndSno(email, sno);
 //    }
+//    @Override
+//    public List<StudyListDTO> getMyStudyAccptedAndSno(String email, Long sno) {
+//        List<MemberStudy> memberStudyList = memberStudyRepository.findMemberStudyByEmailAndIsAcceptedAndSno(email, sno);
+//        log.info(memberStudyList);
+//        return memberStudyList.stream()
+//                .map(customConverters::memberStudyToDTO)
+//                .collect(Collectors.toList());
+//    }
+    // Method to get a single study by email and sno
     @Override
     public List<StudyListDTO> getMyStudyAccptedAndSno(String email, Long sno) {
         List<MemberStudy> memberStudyList = memberStudyRepository.findMemberStudyByEmailAndIsAcceptedAndSno(email, sno);
-        log.info(memberStudyList);
+        log.info("Fetched memberStudyList: {}", memberStudyList);
         return memberStudyList.stream()
                 .map(customConverters::memberStudyToDTO)
                 .collect(Collectors.toList());

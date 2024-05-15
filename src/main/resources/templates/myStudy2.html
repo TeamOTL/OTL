@@ -111,82 +111,6 @@
                                 </div>
                             </div>
                         </li>
-                        <!--2주차-->
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <a href="">
-                                <img src="/icon/timeer.svg" alt="icon" class="rounded-circle mr-3 me-3">
-                                <span class="flex-grow-1 font-weight-bolder text-dark" style="margin-right: 15px;">2주차</span>
-                                <span class="flex-grow-1 font-weight-bold text-dark">객체 지향의 이해</span>
-                            </a>
-                            <!--Dropdown: 주차별 회의록 삭제-->
-                            <div class="week dropdown no-arrow" style="margin-left: 10px">
-                                <div class="week dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <img src="/icon/dotdotdot.svg" alt="회의록으로" class="">
-                                </div>
-                                <div class="week dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
-                                    <div class="dropdown-header">회의록</div>
-                                    <!-- Button to Delete -->
-                                    <button type="button" class="dropdown-item">삭제하기</button>
-                                </div>
-                            </div>
-                        </li>
-                        <!--3주차-->
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <a href="">
-                                <img src="/icon/timeer.svg" alt="icon" class="rounded-circle mr-3 me-3">
-                                <span class="flex-grow-1 font-weight-bolder text-dark" style="margin-right: 15px;">3주차</span>
-                                <span class="flex-grow-1 font-weight-bold text-dark">객체 지향의 이해</span>
-                            </a>
-                            <!--Dropdown: 주차별 회의록 삭제-->
-                            <div class="week dropdown no-arrow" style="margin-left: 10px">
-                                <div class="week dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <img src="/icon/dotdotdot.svg" alt="회의록으로" class="">
-                                </div>
-                                <div class="week dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
-                                    <div class="dropdown-header">회의록</div>
-                                    <!-- Button to Delete -->
-                                    <button type="button" class="dropdown-item">삭제하기</button>
-                                </div>
-                            </div>
-                        </li>
-                        <!--4주차-->
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <a href="">
-                                <img src="/icon/timeer.svg" alt="icon" class="rounded-circle mr-3 me-3">
-                                <span class="flex-grow-1 font-weight-bolder text-dark" style="margin-right: 15px;">4주차</span>
-                                <span class="flex-grow-1 font-weight-bold text-dark">객체 지향의 이해</span>
-                            </a>
-                            <!--Dropdown: 주차별 회의록 삭제-->
-                            <div class="week dropdown no-arrow" style="margin-left: 10px">
-                                <div class="week dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <img src="/icon/dotdotdot.svg" alt="회의록으로" class="">
-                                </div>
-                                <div class="week dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
-                                    <div class="dropdown-header">회의록</div>
-                                    <!-- Button to Delete -->
-                                    <button type="button" class="dropdown-item">삭제하기</button>
-                                </div>
-                            </div>
-                        </li>
-                        <!--5주차-->
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <a href="">
-                                <img src="/icon/timeer.svg" alt="icon" class="rounded-circle mr-3 me-3">
-                                <span class="flex-grow-1 font-weight-bolder text-dark" style="margin-right: 15px;">5주차</span>
-                                <span class="flex-grow-1 font-weight-bold text-dark">객체 지향의 이해</span>
-                            </a>
-                            <!--Dropdown: 주차별 회의록 삭제-->
-                            <div class="week dropdown no-arrow" style="margin-left: 10px">
-                                <div class="week dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <img src="/icon/dotdotdot.svg" alt="회의록으로" class="">
-                                </div>
-                                <div class="week dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
-                                    <div class="dropdown-header">회의록</div>
-                                    <!-- Button to Delete -->
-                                    <button type="button" class="dropdown-item">삭제하기</button>
-                                </div>
-                            </div>
-                        </li>
                     </ul>
                 </div>
 
@@ -326,31 +250,17 @@
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         loadMyStudies();
+        openStudyDetails(sno)
     });
-
     function loadMyStudies() {
         $.ajax({
             type: "GET",
-            url: "/api/studyList",
+            url: "/api/myStudy",
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (studies) {
                 console.log("Studies loaded:", studies);
-
-                // let studiesDiv = $("#study-cards");
-                // studies.forEach(study => {
-                //     let studyCardHtml = `<div class="col-md-4 mb-4">
-                //             <div class="card">
-                //                 <img class="card-img-top" src="${study.image}" alt="${study.name}">
-                //                 <div class="card-body">
-                //                     <h5 class="card-title">${study.name}</h5>
-                //                     <p class="card-text">${study.description}</p>
-                //                     <a href="#" class="btn btn-primary">더보기</a>
-                //                 </div>
-                //             </div>
-                //         </div>`;
-                //     studiesDiv.append(studyCardHtml);
-                // });
+                // 스터디 카드를 동적으로 생성하는 로직 추가
             },
             error: function (error) {
                 console.error("Failed to load studies:", error);
@@ -358,6 +268,24 @@
             }
         });
     }
+
+    function openStudyDetails(sno) {
+        $.ajax({
+            type: "GET",
+            url: `/api/myStudy/${sno}`,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (study) {
+                console.log("Study details loaded:", study);
+                // 스터디 상세 정보를 표시하는 로직 추가
+            },
+            error: function (error) {
+                console.error("Failed to load study details:", error);
+                alert("Failed to load study details");
+            }
+        });
+    }
+
 </script>
 
 

@@ -4,7 +4,6 @@ package com.otl.otl.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.otl.otl.domain.MemberStudy;
 import com.otl.otl.domain.Study;
-import com.otl.otl.dto.StudyDTO;
 import com.otl.otl.dto.StudyListDTO;
 import com.otl.otl.dto.customDTO.StudyCreateCustomDTO;
 import com.otl.otl.service.MemberStudyService;
@@ -28,12 +27,14 @@ import java.util.Map;
 //@RequiredArgsConstructor
 public class StudyController {
     private final StudyService studyService;
-    private MemberStudyService memberStudyService;
+    private final MemberStudyService memberStudyService;
+
 
     @Autowired
-    public StudyController(StudyService studyService, ObjectMapper objectMapper) {
+    public StudyController(StudyService studyService, ObjectMapper objectMapper, MemberStudyService memberStudyService) {
         this.studyService = studyService;
         this.objectMapper = objectMapper;
+        this.memberStudyService = memberStudyService;
     }
 
 //    @GetMapping("/studyRoom_yu")
@@ -114,25 +115,69 @@ public class StudyController {
 //        return studies;
 //    }
 
+//
+//    @GetMapping("/myStudy")
+//    public ResponseEntity<List<StudyListDTO>> findMyAcceptedStudies(@AuthenticationPrincipal OAuth2User oauthUser) {
+//        // 사용자의 카카오 계정에서 이메일을 추출합니다.
+//        Map<String, Object> kakaoAccount = oauthUser.getAttribute("kakao_account");
+//        String email = (String) kakaoAccount.get("email");
+//        log.info("email: {}", email);
+//
+//        // 사용자의 이메일을 기준으로 스터디 목록을 조회합니다.
+//        List<StudyListDTO> studies = memberStudyService.getMyStudyAccpted(email);
+//
+//        // 조회된 스터디 목록을 로그로 기록합니다.
+//        log.info("StudyService result : " + studies);
+//
+//        // 조회된 스터디 목록을 클라이언트에게 반환합니다.
+//        return ResponseEntity.ok(studies);
+//    }
+//
+//
+//    @GetMapping("/myStudy/{sno}")
+//    public ResponseEntity<List<StudyListDTO>> getMyStudyAcceptedAndSno(@AuthenticationPrincipal OAuth2User oauthUser, @PathVariable Long sno) {
+//        Map<String, Object> kakaoAccount = oauthUser.getAttribute("kakao_account");
+//        String email = (String) kakaoAccount.get("email");
+//        log.info("email: {}", email);
+//        log.info("sno: {}", sno);
+//
+//        List<StudyListDTO> study = memberStudyService.getMyStudyAccptedAndSno(email, sno);
+//        log.info("studies: " + study);
+//
+//        return ResponseEntity.ok(study);
+//    }
 
-    @GetMapping("/studyList/{sno}")
+//    @GetMapping("/myStudy")
+//    public ResponseEntity<List<StudyListDTO>> findMyAcceptedStudies(@AuthenticationPrincipal OAuth2User oauthUser) {
+//        // 사용자의 카카오 계정에서 이메일을 추출합니다.
+//        Map<String, Object> kakaoAccount = oauthUser.getAttribute("kakao_account");
+//        String email = (String) kakaoAccount.get("email");
+//        log.info("email: {}", email);
+//
+//        // 사용자의 이메일을 기준으로 스터디 목록을 조회합니다.
+//        List<StudyListDTO> studies = memberStudyService.getMyStudyAccpted(email);
+//
+//        // 조회된 스터디 목록을 로그로 기록합니다.
+//        log.info("StudyService result : " + studies);
+//
+//        // 조회된 스터디 목록을 클라이언트에게 반환합니다.
+//        return ResponseEntity.ok(studies);
+//    }
+
+
+    @GetMapping("/myStudy/{sno}")
     public ResponseEntity<List<StudyListDTO>> getMyStudyAcceptedAndSno(@AuthenticationPrincipal OAuth2User oauthUser, @PathVariable Long sno) {
         Map<String, Object> kakaoAccount = oauthUser.getAttribute("kakao_account");
         String email = (String) kakaoAccount.get("email");
-        List<StudyListDTO> studies = memberStudyService.getMyStudyAcceptedAndSno(email, sno);
-        log.info("studies:"+studies);
+        log.info("email: {}", email);
+        log.info("sno: {}", sno);
 
+        List<StudyListDTO> study = memberStudyService.getMyStudyAccptedAndSno(email, sno);
+        log.info("studies: " + study);
 
-        return ResponseEntity.ok(studies);
+        return ResponseEntity.ok(study);
     }
 
 
-    //모집방 상세 정보 조회
-    @GetMapping("/study/{sno}")
-    public ResponseEntity<StudyDTO> getStudy(@PathVariable Long sno) {
-        StudyDTO studyDTO = studyService.getStudy(sno);
-        return ResponseEntity.ok(studyDTO);
-    }
 
 }
-

@@ -8,9 +8,7 @@ import com.otl.otl.dto.StudyDTO;
 import com.otl.otl.dto.StudyListDTO;
 import com.otl.otl.repository.MemberRepository;
 import com.otl.otl.repository.MemberStudyRepository;
-import com.otl.otl.service.BoardService;
-import com.otl.otl.service.MemberService;
-import com.otl.otl.service.StudyService;
+import com.otl.otl.service.*;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,14 +35,16 @@ public class MemberController {
     private final StudyService studyService;
     private final MemberRepository memberRepository;
     private final MemberStudyRepository memberStudyRepository;
+    private MemberStudyService memberStudyService;
 
     @Autowired
-    public MemberController(MemberService memberService, BoardService boardService, StudyService studyService, MemberRepository memberRepository, MemberStudyRepository memberStudyRepository) {
+    public MemberController(MemberService memberService, BoardService boardService, StudyService studyService, MemberRepository memberRepository, MemberStudyRepository memberStudyRepository, MemberStudyService memberStudyService) {
         this.memberService = memberService;
         this.boardService = boardService;
         this.studyService = studyService;
         this.memberRepository = memberRepository;
         this.memberStudyRepository = memberStudyRepository;
+        this.memberStudyService = memberStudyService;
     }
 
     @GetMapping("/")
@@ -57,41 +57,41 @@ public class MemberController {
         return "main";
     }
 
-    @GetMapping("/studyRoom_yu")
-    public String studyRoom_yu(@AuthenticationPrincipal OAuth2User oauthUser, Model model) {
-        if (oauthUser == null) {
-            log.error("OAuth2User is null");
-            return "redirect:/"; // 로그인 페이지로 리다이렉트
-        }
-        Map<String, Object> attributes = oauthUser.getAttributes();
-        log.info("OAuth2User Attributes: {}", attributes);
-
-        // 카카오 로그인에서 이메일 속성 가져오기
-        Map<String, Object> kakaoAccount = (Map<String, Object>) attributes.get("kakao_account");
-        String email = (String) kakaoAccount.get("email");
-        if (email == null) {
-            log.error("Email attribute is null");
-            return "redirect:/login"; // 로그인 페이지로 리다이렉트
-        }
-
-        Member member = memberRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("User not found"));
-
-        List<MemberStudy> memberStudies = memberStudyRepository.findByMemberEmail(member.getEmail());
-        List<StudyDTO> studyDTOs = memberStudies.stream().map(ms -> {
-            StudyDTO studyDTO = new StudyDTO();
-            studyDTO.setStudyName(ms.getStudy().getStudyName());
-            studyDTO.setDDay(ms.getStudy().calCombinedDday());
-            studyDTO.setMemberNicknames(ms.getStudy().getMembers().stream()
-                    .map(Member::getNickname)
-                    .collect(Collectors.toList()));
-            studyDTO.setStudyPlan(ms.getStudy().getStudyPlan());
-            return studyDTO;
-        }).collect(Collectors.toList());
-
-        model.addAttribute("studies", studyDTOs);
-        return "studyRoom_yu";  // studyRoom_yu.html 템플릿을 반환
-    }
+//    @GetMapping("/studyRoom_yu")
+//    public String studyRoom_yu(@AuthenticationPrincipal OAuth2User oauthUser, Model model) {
+//        if (oauthUser == null) {
+//            log.error("OAuth2User is null");
+//            return "redirect:/"; // 로그인 페이지로 리다이렉트
+//        }
+//        Map<String, Object> attributes = oauthUser.getAttributes();
+//        log.info("OAuth2User Attributes: {}", attributes);
+//
+//        // 카카오 로그인에서 이메일 속성 가져오기
+//        Map<String, Object> kakaoAccount = (Map<String, Object>) attributes.get("kakao_account");
+//        String email = (String) kakaoAccount.get("email");
+//        if (email == null) {
+//            log.error("Email attribute is null");
+//            return "redirect:/login"; // 로그인 페이지로 리다이렉트
+//        }
+//
+//        Member member = memberRepository.findByEmail(email)
+//                .orElseThrow(() -> new RuntimeException("User not found"));
+//
+//        List<MemberStudy> memberStudies = memberStudyRepository.findByMemberEmail(member.getEmail());
+//        List<StudyDTO> studyDTOs = memberStudies.stream().map(ms -> {
+//            StudyDTO studyDTO = new StudyDTO();
+//            studyDTO.setStudyName(ms.getStudy().getStudyName());
+//            studyDTO.setDDay(ms.getStudy().calCombinedDday());
+//            studyDTO.setMemberNicknames(ms.getStudy().getMembers().stream()
+//                    .map(Member::getNickname)
+//                    .collect(Collectors.toList()));
+//            studyDTO.setStudyPlan(ms.getStudy().getStudyPlan());
+//            return studyDTO;
+//        }).collect(Collectors.toList());
+//
+//        model.addAttribute("studies", studyDTOs);
+//        return "studyRoom_yu";  // studyRoom_yu.html 템플릿을 반환
+//    }
 
     @GetMapping("/dashBoard")
     public String getUserInfo(@AuthenticationPrincipal OAuth2User oauthUser, Model model) {
@@ -265,5 +265,45 @@ public class MemberController {
         return "studyJoin";  // studyJoin.html 템플릿을 반환
     }
 
+//    @GetMapping("/myStudy")
+//    public String myStudy(@AuthenticationPrincipal OAuth2User oauthUser, @RequestParam(required = false) Long sno, Model model) {
+//        Map<String, Object> kakaoAccount = oauthUser.getAttribute("kakao_account");
+//        Map<String, Object> profile = (Map<String, Object>) kakaoAccount.get("profile");
+//
+//        String nickname = (String) profile.get("nickname");
+//        String email = (String) kakaoAccount.get("email");
+//        String memberProfileImage = (String) profile.get("profile_image_url");
+//
+//        // memberService.registerOrUpdateMember 메소드가 Member 객체를 반환하도록 하고, 해당 객체를 사용합니다.
+//        Member member = memberService.registerOrUpdateMember(nickname, email, memberProfileImage);
+//
+//        // 모델에 사용자 정보 추가
+//        model.addAttribute("nickname", nickname);
+//        model.addAttribute("email", email);
+//        model.addAttribute("memberProfileImage", member.getMemberProfileImage());
+//        model.addAttribute("sno", sno);  // sno를 모델에 추가
+//
+//        return "myStudy";  // myStudy.html 템플릿을 반환
+//    }
+@GetMapping("/myStudy")
+public String myStudy(@AuthenticationPrincipal OAuth2User oauthUser, @RequestParam(required = false) Long sno, Model model) {
+    Map<String, Object> kakaoAccount = oauthUser.getAttribute("kakao_account");
+    Map<String, Object> profile = (Map<String, Object>) kakaoAccount.get("profile");
+
+    String nickname = (String) profile.get("nickname");
+    String email = (String) kakaoAccount.get("email");
+    String memberProfileImage = (String) profile.get("profile_image_url");
+
+    // memberService.registerOrUpdateMember 메소드가 Member 객체를 반환하도록 하고, 해당 객체를 사용합니다.
+    Member member = memberService.registerOrUpdateMember(nickname, email, memberProfileImage);
+
+    // 모델에 사용자 정보 추가
+    model.addAttribute("nickname", nickname);
+    model.addAttribute("email", email);
+    model.addAttribute("memberProfileImage", member.getMemberProfileImage());
+    model.addAttribute("sno", sno);  // sno를 모델에 추가
+
+    return "myStudy";  // myStudy.html 템플릿을 반환
+}
 
 }

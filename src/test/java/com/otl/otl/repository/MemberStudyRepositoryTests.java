@@ -41,7 +41,8 @@ public class MemberStudyRepositoryTests {
     @Test
     public void findByEmailAndIsAccepted() {
         // Given
-        String email = "test1"; // 테스트할 member
+//        String email = "test1"; // 테스트할 member
+        String email = "wer2587@naver.com"; // 테스트할 member
 
         // When
         List<MemberStudy> memberStudyList = memberStudyRepository.findMemberStudyByEmailAndIsAccepted(email);
@@ -96,10 +97,10 @@ public class MemberStudyRepositoryTests {
     public void findByEmailAndIsAcceptedAndSno() {
         // Given
         String email = "wer2587@naver.com"; // 테스트할 member
-        Long sno = 1L;
+        Long sno = 2L;
 
         // When
-        List<MemberStudy> memberStudyList = memberStudyRepository.findMemberStudyByEmailAndIsAccepted(email);
+        List<MemberStudy> memberStudyList = memberStudyRepository.findMemberStudyByEmailAndIsAcceptedAndSno(email, sno);
 
         //Then
         log.info(memberStudyList);
