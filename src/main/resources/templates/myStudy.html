@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>스터디룸</title>
-
     <!-- Custom fonts for this template-->
     <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
@@ -24,126 +23,133 @@
             <custom-topbar th:attr="data-nickname=${nickname}, data-profile-image=${memberProfileImage}"></custom-topbar>
             <!-- TopBar End -->
 
-            <!-- container fluid -->
+            <!-- Container Fluid -->
             <div class="container-fluid">
-                <!-- Content Row -->
-                <div class="row" id="study-cards">
-                    <!-- 스터디 카드가 여기에 동적으로 추가될 것입니다 -->
-                </div>
-
-                <!-- 스터디 기록 -->
-                <div class="card p-3">
-                    <div class="d-flex align-items-center justify-content-between px-3 mb-3">
-                        <div class="d-flex align-items-center justify-content-between">
-                            <img src="/icon/line3.svg" alt="list" class="mr-3 me-3">
-                            <h4 class="font-weight-bolder text-dark me-3 text-center" style="margin-right: 20px;">스터디 기록</h4>
-                            <div class="calender d-flex justify-content-between">
-                                <img src="/icon/left.svg" alt="이전 월" class="me-3">
-                                <h5 class="m-3"><span class="flex-lg-grow-1 text-center">2024년 5월</span></h5>
-                                <img src="/icon/right.svg" alt="다음 월" class="me-3">
+                <div class="row">
+                    <!-- Left Column (Study Cards and Study Records) -->
+                    <div class="col-lg-6 d-flex flex-column">
+                        <!-- Study Cards -->
+                        <div class="card mb-3 flex-grow-1">
+                            <div class="card-body">
+                                <div class="row" id="study-cards">
+                                    <!-- 스터디 카드가 여기에 동적으로 추가될 것입니다 -->
+                                </div>
                             </div>
                         </div>
-                        <a href=""><img src="/icon/plus.svg" alt="추가하기" class="mr-3 me-3"></a>
-                    </div>
-                    <ul class="list-group" id="task-list">
-                        <!-- Task items will be appended here -->
-                    </ul>
-                </div>
 
-                <!-- 스터디_모집_카드 2 -->
-                <div class="col-xl-7 col-lg-5 mb-3">
-                    <!-- 오늘의 스터디 -->
-                    <div class="card p-3">
-                        <div class="study document" id="example-document">
-                            <div class="document">
-                                <div class="study-document">
-                                    <!-- 회의록 헤더-->
-                                    <div class="document-header">
-                                        <h4 class="font-weight-bolder text-dark me-3" style="margin: 20px;">오늘의 스터디</h4>
-                                    </div><!-- 회의록 헤더 종료-->
-                                    <!-- 회의록 주차-->
-                                    <div class="document-week">
-                                        <div class="font-weight-bolder text-dark me-3">
-                                            <li class="list-group-item d-flex justify-content-between align-items-center" style="background-color: #FFF5EF;">
-                                                <img src="/icon/timeer.svg" alt="icon" class="rounded-circle mr-3 me-3">
-                                                <span id="task-title" class="flex-grow-1 font-weight-bold text-dark">taskTitle</span>
-                                            </li>
+                        <!-- Study Records -->
+                        <div class="card mb-3 flex-grow-1">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center justify-content-between mb-3">
+                                    <div class="d-flex align-items-center">
+                                        <img src="/icon/line3.svg" alt="list" class="me-3">
+                                        <h4 class="font-weight-bolder text-dark me-3 text-center">스터디 기록</h4>
+                                    </div>
+                                    <div class="calendar d-flex align-items-center">
+                                        <img src="/icon/left.svg" alt="이전 월" class="me-3">
+                                        <h5 class="m-0">2024년 5월</h5>
+                                        <img src="/icon/right.svg" alt="다음 월" class="ms-3">
+                                    </div>
+                                    <a href="#"><img src="/icon/plus.svg" alt="추가하기" class="me-3"></a>
+                                </div>
+                                <ul class="list-group" id="task-list">
+                                    <!-- Task items will be appended here -->
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column (Study Details) -->
+                    <div class="col-lg-6">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <div class="study document" id="example-document">
+                                    <div class="study-document">
+                                        <!-- 회의록 헤더-->
+                                        <div class="document-header">
+                                            <h4 class="font-weight-bolder text-dark me-3">오늘의 스터디</h4>
                                         </div>
-                                    </div><!-- 회의록 주차 종료-->
-                                    <!--회의록 내용-->
-                                    <form action="#" method="post">
-                                        <div class="document-body">
-                                            <!--날짜-->
-                                            <div class="date font-weight-bolder text-dark me-3">
-                                                <div class="list-group-item col d-flex">
-                                                    <label class="col-sm-2 col-form-label">01 날짜</label>
-                                                    <div class="col-sm-10">
-                                                        <input type="text" class="form-control" id="task-date" value="텍스트 입력" readonly>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!--시간-->
-                                            <div class="time font-weight-bolder text-dark me-3">
-                                                <div class="list-group-item col d-flex">
-                                                    <label class="col-sm-2 col-form-label">02 시간</label>
-                                                    <div class="col-sm-10">
-                                                        <input type="text" class="form-control" id="task-time" value="텍스트 입력" readonly>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!--장소-->
-                                            <div class="place font-weight-bolder text-dark me-3">
-                                                <div class="list-group-item col d-flex">
-                                                    <label class="col-sm-2 col-form-label">03 장소</label>
-                                                    <div class="col-sm-10">
-                                                        <input type="text" class="form-control" id="task-place" value="텍스트 입력" readonly>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!--참석자-->
-                                            <div class="attend font-weight-bolder text-dark me-3">
-                                                <div class="list-group-item col d-flex">
-                                                    <label class="col-sm-2 col-form-label">04 참석</label>
-                                                    <div class="col-sm-10">
-                                                        <input type="text" class="form-control" id="task-member" value="텍스트 입력" readonly>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!--내용-->
-                                            <div class="content font-weight-bolder text-dark me-3">
-                                                <div class="list-group-item col d-flex">
-                                                    <label class="col-sm-2 col-form-label">05 내용</label>
-                                                    <div class="col-sm-10">
-                                                        <textarea type="text" class="form-control" style="height: 30vh;" id="task-content" readonly></textarea>
-                                                    </div>
-                                                </div>
+                                        <!-- 회의록 주차-->
+                                        <div class="document-week">
+                                            <div class="font-weight-bolder text-dark me-3">
+                                                <li class="list-group-item d-flex justify-content-between align-items-center" style="background-color: #FFF5EF;">
+                                                    <img src="/icon/timeer.svg" alt="icon" class="rounded-circle me-3">
+                                                    <span id="task-title" class="flex-grow-1 font-weight-bold text-dark">taskTitle</span>
+                                                </li>
                                             </div>
                                         </div>
-                                        <!--회의록 버튼-->
-                                        <div class="modal-footer">
-                                            <div class="justify-content-between">
-                                                <button type="button" class="btn btn-success" id="edit-button" disabled>수정 완료</button>
-                                                <button type="button" class="btn btn-danger" id="delete-button" disabled>삭제하기</button>
+                                        <!-- 회의록 내용-->
+                                        <form action="#" method="post">
+                                            <div class="document-body">
+                                                <!--날짜-->
+                                                <div class="date font-weight-bolder text-dark me-3 mb-3">
+                                                    <div class="list-group-item d-flex">
+                                                        <label class="col-sm-2 col-form-label">01 날짜</label>
+                                                        <div class="col-sm-10">
+                                                            <input type="text" class="form-control" id="task-date" value="텍스트 입력" readonly>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!--시간-->
+                                                <div class="time font-weight-bolder text-dark me-3 mb-3">
+                                                    <div class="list-group-item d-flex">
+                                                        <label class="col-sm-2 col-form-label">02 시간</label>
+                                                        <div class="col-sm-10">
+                                                            <input type="text" class="form-control" id="task-time" value="텍스트 입력" readonly>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!--장소-->
+                                                <div class="place font-weight-bolder text-dark me-3 mb-3">
+                                                    <div class="list-group-item d-flex">
+                                                        <label class="col-sm-2 col-form-label">03 장소</label>
+                                                        <div class="col-sm-10">
+                                                            <input type="text" class="form-control" id="task-place" value="텍스트 입력" readonly>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!--참석자-->
+                                                <div class="attend font-weight-bolder text-dark me-3 mb-3">
+                                                    <div class="list-group-item d-flex">
+                                                        <label class="col-sm-2 col-form-label">04 참석</label>
+                                                        <div class="col-sm-10">
+                                                            <input type="text" class="form-control" id="task-member" value="텍스트 입력" readonly>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!--내용-->
+                                                <div class="content font-weight-bolder text-dark me-3 mb-3">
+                                                    <div class="list-group-item d-flex">
+                                                        <label class="col-sm-2 col-form-label">05 내용</label>
+                                                        <div class="col-sm-10">
+                                                            <textarea type="text" class="form-control" style="height: 30vh;" id="task-content" readonly></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </form>
+                                            <!--회의록 버튼-->
+                                            <div class="modal-footer">
+                                                <div class="d-flex justify-content-between w-100">
+                                                    <button type="button" class="btn btn-success" id="edit-button" disabled>수정 완료</button>
+                                                    <button type="button" class="btn btn-danger" id="delete-button" disabled>삭제하기</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <!-- 스터디_모집_카드 2 End -->
             </div>
+            <!-- Container Fluid End -->
         </div>
-        <!-- End of Page Wrapper -->
-        <custom-study-create-modal></custom-study-create-modal>
-        <custom-study-info-modal></custom-study-info-modal>
-        <custom-user-drop-modal></custom-user-drop-modal>
-        <custom-setting-modal></custom-setting-modal>
-        <custom-scroll-top-btn></custom-scroll-top-btn>
+        <!-- Main Content End -->
     </div>
+    <!-- Content Wrapper End -->
 </div>
-<!-- 부트스트랩 JS (팝업을 위해 필요) -->
+
+<!-- sidebar & topbar & 스크롤 컴포넌트화 -->
 <script src="/js/component/sidebar.js"></script>
 <script src="/js/component/topbar.js"></script>
 <script src="/js/component/scrollTopButton.js"></script>
@@ -162,8 +168,6 @@
 <!-- Bootstrap core JavaScript-->
 <script src="/vendor/jquery/jquery.min.js"></script>
 <script src="/vendor/jquery-easing/jquery.easing.min.js"></script>
-
-<!-- Custom scripts for all pages-->
 <script src="/js/sb-admin-2.min.js"></script>
 
 <script>
@@ -196,15 +200,14 @@
         });
     }
 
-
     function renderStudyCards(studies) {
         const studyCardsDiv = document.getElementById('study-cards');
         studyCardsDiv.innerHTML = '';
 
         studies.forEach(study => {
             const studyCardHtml = `
-                <div class="col-xl-5 col-lg-5 mb-3">
-                    <div class="card p-3" style="margin-bottom: 24px;">
+                <div class="col-12">
+                    <div class="card p-3 mb-3">
                         <div class="profile-container d-flex align-items-center justify-content-between px-3">
                             <img src="/img/docker.svg" alt="프로필 이미지" class="rounded-circle me-3">
                             <h5 class="flex-grow-1 mx-3 text-dark font-weight-bold">
@@ -215,19 +218,19 @@
                                     ${study.dDay}
                                 </div>
                             </div>
-                            <div class="study dropdown no-arrow" style="margin-left: 20px">
-                                <div class="study dropdown-toggle" href="#" role="button" id="studyDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <img src="/icon/dotdotdot.svg" alt="스터디 환경설정" class="">
-                                </div>
-                                <div class="study dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
-                                    <div class="dropdown-header">스터디 환경설정</div>
-                                    <button type="button" class="dropdown-item" data-toggle="modal" data-target="#userDropModal">스터디 탈퇴</button>
-                                    <a class="dropdown-item" href="#">방장 페이지</a>
-                                </div>
+                            <div class="study dropdown no-arrow ms-3">
+                                <a class="study dropdown-toggle" href="#" role="button" id="studyDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <img src="/icon/dotdotdot.svg" alt="스터디 환경설정">
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+                                    <li class="dropdown-header">스터디 환경설정</li>
+                                    <li><button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#userDropModal">스터디 탈퇴</button></li>
+                                    <li><a class="dropdown-item" href="#">방장 페이지</a></li>
+                                </ul>
                             </div>
                         </div>
                         <div class="card-body">
-                            <div class="study_member d-flex justify-content-start ml-1 mb-2 text-black-50 rounded align-items-center" style="background-color: #FFF5EF;">
+                            <div class="study_member d-flex justify-content-start ms-1 mb-2 text-black-50 rounded align-items-center" style="background-color: #FFF5EF;">
                                 <img src="/img/state=off.svg" class="p-2">
                                 ${study.interests.map(interest => `<span class="p-1">${interest.interestName}</span>`).join('')}
                             </div>
@@ -258,18 +261,18 @@
             const taskItemHtml = `
             <li class="list-group-item d-flex justify-content-between align-items-center" onclick='renderTaskDetails(${JSON.stringify(task)})'>
                 <a href="javascript:void(0)">
-                    <img src="/icon/timeer.svg" alt="icon" class="rounded-circle mr-3 me-3">
+                    <img src="/icon/timeer.svg" alt="icon" class="rounded-circle me-3">
                     <span class="flex-grow-1 font-weight-bolder text-dark" style="margin-right: 15px;">${task.taskTitle}</span>
                     <span class="flex-grow-1 font-weight-bold text-dark">${task.taskDate}</span>
                 </a>
-                <div class="week dropdown no-arrow" style="margin-left: 10px">
-                    <div class="week dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <img src="/icon/dotdotdot.svg" alt="회의록으로" class="">
-                    </div>
-                    <div class="week dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
-                        <div class="dropdown-header">회의록</div>
-                        <button type="button" class="dropdown-item">삭제하기</button>
-                    </div>
+                <div class="week dropdown no-arrow ms-3">
+                    <a class="week dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="/icon/dotdotdot.svg" alt="회의록으로">
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+                        <li class="dropdown-header">회의록</li>
+                        <li><button type="button" class="dropdown-item">삭제하기</button></li>
+                    </ul>
                 </div>
             </li>`;
             taskListUl.innerHTML += taskItemHtml;
@@ -284,7 +287,6 @@
         document.getElementById('task-member').value = task.taskMember;
         document.getElementById('task-content').value = task.taskContent;
     }
-
 </script>
 </body>
 </html>
