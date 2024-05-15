@@ -112,11 +112,15 @@ class sidebar extends HTMLElement {
         studyRoomsContainer.innerHTML = ''; // 기존 내용 초기화
 
         studyRooms.forEach(room => {
-            const roomElement = document.createElement('a');
-            roomElement.className = 'collapse-item';
-            roomElement.href = `/studyRoom_yu`; //
-            roomElement.innerHTML = `<div>${room}</div>`; // 단순한 문자열로 간주하여 표시
-            studyRoomsContainer.appendChild(roomElement);
+            if (room.sno && room.studyName) { // room 객체에 sno와 studyName 속성이 존재하는지 확인
+                const roomElement = document.createElement('a');
+                roomElement.className = 'collapse-item';
+                roomElement.href = `/studyRoom_yu/${room.sno}`; // 각 스터디룸으로 이동할 수 있도록 링크 설정
+                roomElement.innerHTML = `<div>${room.studyName}</div>`; // 스터디 이름으로 표시
+                studyRoomsContainer.appendChild(roomElement);
+            } else {
+                console.error('스터디룸 데이터에 sno 또는 studyName 속성이 없습니다:', room);
+            }
         });
     }
 }

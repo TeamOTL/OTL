@@ -54,8 +54,13 @@ public class MemberController {
         return "main";
     }
 
-    @GetMapping("/studyRoom_yu")
-    public String studyRoom_yu(@AuthenticationPrincipal OAuth2User oauthUser, Model model) {
+    @GetMapping("/studyRoomManager")
+    public String studyRoomManager () {
+        return "studyRoomManager";
+    }
+
+    @GetMapping("/studyRoom_yu/{studyId}")
+    public String studyRoom_yu(@PathVariable Long studyId, @AuthenticationPrincipal OAuth2User oauthUser, Model model) {
         if (oauthUser == null) {
             log.error("OAuth2User is null");
             return "redirect:/"; // 로그인 페이지로 리다이렉트
@@ -68,7 +73,7 @@ public class MemberController {
         String email = (String) kakaoAccount.get("email");
         if (email == null) {
             log.error("Email attribute is null");
-            return "redirect:/login"; // 로그인 페이지로 리다이렉트
+            return "redirect:/"; // 로그인 페이지로 리다이렉트
         }
 
         Member member = memberRepository.findByEmail(email)
@@ -76,29 +81,32 @@ public class MemberController {
 
         List<MemberStudy> memberStudies = memberStudyRepository.findByMemberEmail(member.getEmail());
         List<StudyDTO> studyDTOs = memberStudies.stream().map(ms -> {
-            StudyDTO studyDTO = new StudyDTO();
-            studyDTO.setStudyName(ms.getStudy().getStudyName());
-            studyDTO.setDDay(ms.getStudy().calCombinedDday());
-            studyDTO.setMemberNicknames(ms.getStudy().getMembers().stream()
-                    .map(Member::getNickname)
-                    .collect(Collectors.toList()));
-            studyDTO.setStudyPlan(ms.getStudy().getStudyPlan());
-            studyDTO.setTasks(ms.getStudy().getTasks().stream().map(task -> {
-                TaskDTO taskDTO = new TaskDTO();
-                taskDTO.setTno(task.getTno());
-                taskDTO.setTaskTitle(task.getTaskTitle());
-                taskDTO.setTaskDate(task.getTaskDate());
-                taskDTO.setTaskTime(task.getTaskTime());
-                taskDTO.setTaskPlace(task.getTaskPlace());
-                taskDTO.setTaskMember(task.getTaskMember());
-                taskDTO.setTaskContent(task.getTaskContent());
-                taskDTO.setIsCompleted(task.getIsCompleted() != null ? task.getIsCompleted() : false); // 기본값 설정
-                return taskDTO;
-            }).collect(Collectors.toList()));
+            StudyDTO studyDTO = StudyDTO.builder()
+                    .sno(ms.getStudy().getSno())
+                    .studyName(ms.getStudy().getStudyName())
+                    .dDay(ms.getStudy().calCombinedDday())
+                    .memberNicknames(ms.getStudy().getMembers().stream()
+                            .map(Member::getNickname)
+                            .collect(Collectors.toList()))
+                    .studyPlan(ms.getStudy().getStudyPlan())
+                    .tasks(ms.getStudy().getTasks().stream().map(task -> TaskDTO.builder()
+                                    .tno(task.getTno())
+                                    .taskTitle(task.getTaskTitle())
+                                    .taskDate(task.getTaskDate())
+                                    .taskTime(task.getTaskTime())
+                                    .taskPlace(task.getTaskPlace())
+                                    .taskMember(task.getTaskMember())
+                                    .taskContent(task.getTaskContent())
+                                    .isCompleted(task.getIsCompleted() != null ? task.getIsCompleted() : false) // 기본값 설정
+                                    .build())
+                            .collect(Collectors.toList()))
+                    .build();
             return studyDTO;
         }).collect(Collectors.toList());
 
         model.addAttribute("studies", studyDTOs);
+        model.addAttribute("currentStudyId", studyId); // 현재 스터디 ID를 모델에 추가
+
         return "studyRoom_yu";  // studyRoom_yu.html 템플릿을 반환
     }
 

@@ -34,11 +34,20 @@ public class StudyController {
     }
 
     @GetMapping("/studyRooms")
-    public ResponseEntity<List<String>> getUserStudyNames(@AuthenticationPrincipal OAuth2User oauthUser) {
+    public ResponseEntity<List<StudyDTO>> getUserStudies(@AuthenticationPrincipal OAuth2User oauthUser) {
         Map<String, Object> kakaoAccount = oauthUser.getAttribute("kakao_account");
         String email = (String) kakaoAccount.get("email");
-        List<String> studyNames = studyService.findUserStudyNames(email);
-        return ResponseEntity.ok(studyNames);
+        List<StudyDTO> studies = studyService.findUserStudies(email);
+        return ResponseEntity.ok(studies);
+    }
+
+    @GetMapping("/studyRooms/{sno}")
+    public ResponseEntity<StudyDTO> getStudyById(@PathVariable Long sno) {
+        StudyDTO studyDTO = studyService.findStudyById(sno);
+        if (studyDTO == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+        return ResponseEntity.ok(studyDTO);
     }
 
 
@@ -50,24 +59,17 @@ public class StudyController {
 
         log.info("게시글 저장 시도 : {}", studyDTO);
 
-
-
-
-
     //ajax resp으로 전달
     //status 200: 통신을 정상적으로 성공함
     return ResponseEntity.status(HttpStatus.CREATED).
 
     body("스터디 성공적으로 등록되었습니다.");
 
-}
-    @GetMapping("/studyRoomManager")
-    public String studyRoomManager () {
-        return "studyRoomManager";
     }
-}
-
-
-
 
 }
+
+
+
+
+

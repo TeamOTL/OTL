@@ -21,6 +21,10 @@ public interface StudyService {
     //스터디방 삭제
     void remove(Long sno);
 
+    List<StudyDTO> findUserStudies(String email);
+
+    StudyDTO findStudyById(Long sno);
+
     //    검색
 //    PageResponseDTO<StudyDTO> list(PageRequestDTO pageRequestDTO);
 

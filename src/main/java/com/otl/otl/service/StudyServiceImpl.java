@@ -2,10 +2,7 @@ package com.otl.otl.service;
 
 import com.otl.otl.domain.*;
 import com.otl.otl.dto.*;
-import com.otl.otl.repository.CategoryRepository;
-import com.otl.otl.repository.MemberStudyRepository;
-import com.otl.otl.repository.StudyRepository;
-import com.otl.otl.repository.TaskRepository;
+import com.otl.otl.repository.*;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -29,6 +26,7 @@ public class StudyServiceImpl implements StudyService {
     private final TaskRepository taskRepository;
     private final MemberStudyService memberStudyService;
     private final MemberStudyRepository memberStudyRepository;
+    private final MemberRepository memberRepository;
 
 //    @Override
 //    public List<StudyListDTO> getAllStudyJoin() {
@@ -188,6 +186,24 @@ public class StudyServiceImpl implements StudyService {
 
     private StudyDTO entityToDto(Study entity) {
         return modelMapper.map(entity, StudyDTO.class);
+    }
+
+    @Override
+    public List<StudyDTO> findUserStudies(String email) {
+        Member member = memberRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        List<MemberStudy> memberStudies = memberStudyRepository.findByMemberEmail(member.getEmail());
+        return memberStudies.stream()
+                .map(ms -> ms.getStudy().toDTO())
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public StudyDTO findStudyById(Long sno) {
+        Study study = studyRepository.findById(sno)
+                .orElseThrow(() -> new RuntimeException("Study not found"));
+        return study.toDTO();
     }
 
 

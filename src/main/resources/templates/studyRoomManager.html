@@ -44,14 +44,14 @@
                                     <div class="row mb-3">
                                         <label class="col-sm-2.5 col-form-label">스터디 이름</label>
                                         <div class="col-sm-8">
-                                            <input type="text" class="form-control">
+                                            <input id="studyName" type="text" class="form-control">
                                         </div>
                                     </div>
                                     <!-- 카테고리 & 모집인원 -->
                                     <div class="row mb-3 justify-content-between">
                                         <label class="col-sm-2.5 col-form-label">카테고리</label>
                                         <div class="col-sm-3">
-                                            <select class="form-select form-control">
+                                            <select id="category" class="form-select form-control">
                                                 <option value="1">1</option>
                                                 <option value="2">2</option>
                                                 <option value="3">3</option>
@@ -59,7 +59,7 @@
                                         </div>
                                         <label class="col-sm-2.5 col-form-label">모집 인원</label>
                                         <div class="col-sm-3">
-                                            <select class="form-select form-control">
+                                            <select id="maxMember" class="form-select form-control">
                                                 <option value="1">1</option>
                                                 <option value="2">2</option>
                                                 <option value="3">3</option>
@@ -95,30 +95,30 @@
                                     <div class="row mb-3">
                                         <label class="col-sm-2.5 col-form-label">모집 기간</label>
                                         <div class="col-sm-4 d-flex">
-                                            <input type="date" class="form-select form-control">
+                                            <input id="rStartDate" type="date" class="form-select form-control">
                                             ~
-                                            <input type="date" class="form-select form-control">
+                                            <input id="rEndDate" type="date" class="form-select form-control">
                                         </div>
                                     </div>
                                     <!-- 스터디 시작일 -->
                                     <div class="row mb-3">
                                         <label class="col-sm-2.5 col-form-label">스터디 시작일</label>
                                         <div class="col-sm-8">
-                                            <input type="date" class="form-select form-control">
+                                            <input id="firstDate" type="date" class="form-select form-control">
                                         </div>
                                     </div>
                                     <!-- 한 줄 설명 -->
                                     <div class="row mb-3">
                                         <label class="col-sm-2.5 col-form-label">설명</label>
                                         <div class="col flex-grow-1">
-                                            <input type="text" class="form-control" placeholder="15글자 이하">
+                                            <input id="studyDescription" type="text" class="form-control" placeholder="15글자 이하">
                                         </div>
                                     </div>
                                     <!-- 일정 -->
                                     <div class="row mb-3">
                                         <label class="form-label">일정</label>
                                         <div class="col d-flex">
-                                            <input type="text" class="form-control mr-1" placeholder="">
+                                            <input id="studyPlan" type="text" class="form-control mr-1" placeholder="">
                                             <button type="button" class="btn btn-primary ">+</button>
                                         </div>
                                     </div>
@@ -145,54 +145,15 @@
                         <div class="card mb-4">
                             <!-- Card Body -->
                             <div class="card-body">
-                                <ul class="list-group">
+                                <ul id="studyMembers" class="list-group">
                                     <div class="member-state" style="margin-bottom: 10px;">
                                         <form class="form-inline my-2 my-lg-0">
-                                            <input class="form-control mr-2" type="search" placeholder="Search"
-                                                   aria-label="Search">
+                                            <input class="form-control mr-2" type="search" placeholder="Search" aria-label="Search">
                                             <!-- 폼을 오른쪽 정렬하기 위해 ml-auto 클래스 추가 -->
-                                            <button class="btn btn-outline-success ml-auto"
-                                                    type="submit">검색</button>
-
+                                            <button class="btn btn-outline-success ml-auto" type="submit">검색</button>
                                         </form>
                                     </div>
-                                    <li class="list-group-item d-flex justify-content-end align-items-center">
-                                        <img th:src="@{/icon/face.svg}" alt="프로필 이미지" class="rounded-circle mr-3 me-3" />
-                                        <span class="flex-grow-1 font-weight-bolder fs-5 text-dark">김동우</span>
-                                        <a href=""><button type="button" class="btn btn-danger btn- btn-block">강제
-                                            퇴장</button></a>
-                                    </li>
-                                    <li class="list-group-item d-flex justify-content-end align-items-center">
-                                        <img th:src="@{/icon/face.svg}" alt="프로필 이미지" class="rounded-circle mr-3 me-3" />
-                                        <span class="flex-grow-1 font-weight-bolder fs-5 text-dark">김동우</span>
-                                        <a href=""><button type="button" class="btn btn-danger btn- btn-block">강제
-                                            퇴장</button></a>
-                                    </li>
-                                    <li class="list-group-item d-flex justify-content-end align-items-center">
-                                        <img th:src="@{/icon/face.svg}" alt="프로필 이미지" class="rounded-circle mr-3 me-3" />
-                                        <span class="flex-grow-1 font-weight-bolder fs-5 text-dark">김동우</span>
-                                        <a href=""><button type="button" class="btn btn-danger btn- btn-block">강제
-                                            퇴장</button></a>
-                                    </li>
-                                    <li class="list-group-item d-flex justify-content-end align-items-center">
-                                        <img th:src="@{/icon/face.svg}" alt="프로필 이미지" class="rounded-circle mr-3 me-3" />
-                                        <span class="flex-grow-1 font-weight-bolder fs-5 text-dark">김동우</span>
-                                        <a href=""><button type="button" class="btn btn-danger btn- btn-block">강제
-                                            퇴장</button></a>
-                                    </li>
-                                    <li class="list-group-item d-flex justify-content-end align-items-center">
-                                        <img th:src="@{/icon/face.svg}" alt="프로필 이미지" class="rounded-circle mr-3 me-3" />
-                                        <span class="flex-grow-1 font-weight-bolder fs-5 text-dark">김동우</span>
-                                        <a href=""><button type="button" class="btn btn-danger btn- btn-block">강제
-                                            퇴장</button></a>
-                                    </li>
-
-                                    <li class="list-group-item d-flex justify-content-end align-items-center">
-                                        <img th:src="@{/icon/face.svg}" alt="프로필 이미지" class="rounded-circle mr-3 me-3" />
-                                        <span class="flex-grow-1 font-weight-bolder fs-5 text-dark">김동우</span>
-                                        <a href=""><button type="button" class="btn btn-danger btn- btn-block">강제
-                                            퇴장</button></a>
-                                    </li>
+                                    <!-- 멤버 목록이 여기 추가될 것입니다 -->
                                 </ul>
                             </div>
                         </div>
@@ -236,5 +197,50 @@
 
     <!-- Custom scripts for all pages-->
     <script th:src="@{js/sb-admin-2.min.js}"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // URL에서 sno 파라미터를 가져오는 함수
+        function getQueryParam(param) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param);
+        }
+
+        const sno = getQueryParam('sno'); // sno 파라미터 가져오기
+        if (sno) {
+            fetchStudyData(sno);
+        }
+
+        function fetchStudyData(sno) {
+            fetch(`/api/studyRooms/${sno}`)
+                .then(response => response.json())
+                .then(data => {
+                    // 가져온 데이터를 사용하여 페이지 요소를 업데이트합니다.
+                    document.getElementById('studyName').value = data.studyName;
+                    document.getElementById('studyDescription').value = data.studyDescription;
+                    document.getElementById('studyPlan').value = data.studyPlan;
+                    document.getElementById('rStartDate').value = data.rStartDate;
+                    document.getElementById('rEndDate').value = data.rEndDate;
+                    document.getElementById('firstDate').value = data.firstDate;
+                    document.getElementById('maxMember').value = data.maxMember;
+
+                    // 멤버 목록 업데이트
+                    const studyMembers = document.getElementById('studyMembers');
+                    studyMembers.innerHTML = '';
+                    data.memberNicknames.forEach(nickname => {
+                        const memberItem = document.createElement('li');
+                        memberItem.className = 'list-group-item d-flex justify-content-end align-items-center';
+                        memberItem.innerHTML = `
+                            <img src="/icon/face.svg" alt="프로필 이미지" class="rounded-circle mr-3 me-3" />
+                            <span class="flex-grow-1 font-weight-bolder fs-5 text-dark">${nickname}</span>
+                            <button type="button" class="btn btn-danger btn-block">강제 퇴장</button>
+                        `;
+                        studyMembers.appendChild(memberItem);
+                    });
+                })
+                .catch(error => console.error('스터디 데이터를 가져오는 중 오류 발생:', error));
+        }
+    });
+</script>
 </body>
 </html>
