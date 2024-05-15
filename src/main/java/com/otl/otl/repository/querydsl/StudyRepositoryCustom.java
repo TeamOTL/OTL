@@ -43,26 +43,12 @@ public interface StudyRepositoryCustom {
 
 
 
-    // sno = ? AND is_accpeted = ; 방장 페이지 -> 참가 대기 멤버 조회 (승인/거절)
-    /*
-    SELECT ms.emil, ms.sno, m.member_profile_image, m.nickname
-    FROM member_study ms
-    WHERE sno = ?,
-    AND is_accepted = 0;
-     */
-    List<MemberStudy> findMemberBySnoAndAcceptedFalse(Long sno, Boolean isAccepted, Boolean isManaged);
+
 
     // UPDATE member_study SET is_accepted = 1 WHERE email = ? AND sno = ?
     void updateIsAcceptedByEmailAndSno(String email, Long sno);
 
 
-    // (참가 신청 보냈지만 아직 승인되지 않은 신청자 all)
-    // sno = ? AND is_accepted = 0; 방장 페이지 -> 참가 신청 중 다건 조회
-    // SELECT m.member_prpfile_imgae, m.nickname, i.interests_name, ms.comment
-    // FROM member_study ms
-    // WHERE sno = ?
-    // AND is_accepted = 0;
-    List<MemberStudy> findMemberBySnoAndAccptYet(Long sno, Boolean isAccpeted);
 
 
     List<Tuple> countAcceptedBySno();
@@ -79,6 +65,22 @@ public interface StudyRepositoryCustom {
     // email = ? AND is_accepted = 0 AND study_name LIKE '%?%;
     List<Study> findAllByCurDateByKeyword(String keyword);
 
+
+
+
+
+
     @Transactional
     void deleteMemberStudyByEmailAndSno(String email, Long sno);
+
+    // sno = ? AND is_accpeted = ; 방장 페이지 -> 참가 대기 멤버 조회
+    /*
+    SELECT ms.emil, ms.sno, m.member_profile_image, m.nickname
+    FROM member_study ms
+    WHERE sno = ?,
+    AND is_accepted = 0;
+     */
+    List<MemberStudy> findMemberBySnoAndAcceptedYet(Long sno, Boolean isAccepted, Boolean isManaged);
+
+
 }

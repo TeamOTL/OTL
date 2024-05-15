@@ -10,6 +10,7 @@ import com.otl.otl.service.converter.CustomConverters;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class MemberStudyServiceImpl implements MemberStudyService {
@@ -47,19 +48,35 @@ public class MemberStudyServiceImpl implements MemberStudyService {
     /*  WHERE email = ? AND is_accpeted = 1;
         - (참가 중인) 나의 스터디 다건 조회
      */
-    @Override
-    public List<MemberStudy> getMyStudyAccpted(String email) {
-        return memberStudyRepository.findMemberStudyByEmailAndIsAccepted(email);
-    }
+//    @Override
+//    public List<MemberStudyProjectionImpl> getMyStudyAccpted(String email) {
+//        return memberStudyRepository.findMemberStudyByEmailAndIsAcceptedProjection(email);
+//    }
+@Override
+public List<StudyListDTO> getMyStudyAccpted(String email) {
+    List<MemberStudyProjectionImpl> projections = memberStudyRepository.findMemberStudyByEmailAndIsAcceptedProjection(email);
+    return projections.stream()
+            .map(customConverters::ProjectionToDTO)
+            .collect(Collectors.toList());
+}
+
 
 
     /*  email = ? AND is_accpted = 1 AND sno = ?;
         - (참가 중인) 나의 스터디 단건 조회
      */
+//    @Override
+//    public List<MemberStudy> getMyStudyAccptedAndSno(String email, Long sno) {
+//        return memberStudyRepository.findMemberStudyByEmailAndIsAcceptedAndSno(email, sno);
+//    }
     @Override
-    public List<MemberStudy> getMyStudyAccptedAndSno(String email, Long sno) {
-        return memberStudyRepository.findMemberStudyByEmailAndIsAcceptedAndSno(email, sno);
+    public List<StudyListDTO> getMyStudyAccptedAndSno(String email, Long sno) {
+        List<MemberStudy> memberStudyList = memberStudyRepository.findMemberStudyByEmailAndIsAcceptedAndSno(email, sno);
+        return memberStudyList.stream()
+                .map(customConverters::memberStudyToDTO)
+                .collect(Collectors.toList());
     }
+
 
 
      /*  INSERT INTO task ( , , , , ) VALUES ( , , , , , , );
@@ -77,17 +94,31 @@ public class MemberStudyServiceImpl implements MemberStudyService {
     /*  WHERE sno = ? AND is_accpeted = 1 AND is_managed = 1 ;
         - 방장 페이지 -> 참가 중인 멤버 조회 (GET)
      */
+//    @Override
+//    public List<MemberStudy> findParticipant(Long sno, Boolean isAccepted, Boolean isManaged) {
+//        return memberStudyRepository.findMemberBySnoAndIsAccepted(sno, isAccepted, isManaged);
+//    }
     @Override
-    public List<MemberStudy> findParticipant(Long sno, Boolean isAccepted, Boolean isManaged) {
-        return memberStudyRepository.findMemberBySnoAndIsAccepted(sno, isAccepted, isManaged);
+    public List<StudyListDTO> findParticipant(Long sno, Boolean isAccepted, Boolean isManaged) {
+        List<MemberStudy> memberStudyList = memberStudyRepository.findMemberBySnoAndIsAccepted(sno, isAccepted, isManaged);
+        return memberStudyList.stream()
+                .map(customConverters::memberStudyToDTO)
+                .collect(Collectors.toList());
     }
 
     /*  WHERE sno = ? AND is_accpeted = 0 AND is_managed = 1 ;
        - 방장 페이지 -> 참가 대기 멤버 조회 (GET)
     */
+//    @Override
+//    public List<MemberStudy> findWaitingParticipant(Long sno, Boolean isAccepted, Boolean isManaged) {
+//        return memberStudyRepository.findMemberBySnoAndAcceptedYet(sno, isAccepted, isManaged);
+//    }
     @Override
-    public List<MemberStudy> findWaitingParticipant(Long sno, Boolean isAccepted, Boolean isManaged) {
-        return memberStudyRepository.findMemberBySnoAndAcceptedFalse(sno, isAccepted, isManaged);
+    public List<StudyListDTO> findWaitingParticipant(Long sno, Boolean isAccepted, Boolean isManaged) {
+        List<MemberStudy> memberStudyList = memberStudyRepository.findMemberBySnoAndAcceptedYet(sno, isAccepted, isManaged);
+        return memberStudyList.stream()
+                .map(customConverters::memberStudyToDTO)
+                .collect(Collectors.toList());
     }
 
 

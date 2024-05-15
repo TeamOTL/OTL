@@ -22,6 +22,7 @@ public class StudyDTO {
     private String rStartDate;                  // 모집 기간_시작일
     private String rEndDate;                  // 모집 기간_종료일
     private String dDay;                       //dday
+    private String People;
     private Long cno;
 
     private List<InterestsDTO> interestsDTO;

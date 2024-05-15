@@ -1,6 +1,7 @@
 package com.otl.otl.service;
 
 import com.otl.otl.domain.MemberStudy;
+import com.otl.otl.dto.StudyListDTO;
 
 import java.util.List;
 
@@ -8,17 +9,19 @@ public interface MemberStudyService {
 
     List<MemberStudy> findByMemberEmail(String email);
 
+
+
 //  <<< ------나의 스터디----- >>>
     /*  WHERE email = ? AND is_accpeted = 1;
         - 나의 스터디 다건 조회
      */
-    List<MemberStudy> getMyStudyAccpted(String email);
+    List<StudyListDTO> getMyStudyAccpted(String email);
 
 
     /*  email = ? AND is_accpted = 1 AND sno = ?;
         - 나의 스터디 단건 조회
      */
-    List<MemberStudy> getMyStudyAccptedAndSno(String email, Long sno);
+    List<StudyListDTO> getMyStudyAccptedAndSno(String email, Long sno);
 
 
     /*  INSERT INTO task ( , , , , ) VALUES ( , , , , , , );
@@ -35,13 +38,13 @@ public interface MemberStudyService {
     /*  WHERE sno = ? AND is_accpeted = 1 AND is_managed = 1 ;
         - 방장 페이지 -> 참가 중인 멤버 조회
     */
-    List<MemberStudy> findParticipant(Long sno, Boolean isAccepted, Boolean isManaged);
+    List<StudyListDTO> findParticipant(Long sno, Boolean isAccepted, Boolean isManaged);
 
 
     /*  WHERE sno = ? AND is_accpeted = 0 AND is_managed = 1 ;
        - 방장 페이지 -> 참가 대기 멤버 조회 (GET)
     */
-    List<MemberStudy> findWaitingParticipant(Long sno, Boolean isAccepted, Boolean isManaged);
+    List<StudyListDTO> findWaitingParticipant(Long sno, Boolean isAccepted, Boolean isManaged);
 
 
     /*  UPDATE member_study SET is_accepted = 1 WHERE email = ? AND sno = ?

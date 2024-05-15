@@ -27,6 +27,7 @@ public class StudyListDTO {
     private String categoryImage;
 
     private String dDay;
+    private String people;
 
     private List<TaskDTO> tasks;
     private List<InterestsDTO> interests;

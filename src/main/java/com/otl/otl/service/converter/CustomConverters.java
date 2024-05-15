@@ -13,6 +13,7 @@ import java.util.List;
 
 @Component
 public class CustomConverters {
+
     public StudyListDTO ProjectionToDTO(MemberStudyProjectionImpl projection) {
         return StudyListDTO.builder()
                 .sno(projection.getStudy().getSno())
@@ -27,8 +28,29 @@ public class CustomConverters {
                 .categoryName(projection.getStudy().getCategory().getCategoryName())
                 .categoryImage(projection.getStudy().getCategory().getCategoryImage())
                 .dDay(projection.getStudy().getDDay())
+                .people(projection.getStudy().getPeople())
                 .tasks(toTaskDTOList(projection.getStudy().getTasks()))
                 .interests(toInterestsDTOList(projection.getStudy().getInterests()))
+                .build();
+    }
+
+    public StudyListDTO memberStudyToDTO(MemberStudy memberStudy) {
+        return StudyListDTO.builder()
+                .sno(memberStudy.getStudy().getSno())
+                .studyName(memberStudy.getStudy().getStudyName())
+                .studyDescription(memberStudy.getStudy().getStudyDescription())
+                .studyPlan(memberStudy.getStudy().getStudyPlan())
+                .maxMember(memberStudy.getStudy().getMaxMember())
+                .firstDate(memberStudy.getStudy().getFirstDate())
+                .rStartDate(memberStudy.getStudy().getRStartDate())
+                .rEndDate(memberStudy.getStudy().getREndDate())
+                .categoryCno(memberStudy.getStudy().getCategory().getCno())
+                .categoryName(memberStudy.getStudy().getCategory().getCategoryName())
+                .categoryImage(memberStudy.getStudy().getCategory().getCategoryImage())
+                .dDay(memberStudy.getStudy().getDDay())
+                .people(memberStudy.getStudy().getPeople())
+                .tasks(toTaskDTOList(memberStudy.getStudy().getTasks()))
+                .interests(toInterestsDTOList(memberStudy.getStudy().getInterests()))
                 .build();
     }
 
@@ -76,6 +98,7 @@ public class CustomConverters {
                 .categoryName(study.getCategory().getCategoryName())
                 .categoryImage(study.getCategory().getCategoryImage())
                 .dDay(study.getDDay())
+                .people(study.getPeople())
                 .tasks(toTaskDTOList(study.getTasks()))
                 .interests(toInterestsDTOList(study.getInterests()))
                 .build();

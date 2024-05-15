@@ -177,17 +177,17 @@ Hibernate:
     // 프로젝션 줘서 스터디쪽 끊어
     // (참가 신청 보냈지만 아직 승인되지 않은 신청자 all)
     // sno = ? AND is_accepted = 0; 방장 페이지 -> 참가 신청 중 다건 조회
-    @Test
-     void findMemberBySnoAndAccptYetTest() {
-        // Given
-        Long sno = 1L; // 테스트할 스터디 번호
-
-        // When
-        List<MemberStudy> memberStudyList = memberStudyRepository.findMemberBySnoAndAccptYet(sno, false);
-
-        // Then
-        log.info(memberStudyList);
-    }
+//    @Test
+//     void findMemberBySnoAndAccptYetTest() {
+//        // Given
+//        Long sno = 1L; // 테스트할 스터디 번호
+//
+//        // When
+//        List<MemberStudy> memberStudyList = memberStudyRepository.findMemberBySnoAndAccptYet(sno, false, false);
+//
+//        // Then
+//        log.info(memberStudyList);
+//    }
     /*
     [MemberStudy(msNo=1, member=Member(mno=1, email=test1, nickname=1, memberProfileImage=null, memberDescription=1, interests=[Interests(ino=3, interestName=ㅗㅗㅗㅗ)]),
     study=Study(sno=1, studyName=ddddd, studyDescription=dd, studyPlan=ddd, maxMember=5, firstDate=2024-05-31, rStartDate=2024-05-01, rEndDate=2024-05-20,

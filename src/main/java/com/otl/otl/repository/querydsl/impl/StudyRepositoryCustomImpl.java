@@ -104,6 +104,7 @@ public class StudyRepositoryCustomImpl extends QuerydslRepositorySupport impleme
         return memberStudyList;
     }
 
+    //실패
     public List<MemberStudyProjectionImpl> findMemberStudyByEmailAndIsAcceptedAndSnoProjection(String email, Long sno) {
         QMemberStudy qMemberStudy = QMemberStudy.memberStudy;
 
@@ -211,30 +212,6 @@ Hibernate:
  */
 
 
-    // 방장/참가 신청 승인거절
-    // member : memberProfileImage, nickname, interestsName,msNo, comment
-    // (참가 신청 보냈지만 아직 승인되지 않은 신청자 all)
-// sno = ? AND is_accepted = 0; 방장 페이지 -> 참가 신청 중 다건 조회
-/*
-SELECT m.member_prpfile_imgae, m.nickname, i.interests_name, ms.comment
-FROM member_study ms
-WHERE sno = ?
-AND is_accepted = 0;
- */
-    @Override
-    public List<MemberStudy> findMemberBySnoAndAccptYet(Long sno, Boolean isAccepted) {
-        QMemberStudy qMemberStudy = QMemberStudy.memberStudy;
-
-        // QueryDSL을 사용하여 쿼리 작성
-        List<MemberStudy> memberStudyList = from(qMemberStudy)
-                .select(qMemberStudy)
-                .where(qMemberStudy.study.sno.eq(sno)
-                        .and(qMemberStudy.isAccepted.eq(false)))
-                .fetch();
-
-        return memberStudyList;
-    }
-
 
     // sno = ? AND is_accpeted = 1; 방장 페이지 -> 참가 중인 멤버 조회 (강퇴)
     /*
@@ -258,27 +235,6 @@ AND is_accepted = 0;
         return memberStudyList;
     }
 
-    // sno = ? AND is_accpeted = 0; 방장 페이지 -> 참가 대기 멤버 조회 (강퇴)
-    /*
-    SELECT ms.emil, ms.sno, m.member_profile_image, m.nickname
-    FROM member_study ms
-    WHERE sno = ?,
-    AND is_accepted = 0;
-     */
-    @Override
-    public List<MemberStudy> findMemberBySnoAndAcceptedFalse(Long sno, Boolean isAccepted, Boolean isManaged) {
-        QMemberStudy qMemberStudy = QMemberStudy.memberStudy;
-
-        // QueryDSL을 사용하여 쿼리 작성
-        List<MemberStudy> memberStudyList = from(qMemberStudy)
-                .select(qMemberStudy)
-                .where(qMemberStudy.study.sno.eq(sno)
-                        .and(qMemberStudy.isAccepted.eq(false))
-                        .and(qMemberStudy.isManaged.eq(false)))
-                .fetch();
-
-        return memberStudyList;
-    }
 
 
     // UPDATE member_study SET is_accepted = 1 WHERE email = ? AND sno = ?
@@ -459,4 +415,30 @@ Hibernate:
 
         log.info("Deleted {} rows", deleteCount);
     }
+
+
+
+    // sno = ? AND is_accpeted = 0; 방장 페이지 -> 참가 대기 멤버 조회 (강퇴)
+    /*
+    SELECT ms.emil, ms.sno, m.member_profile_image, m.nickname
+    FROM member_study ms
+    WHERE sno = ?,
+    AND is_accepted = 0;
+     */
+    @Override
+    public List<MemberStudy> findMemberBySnoAndAcceptedYet(Long sno, Boolean isAccepted, Boolean isManaged) {
+        QMemberStudy qMemberStudy = QMemberStudy.memberStudy;
+
+        // QueryDSL을 사용하여 쿼리 작성
+        List<MemberStudy> memberStudyList = from(qMemberStudy)
+                .select(qMemberStudy)
+                .where(qMemberStudy.study.sno.eq(sno)
+                        .and(qMemberStudy.isAccepted.eq(false))
+                        .and(qMemberStudy.isManaged.eq(false)))
+                .fetch();
+
+        return memberStudyList;
+    }
+
+
 }
