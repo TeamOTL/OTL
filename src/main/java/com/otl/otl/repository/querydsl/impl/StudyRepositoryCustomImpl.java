@@ -213,27 +213,7 @@ Hibernate:
 
 
 
-    // sno = ? AND is_accpeted = 1; 방장 페이지 -> 참가 중인 멤버 조회 (강퇴)
-    /*
-    SELECT ms.emil, ms.sno, m.member_profile_image, m.nickname
-    FROM member_study ms
-    WHERE sno = ?,
-    AND is_accepted = 1;
-     */
-    @Override
-    public List<MemberStudy> findMemberBySnoAndIsAccepted(Long sno, Boolean isAccepted, Boolean isManaged) {
-        QMemberStudy qMemberStudy = QMemberStudy.memberStudy;
 
-        // QueryDSL을 사용하여 쿼리 작성
-        List<MemberStudy> memberStudyList = from(qMemberStudy)
-                .select(qMemberStudy)
-                .where(qMemberStudy.study.sno.eq(sno)
-                        .and(qMemberStudy.isAccepted.eq(true))
-                        .and(qMemberStudy.isManaged.eq(false)))
-                .fetch();
-
-        return memberStudyList;
-    }
 
 
 
@@ -417,6 +397,27 @@ Hibernate:
     }
 
 
+    // sno = ? AND is_accpeted = 1; 방장 페이지 -> 참가 중인 멤버 조회 (강퇴)
+    /*
+    SELECT ms.emil, ms.sno, m.member_profile_image, m.nickname
+    FROM member_study ms
+    WHERE sno = ?,
+    AND is_accepted = 1;
+     */
+    @Override
+    public List<MemberStudy> findMemberBySnoAndIsAccepted(Long sno) {
+        QMemberStudy qMemberStudy = QMemberStudy.memberStudy;
+
+        // QueryDSL을 사용하여 쿼리 작성
+        List<MemberStudy> memberStudyList = from(qMemberStudy)
+                .select(qMemberStudy)
+                .where(qMemberStudy.study.sno.eq(sno)
+                        .and(qMemberStudy.isAccepted.eq(true))
+                        .and(qMemberStudy.isManaged.eq(false)))
+                .fetch();
+
+        return memberStudyList;
+    }
 
     // sno = ? AND is_accpeted = 0; 방장 페이지 -> 참가 대기 멤버 조회 (강퇴)
     /*
@@ -426,7 +427,7 @@ Hibernate:
     AND is_accepted = 0;
      */
     @Override
-    public List<MemberStudy> findMemberBySnoAndAcceptedYet(Long sno, Boolean isAccepted, Boolean isManaged) {
+    public List<MemberStudy> findMemberBySnoAndAcceptedYet(Long sno) {
         QMemberStudy qMemberStudy = QMemberStudy.memberStudy;
 
         // QueryDSL을 사용하여 쿼리 작성

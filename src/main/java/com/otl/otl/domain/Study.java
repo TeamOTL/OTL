@@ -72,7 +72,9 @@ public class Study {
 
 
 
-    @OneToMany(mappedBy = "study", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "study",
+            cascade = {CascadeType.ALL},
+            fetch = FetchType.LAZY)
     @Builder.Default
     @JsonManagedReference
     private List<MemberStudy> memberStudies = new ArrayList<>();

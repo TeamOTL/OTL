@@ -8,7 +8,7 @@ import lombok.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
+@ToString(exclude = {"member", "study"})
 public class MemberStudy {
 
     @Id
@@ -19,7 +19,7 @@ public class MemberStudy {
     @JoinColumn(name = "email", referencedColumnName = "email")
     private Member member;              //스터디 참가 멤버 이메일
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "sno")
     private Study study;                //해당 스터디
 
@@ -34,6 +34,8 @@ public class MemberStudy {
     @Column
     private String comment;         // 방장에게 한마디 (nullable = true)
 
+    @Transient
+    private Long people;           //현재 참가 인원 count 위한 필드
 
 public MemberStudy(Long msNo, Study study, Boolean isAccepted, Boolean isManaged, String comment) {
     this.msNo = msNo;

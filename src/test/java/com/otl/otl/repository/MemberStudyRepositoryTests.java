@@ -95,8 +95,8 @@ public class MemberStudyRepositoryTests {
     @Test
     public void findByEmailAndIsAcceptedAndSno() {
         // Given
-        String email = "test1"; // 테스트할 member
-        Long sno = 2L;
+        String email = "wer2587@naver.com"; // 테스트할 member
+        Long sno = 1L;
 
         // When
         List<MemberStudy> memberStudyList = memberStudyRepository.findMemberStudyByEmailAndIsAccepted(email);
@@ -213,10 +213,10 @@ Hibernate:
     @Test
     public void findMemberBySnoAndIsAcceptedTest() {
         // Given
-        Long sno = 1L; // 테스트할 스터디 번호
+        Long sno = 2L; // 테스트할 스터디 번호
 
         // When
-        List<MemberStudy> memberStudyList = memberStudyRepository.findMemberBySnoAndIsAccepted(sno, true, false);
+        List<MemberStudy> memberStudyList = memberStudyRepository.findMemberBySnoAndIsAccepted(sno);
 
         // Then
         log.info(memberStudyList);
@@ -234,6 +234,17 @@ Hibernate:
  */
 
 
+    @Test
+    public void findMemberBySnoAndIsAcceptedTest2() {
+        // Given
+        Long sno = 1L; // 테스트할 스터디 번호
+
+        // When
+        List<MemberStudy> memberStudyList = memberStudyRepository.findMemberBySnoAndAcceptedYet(sno);
+
+        // Then
+        log.info(memberStudyList);
+    }
 
     //update 성공 !!!
     @Test

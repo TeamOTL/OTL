@@ -38,13 +38,13 @@ public interface MemberStudyService {
     /*  WHERE sno = ? AND is_accpeted = 1 AND is_managed = 1 ;
         - 방장 페이지 -> 참가 중인 멤버 조회
     */
-    List<StudyListDTO> findParticipant(Long sno, Boolean isAccepted, Boolean isManaged);
+    List<StudyListDTO> findParticipant(Long sno);
 
 
     /*  WHERE sno = ? AND is_accpeted = 0 AND is_managed = 1 ;
        - 방장 페이지 -> 참가 대기 멤버 조회 (GET)
     */
-    List<StudyListDTO> findWaitingParticipant(Long sno, Boolean isAccepted, Boolean isManaged);
+    List<StudyListDTO> findWaitingParticipant(Long sno);
 
     // 지오 만듦
     MemberStudy requestStudy(Long sno, String email, String comment);

@@ -39,7 +39,7 @@ public interface StudyRepositoryCustom {
     WHERE sno = ?,
     AND is_accepted = 1;
      */
-    List<MemberStudy> findMemberBySnoAndIsAccepted(Long sno, Boolean isAccepted, Boolean isManaged);
+    List<MemberStudy> findMemberBySnoAndIsAccepted(Long sno);
 
 
 
@@ -80,7 +80,7 @@ public interface StudyRepositoryCustom {
     WHERE sno = ?,
     AND is_accepted = 0;
      */
-    List<MemberStudy> findMemberBySnoAndAcceptedYet(Long sno, Boolean isAccepted, Boolean isManaged);
+    List<MemberStudy> findMemberBySnoAndAcceptedYet(Long sno);
 
 
 }

@@ -10,27 +10,28 @@ import com.otl.otl.repository.MemberRepository;
 import com.otl.otl.repository.MemberStudyRepository;
 import com.otl.otl.repository.StudyRepository;
 import com.otl.otl.service.converter.CustomConverters;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Log4j2
 @Service
 public class MemberStudyServiceImpl implements MemberStudyService {
 
     private final MemberStudyRepository memberStudyRepository;
     private final CustomConverters customConverters;
-
     private final StudyRepository studyRepository; // 지오 추가
     private final MemberRepository memberRepository; // 지오 추가
 
     @Autowired
-    public MemberStudyServiceImpl(MemberStudyRepository memberStudyRepository, StudyService studyService, CustomConverters customConverters) {
+    public MemberStudyServiceImpl(MemberStudyRepository memberStudyRepository, StudyService studyService, CustomConverters customConverters, StudyRepository studyRepository, MemberRepository memberRepository) {
         this.memberStudyRepository = memberStudyRepository;
         this.customConverters = customConverters;
+        this.studyRepository = studyRepository;
         this.memberRepository = memberRepository;
-
     }
 
     // 컨버터
@@ -81,6 +82,7 @@ public class MemberStudyServiceImpl implements MemberStudyService {
     @Override
     public List<StudyListDTO> getMyStudyAccptedAndSno(String email, Long sno) {
         List<MemberStudy> memberStudyList = memberStudyRepository.findMemberStudyByEmailAndIsAcceptedAndSno(email, sno);
+        log.info(memberStudyList);
         return memberStudyList.stream()
                 .map(customConverters::memberStudyToDTO)
                 .collect(Collectors.toList());
@@ -108,8 +110,8 @@ public class MemberStudyServiceImpl implements MemberStudyService {
 //        return memberStudyRepository.findMemberBySnoAndIsAccepted(sno, isAccepted, isManaged);
 //    }
     @Override
-    public List<StudyListDTO> findParticipant(Long sno, Boolean isAccepted, Boolean isManaged) {
-        List<MemberStudy> memberStudyList = memberStudyRepository.findMemberBySnoAndIsAccepted(sno, isAccepted, isManaged);
+    public List<StudyListDTO> findParticipant(Long sno) {
+        List<MemberStudy> memberStudyList = memberStudyRepository.findMemberBySnoAndIsAccepted(sno);
         return memberStudyList.stream()
                 .map(customConverters::memberStudyToDTO)
                 .collect(Collectors.toList());
@@ -123,8 +125,9 @@ public class MemberStudyServiceImpl implements MemberStudyService {
 //        return memberStudyRepository.findMemberBySnoAndAcceptedYet(sno, isAccepted, isManaged);
 //    }
     @Override
-    public List<StudyListDTO> findWaitingParticipant(Long sno, Boolean isAccepted, Boolean isManaged) {
-        List<MemberStudy> memberStudyList = memberStudyRepository.findMemberBySnoAndAcceptedYet(sno, isAccepted, isManaged);
+    public List<StudyListDTO> findWaitingParticipant(Long sno) {
+        List<MemberStudy> memberStudyList = memberStudyRepository.findMemberBySnoAndAcceptedYet(sno);
+        log.info(memberStudyList);
         return memberStudyList.stream()
                 .map(customConverters::memberStudyToDTO)
                 .collect(Collectors.toList());
