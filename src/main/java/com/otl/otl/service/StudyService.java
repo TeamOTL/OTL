@@ -1,62 +1,121 @@
 package com.otl.otl.service;
 
 import com.otl.otl.domain.Category;
+import com.otl.otl.domain.Member;
+import com.otl.otl.domain.MemberStudy;
 import com.otl.otl.domain.Study;
-import com.otl.otl.dto.StudyDTO;
-import com.otl.otl.dto.StudyListDTO;
+import com.otl.otl.dto.customDTO.StudyCreateCustomDTO;
+import com.otl.otl.repository.CategoryRepository;
+import com.otl.otl.repository.MemberRepository;
+import com.otl.otl.repository.MemberStudyRepository;
+import com.otl.otl.repository.StudyRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.Optional;
+@Service
+@RequiredArgsConstructor
+public class StudyService {
 
-public interface StudyService {
-    //등록
-    Long register(StudyDTO studyDTO);
+    private final StudyRepository studyRepository;
+    private final CategoryRepository categoryRepository;
+    private final MemberRepository memberRepository;
+    private final MemberStudyRepository memberStudyRepository;
 
-    //조회
-    StudyDTO readStudy(Long sno);
+//    @Transactional
+//    public void createStudy(StudyCreateCustomDTO studyCreateCustomDTO, String email) {
+//        // 카테고리 조회
+//        Category category = categoryRepository.findById(studyCreateCustomDTO.getCno())
+//                .orElseThrow(() -> new IllegalArgumentException("Invalid category ID"));
+//
+//        // Study 엔티티 생성
+//        Study study = Study.builder()
+//                .studyName(studyCreateCustomDTO.getStudyName())
+//                .studyDescription(studyCreateCustomDTO.getStudyDescription())
+//                .studyPlan(studyCreateCustomDTO.getStudyPlan())
+//                .maxMember(studyCreateCustomDTO.getMaxMember())
+//                .firstDate(studyCreateCustomDTO.getFirstDate())
+//                .rStartDate(studyCreateCustomDTO.getRStartDate()) // 기본값 사용
+//                .rEndDate(studyCreateCustomDTO.getREndDate()) // 기본값 사용
+//                .category(category)
+//                .build();
+//
+//        // Task 추가
+//        studyCreateCustomDTO.getCustomTasks().forEach(taskDTO ->
+//                study.addTask(taskDTO.getTaskDate(), taskDTO.getTaskTitle())
+//        );
+//
+//        // Interest 추가
+//        studyCreateCustomDTO.getCustomInterests().forEach(interestDTO ->
+//                study.addInterest(interestDTO.getInterestName())
+//        );
+//
+//        // D-Day 계산 및 설정
+//        study.setDDay(study.calCombinedDday());
+//
+//        // Study 엔티티 저장
+//        Study savedStudy = studyRepository.saveAndFlush(study);
+//
+//        // Member 조회
+//        Member member = memberRepository.findByEmail(email)
+//                .orElseThrow(() -> new IllegalArgumentException("Invalid member email"));
+//
+//        // MemberStudy 엔티티 생성 및 저장
+//        MemberStudy memberStudy = MemberStudy.builder()
+//                .member(member)
+//                .study(savedStudy)
+//                .isManaged(true) // 방장으로 설정
+//                .build();
+//
+//        memberStudyRepository.saveAndFlush(memberStudy);
+//    }
 
-    //관리자 패이지 -> 스터디방 정보 수정
-    void modify(StudyDTO studyDTO);
+    @Transactional
+    public void createStudy(StudyCreateCustomDTO studyCreateCustomDTO, String email) {
+        // 카테고리 조회
+        Category category = categoryRepository.findById(studyCreateCustomDTO.getCno())
+                .orElseThrow(() -> new IllegalArgumentException("Invalid category ID"));
 
-    //스터디방 삭제
-    void remove(Long sno);
+        // Study 엔티티 생성
+        Study study = Study.builder()
+                .studyName(studyCreateCustomDTO.getStudyName())
+                .studyDescription(studyCreateCustomDTO.getStudyDescription())
+                .studyPlan(studyCreateCustomDTO.getStudyPlan())
+                .maxMember(studyCreateCustomDTO.getMaxMember())
+                .firstDate(studyCreateCustomDTO.getFirstDate())
+                .rStartDate(studyCreateCustomDTO.getRStartDate())
+                .rEndDate(studyCreateCustomDTO.getREndDate())
+                .category(category)
+                .build();
 
-    //    검색
-//    PageResponseDTO<StudyDTO> list(PageRequestDTO pageRequestDTO);
+        // Task 추가
+        studyCreateCustomDTO.getCustomTasks().forEach(taskDTO ->
+                study.addTask(taskDTO.getTaskDate(), taskDTO.getTaskTitle())
+        );
 
+        // Interest 추가
+        studyCreateCustomDTO.getCustomInterests().forEach(interestDTO ->
+                study.addInterest(interestDTO.getInterestName())
+        );
 
-    Long addStudy(StudyDTO studyDTO);
+        // D-Day 계산 및 설정
+        study.setDDay(study.calCombinedDday());
 
+        // Study 엔티티 저장
+        Study savedStudy = studyRepository.saveAndFlush(study);
 
-    // author : 99duuk
+        // Member 조회
+        Member member = memberRepository.findByEmail(email)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid member email"));
 
-    /*
-        SELECT * FROM category
-     */
+        // MemberStudy 엔티티 생성 및 저장
+        MemberStudy memberStudy = MemberStudy.builder()
+                .member(member)
+                .study(savedStudy)
+                .isManaged(true) // 방장으로 설정
+                .build();
 
-    List<Category> getAllCategories();
-
-
-
-    /*
-        SELECT * FROM study WHERE cno = ?
-        카테고리 드롭다운 선택 -> 해당 카테고리 스터디 다건 조회
-     */
-    List<Study> getStudiesByCno(Long cno);
-//    Optional<Study> getStudiesByIno(Long ino);
-
-    List<Study> getStudies();
-
-    /*
-    <모집 페이지 "/studyJoin">
-     */
-    List<StudyListDTO> getAllStudyJoin();
-
-    List<Study> getAllStudyJoin2();
-
-
-    Study getStudyById(Long sno);
-
-    // 추가된 메서드
-    List<Study> findUserStudies(String email);
+        memberStudyRepository.saveAndFlush(memberStudy);
+    }
 }
+

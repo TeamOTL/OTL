@@ -28,6 +28,23 @@
     <!-- Custom styles for this template -->
     <link th:href="@{css/sb-admin-2.min.css}" rel="stylesheet"/>
 
+
+    <!-- 부트스트랩 JS (팝업을 위해 필요) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Bootstrap core JavaScript-->
+    <script th:src="@{vendor/jquery/jquery.min.js}"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script th:src="@{vendor/jquery-easing/jquery.easing.min.js}"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script th:src="@{js/sb-admin-2.min.js}"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
 </head>
 
 
@@ -128,13 +145,13 @@
                                     <span class=""> 스터디 시간 적어주세요~~</span>
                                 </div>
                                 <button type="button" class="btn btn- btn-block" data-toggle="modal"
-                                        data-target="#studyInfoModal">더보기</button></a>
+                                        data-target="#studyInfoModal">더보기</button>
+                                <custom-study-info-modal></custom-study-info-modal>
                             </div>
                         </div>
                     </div>
                     <!-- 스터디_모집_카드 1 End -->
                 </div> <!--row end -->
-                <custom-todo-list></custom-todo-list>
                 <!-- End of Page Wrapper -->
                 <custom-setting-modal></custom-setting-modal>
                 <custom-scroll-top-btn></custom-scroll-top-btn>
@@ -153,22 +170,7 @@
 <script th:src="@{js/component/userDropModal.js}"></script>
 <script th:src="@{js/component/userSettingModal.js}"></script>
 <script th:src="@{js/component/todoList.js}"></script>
-<!-- 캘린더 -->
-<script th:src="@{js/index.global.js}"></script>
 
-<!-- 부트스트랩 JS (팝업을 위해 필요) -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-<!-- Bootstrap core JavaScript-->
-<script th:src="@{vendor/jquery/jquery.min.js}"></script>
-
-<!-- Core plugin JavaScript-->
-<script th:src="@{vendor/jquery-easing/jquery.easing.min.js}"></script>
-
-<!-- Custom scripts for all pages-->
-<script th:src="@{js/sb-admin-2.min.js}"></script>
 
 
 </body>

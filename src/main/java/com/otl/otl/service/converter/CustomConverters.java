@@ -6,6 +6,9 @@ import com.otl.otl.dto.MemberStudyDTO;
 import com.otl.otl.dto.MemberStudyProjection.MemberStudyProjectionImpl;
 import com.otl.otl.dto.StudyListDTO;
 import com.otl.otl.dto.TaskDTO;
+import com.otl.otl.dto.customDTO.CustomInterestDTO;
+import com.otl.otl.dto.customDTO.CustomTaskDTO;
+import com.otl.otl.dto.customDTO.StudyCreateCustomDTO;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -108,6 +111,32 @@ public class CustomConverters {
                 .isManaged(memberStudyDTO.isManaged())
                 .comment(memberStudyDTO.getComment())
                 .build();
+    }
+
+    // StudyCreateCustomDTO를 Study 도메인 객체로 변환하는 메서드
+    public Study StudyCreateCustomDTOToDomain(StudyCreateCustomDTO studyCreateCustomDTO, Category category) {
+        Study study = Study.builder()
+                .studyName(studyCreateCustomDTO.getStudyName())
+                .studyDescription(studyCreateCustomDTO.getStudyDescription())
+                .studyPlan(studyCreateCustomDTO.getStudyPlan())
+                .maxMember(studyCreateCustomDTO.getMaxMember())
+                .firstDate(studyCreateCustomDTO.getFirstDate())
+//                .rStartDate(studyCreateCustomDTO.getRStartDate())
+//                .rEndDate(studyCreateCustomDTO.getREndDate())
+                .category(category)
+                .build();
+
+        // CustomTaskDTO 리스트를 Study의 Task 리스트로 변환하여 추가
+        for (CustomTaskDTO taskDTO : studyCreateCustomDTO.getCustomTasks()) {
+            study.addTask(taskDTO.getTaskDate(), taskDTO.getTaskTitle());
+        }
+
+        // CustomInterestDTO 리스트를 Study의 Interest 리스트로 변환하여 추가
+        for (CustomInterestDTO interestDTO : studyCreateCustomDTO.getCustomInterests()) {
+            study.addInterest(interestDTO.getInterestName());
+        }
+
+        return study;
     }
 
 
