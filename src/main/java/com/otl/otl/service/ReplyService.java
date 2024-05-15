@@ -13,7 +13,6 @@ public interface ReplyService {
     ReplyDTO readOne(Long replyNo); // 조회
     void remove(Long replyNo); // 삭제
 
-    Page<ReplyDTO>findRepliesByBno(Long bno, int page, int size);
+    List<ReplyDTO>findRepliesByBno(Long bno);
 
-    //Page<ReplyDTO> findReplyies(int page, int size); // 목록
 }

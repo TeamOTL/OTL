@@ -1,10 +1,13 @@
-// 제목과 내용을 저장할 변수 선언
-let originalTitle, originalContent;
-
 // 댓글 목록을 저장할 배열
 let replyList = [];
 
 class boardReadModal extends HTMLElement {
+    /** - 작성자 : 유지오
+     *
+     * data-toggle="modal" data-target="#태그아이디"에서
+     * data-target은 보여줄 태그 아이디입니다.
+     *
+     */
     connectedCallback() {
         const bno = this.getAttribute('board.bno');
         const boardTitle = this.getAttribute('board.boardTitle');
@@ -13,10 +16,6 @@ class boardReadModal extends HTMLElement {
         const memberProfileImage = this.getAttribute('memberProfileImage');
         const regDate = this.getAttribute('board.regDate');
         const modDate = this.getAttribute('board.modDate');
-
-        // 현재 제목과 내용을 저장
-        originalTitle = boardTitle;
-        originalContent = boardContent;
 
         this.innerHTML = `
             <!-- The Modal -->
@@ -87,19 +86,13 @@ class boardReadModal extends HTMLElement {
                                                 </ul>
                                             </div>
                                             <!-- 댓글 작성 칸 -->
-                                            <form id="replyForm" action="/api/saveReply" method="POST">
+                                            <form id="replyForm-${bno}" action="/api/saveReply" method="POST">
                                                 <div class="col-sm-13 d-flex align-items-start">
-                                                    <input id="replyContent" type="text" class="form-control mr-2" placeholder="댓글을 입력하세요">
-                                                    <button type="submit" id="replysubmitBtn" class="col-sm-2 btn btn-primary">댓글 작성</button>
+                                                    <input id="replyContent-${bno}" type="text" class="form-control mr-2" placeholder="댓글을 입력하세요">
+                                                    <button type="submit" id="replysubmitBtn-${bno}" class="col-sm-2 btn btn-primary">댓글 작성</button>
                                                 </div>
                                             </form>
                                         </div>
-                                    <div class="row mt-3">
-                                        <div class="col">
-                                            <ul class="pagination replyPaging">
-                                            </ul>
-                                        </div>
-                                    </div>
                                 </div>
                         </div>
                     </div>
@@ -268,19 +261,28 @@ class boardReadModal extends HTMLElement {
         });
 
         // 5. 댓글 작성
-        const reply = this.querySelector("#replyForm");
-        const reply_Content = document.querySelector("#replyContent");
+        const replyForms = this.querySelectorAll("[id^='replyForm']");
 
-        reply.addEventListener('submit', (event) => {
+        replyForms.forEach(replyForm => {
+            // 이벤트 리스너 추가
+            replyForm.addEventListener('submit', handleSubmit);
+        });
+
+        function handleSubmit(event) {
             event.preventDefault(); // 폼의 기본 제출을 방지
-            if(reply_Content.value === ''){
-                alert("댓글 내용을 입력해주세요.")
-            }else{
+
+            const replyForm = event.currentTarget; // 현재 이벤트가 발생한 폼
+            const bno = replyForm.getAttribute('id').split('-')[1]; // 게시글 번호 가져오기
+            const replyContent = replyForm.querySelector(`#replyContent-${bno}`).value;
+
+            if(replyContent === ''){
+                alert("댓글 내용을 입력해주세요.");
+            } else {
                 // 댓글로 등록할 데이터를 객체에 담기
                 const replyData = {
                     bno: bno,
-                    replyContent: reply.querySelector("#replyContent").value,
-                    email: email
+                    replyContent: replyContent,
+                    email: email // email 변수는 어디서 가져오는지 확인 필요
                 };
 
                 console.log("댓글 데이터: ", replyData); // 댓글 데이터 확인
@@ -293,6 +295,7 @@ class boardReadModal extends HTMLElement {
                     success: function (response) {
                         console.log("AJAX 요청 성공: ", response); // AJAX 요청 성공 확인
                         alert('댓글이 성공적으로 저장되었습니다.');
+                        $('#replyContent-' + bno).val('');
                         location.reload();
                     },
                     error: function (xhr, status, error) {
@@ -301,7 +304,7 @@ class boardReadModal extends HTMLElement {
                     }
                 });
             }
-        });
+        }
 
         // 6. 댓글 목록/삭제
         const replyListElement = this.querySelector(".replyList");
@@ -336,7 +339,7 @@ class boardReadModal extends HTMLElement {
 
                     // 작성자의 닉네임 열을 추가
                     const nicknameCell = document.createElement("td");
-                    nicknameCell.textContent = nickname;
+                    nicknameCell.textContent = reply.nickname;
                     nicknameCell.style.color = "#FD7B38";
                     nicknameCell.style.width = "20%";
                     newRow.appendChild(nicknameCell);
@@ -356,31 +359,38 @@ class boardReadModal extends HTMLElement {
                     replyDeleteBtn.classList.add("btn", "btn-danger");
                     // 클릭 이벤트 추가
                     replyDeleteBtn.addEventListener("click", function() {
+                        const replyEmail = response.content[i].email; // 댓글 작성자
+                        console.log(replyEmail);
 
-                        // 삭제할 댓글 번호
-                        const replyNo = response.content[i].replyNo;
+                        if (replyEmail !== email) {
+                            alert("게시글 작성자와 일치하지 않습니다.");
+                        } else {
+                            // 삭제할 댓글 번호
+                            const replyNo = response.content[i].replyNo;
 
-                        console.log("댓글이 삭제될 예정입니다.");
 
-                        // 댓글 삭제 요청 보내기
-                        $.ajax({
-                            type: 'POST',
-                            url: '/api/deleteReply',
-                            contentType: 'application/json', // 데이터 형식을 JSON으로 설정
-                            data: JSON.stringify({ replyNo: replyNo }), // JSON 형식으로 데이터 전송
-                            success: function (response) {
-                                // 삭제 성공 시, 해당 댓글 행 제거
-                                newRow.remove();
-                                alert("댓글이 삭제되었습니다.");
-                                location.reload();
-                            },
-                            error: function (xhr, status, error) {
-                                console.error("댓글 삭제 중 에러가 발생했습니다: ", error); // AJAX 요청 실패 확인
-                                console.error("상태 코드: ", status);
-                                console.error("XHR 객체: ", xhr);
-                                alert('댓글을 삭제하는데 실패했습니다: ' + error);
-                            }
-                        });
+                            console.log("댓글이 삭제될 예정입니다.");
+
+                            // 댓글 삭제 요청 보내기
+                            $.ajax({
+                                type: 'POST',
+                                url: '/api/deleteReply',
+                                contentType: 'application/json', // 데이터 형식을 JSON으로 설정
+                                data: JSON.stringify({replyNo: replyNo}), // JSON 형식으로 데이터 전송
+                                success: function (response) {
+                                    // 삭제 성공 시, 해당 댓글 행 제거
+                                    newRow.remove();
+                                    alert("댓글이 삭제되었습니다.");
+                                    location.reload();
+                                },
+                                error: function (xhr, status, error) {
+                                    console.error("댓글 삭제 중 에러가 발생했습니다: ", error); // AJAX 요청 실패 확인
+                                    console.error("상태 코드: ", status);
+                                    console.error("XHR 객체: ", xhr);
+                                    alert('댓글을 삭제하는데 실패했습니다: ' + error);
+                                }
+                            });
+                        }
                     });
 
                     deleteCell.style.width = "10%";
@@ -396,6 +406,8 @@ class boardReadModal extends HTMLElement {
                 alert('댓글 목록을 불러오는데 실패했습니다: ' + error);
             }
         });
+
+        // 8. 댓글 페이지
     }
 }
 

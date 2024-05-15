@@ -13,5 +13,5 @@ public interface ReplyRepository extends JpaRepository<Reply, Long> {
 
     Page<Board> findByOrderByModDateDesc(Pageable pageable);
 
-    Page<Reply> findByBoard_Bno(Long bno, Pageable pageable);
+    List<Reply> findByBoard_Bno(Long bno);
 }
