@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface TaskService {
     List<Task> getAcceptedTasksByMemberEmail(String email);
+
+    List<Task> getManaedTasksByMemberEmail(String email);
 }

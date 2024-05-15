@@ -6,6 +6,7 @@ import com.otl.otl.dto.MemberStudyProjection.MemberStudyProjectionImpl;
 import com.otl.otl.dto.StudyListDTO;
 import com.otl.otl.repository.MemberStudyRepository;
 import com.otl.otl.service.converter.CustomConverters;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

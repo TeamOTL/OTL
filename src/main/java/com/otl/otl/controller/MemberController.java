@@ -2,8 +2,8 @@ package com.otl.otl.controller;
 
 import com.otl.otl.domain.Member;
 import com.otl.otl.domain.MemberStudy;
+import com.otl.otl.domain.Study;
 import com.otl.otl.dto.BoardDTO;
-import com.otl.otl.dto.MemberStudyDTO;
 import com.otl.otl.dto.StudyDTO;
 import com.otl.otl.dto.StudyListDTO;
 import com.otl.otl.repository.MemberRepository;

@@ -14,8 +14,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.user.OAuth2User;
-import org.springframework.stereotype.Controller;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -40,13 +38,18 @@ public class DashBoardController {
         this.taskService = taskService;
     }
 
-    @GetMapping("/tasks/{email}")
-    public List<Task> getTasks(@PathVariable("email") String email){
+    @GetMapping("/tasksAccept/{email}")
+    public List<Task> getTasksAccept(@PathVariable("email") String email) {
         return taskService.getAcceptedTasksByMemberEmail(email);
     }
 
+    @GetMapping("/tasksManaged/{email}")
+    public List<Task> getTasksManaed(@PathVariable("email") String email) {
+        return taskService.getManaedTasksByMemberEmail(email);
+    }
+
     @Operation(summary = "User TodoList All Read", description = "유저의 전체 할 일 리스트 가져오기")
-    @GetMapping
+    @GetMapping("")
     public ResponseEntity<List<TodolistDTO>> getAllTodolists(@AuthenticationPrincipal OAuth2User oauthUser) {
         try {
             Map<String, Object> kakaoAccount = oauthUser.getAttribute("kakao_account");
@@ -107,7 +110,7 @@ public class DashBoardController {
             Map<String, Object> kakaoAccount = oauthUser.getAttribute("kakao_account");
             String email = (String) kakaoAccount.get("email");
             List<Todolist> todos = todolistRepository.findByMember_EmailAndIsDeletedTrue(email);
-            if(todos.isEmpty()) {
+            if (todos.isEmpty()) {
                 return ResponseEntity.ok(new ArrayList<>()); // 비어있는 리스트 반환
             }
             if (todos.get(0).getMember().getEmail().equals(email)) {
@@ -132,7 +135,7 @@ public class DashBoardController {
             Map<String, Object> kakaoAccount = oauthUser.getAttribute("kakao_account");
             String email = (String) kakaoAccount.get("email");
             List<Todolist> todos = todolistRepository.findByMember_EmailAndIsCompletedTrue(email);
-            if (todos.isEmpty()){
+            if (todos.isEmpty()) {
                 return ResponseEntity.ok(new ArrayList<>()); // 비어있는 리스트 반환
             }
             if (todos.get(0).getMember().getEmail().equals(email)) {
@@ -171,11 +174,11 @@ public class DashBoardController {
         }
     }
 
-    @Operation(summary = "IsDelete True",description = "할 일 목록 삭제 완료 상태로 바꾸기 (행 삭제X)")
+    @Operation(summary = "IsDelete True", description = "할 일 목록 삭제 완료 상태로 바꾸기 (행 삭제X)")
     @PatchMapping("/delete/{toNo}")
     public ResponseEntity<Void> markAsDeleted(@AuthenticationPrincipal OAuth2User oauthUser, @PathVariable("toNo") Long toNo) {
         try {
-            log.info("delete/${toNo} : {}"+ oauthUser.getName(), toNo);
+            log.info("delete/${toNo} : {}" + oauthUser.getName(), toNo);
             Optional<TodolistDTO> todo = todolistService.findById(toNo);
             Map<String, Object> kakaoAccount = oauthUser.getAttribute("kakao_account");
             String email = (String) kakaoAccount.get("email");

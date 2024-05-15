@@ -72,18 +72,17 @@ public class StudyController {
     // StudyCreateCustomDTO를 사용하여 Study를 생성하는 메서드
     @PostMapping("/studyCreate")
     public ResponseEntity<String> studyCreate(@RequestBody StudyCreateCustomDTO studyCreateCustomDTO, @AuthenticationPrincipal OAuth2User oauthUser) {
-        log.info("preCreated"+studyCreateCustomDTO);
-        log.info("studyName:"+ studyCreateCustomDTO.getStudyName());
-        log.info("studyDescription:"+ studyCreateCustomDTO.getStudyDescription());
-        log.info("firstDate:"+ studyCreateCustomDTO.getFirstDate());
-        log.info("rStartDate:"+ studyCreateCustomDTO.getRStartDate());
-        log.info("rEndDate:"+ studyCreateCustomDTO.getREndDate());
+        log.info("preCreated" + studyCreateCustomDTO);
+        log.info("studyName:" + studyCreateCustomDTO.getStudyName());
+        log.info("studyDescription:" + studyCreateCustomDTO.getStudyDescription());
+        log.info("firstDate:" + studyCreateCustomDTO.getFirstDate());
+        log.info("rStartDate:" + studyCreateCustomDTO.getRStartDate());
+        log.info("rEndDate:" + studyCreateCustomDTO.getREndDate());
 
-        log.info("dDay:"+ studyCreateCustomDTO.getDDay());
-        log.info("interests:"+ studyCreateCustomDTO.getInterestsDTO());
-        log.info("tasks:"+ studyCreateCustomDTO.getTaskDTO());
-        log.info("cno:"+ studyCreateCustomDTO.getCno());
-
+        log.info("dDay:" + studyCreateCustomDTO.getDDay());
+        log.info("interests:" + studyCreateCustomDTO.getInterestsDTO());
+        log.info("tasks:" + studyCreateCustomDTO.getTaskDTO());
+        log.info("cno:" + studyCreateCustomDTO.getCno());
 
 
         Map<String, Object> kakaoAccount = oauthUser.getAttribute("kakao_account");
@@ -101,5 +100,26 @@ public class StudyController {
 
         return ResponseEntity.status(HttpStatus.CREATED).body("Study created successfully");
     }
+
+//    @GetMapping("/studyList")
+//    public List<StudyListDTO> getOpenStudies() {
+//        List<StudyListDTO> studies = studyService.findOpenStudies();
+//        log.info("StudyListDTO: " + studies);
+//
+//        return studies;
+//    }
+
+
+    @GetMapping("/studyList/{sno}")
+    public ResponseEntity<List<StudyListDTO>> getMyStudyAcceptedAndSno(@AuthenticationPrincipal OAuth2User oauthUser, @PathVariable Long sno) {
+        Map<String, Object> kakaoAccount = oauthUser.getAttribute("kakao_account");
+        String email = (String) kakaoAccount.get("email");
+        List<StudyListDTO> studies = memberStudyService.getMyStudyAcceptedAndSno(email, sno);
+        log.info("studies:"+studies);
+
+
+        return ResponseEntity.ok(studies);
     }
+
+}
 
