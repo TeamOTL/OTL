@@ -5,7 +5,6 @@ import com.otl.otl.dto.MemberStudyProjection.MemberStudyProjectionImpl;
 import com.otl.otl.repository.querydsl.StudyRepositoryCustom;
 import com.querydsl.core.Tuple;
 import com.querydsl.core.types.Projections;
-import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.Expressions;
 import jakarta.transaction.Transactional;
 import lombok.extern.log4j.Log4j2;
@@ -270,6 +269,24 @@ AND is_accepted = 0;
         // QueryDSL을 사용하여 업데이트 쿼리 작성
         long updatedCount = update(qMemberStudy)
                 .set(qMemberStudy.isAccepted, true)
+                .where(qMemberStudy.member.email.eq(email)
+                        .and(qMemberStudy.study.sno.eq(sno)))
+                .execute();
+
+        // 업데이트된 행 수 확인
+        log.info("Updated {} rows", updatedCount);
+    }
+
+    // UPDATE member_study SET is_accepted = 1 WHERE email = ? AND sno = ?
+    @Override
+    @Transactional
+    public void updateIsAcceptedRefuseByEmailAndSno(String email, Long sno) {
+        QMemberStudy qMemberStudy = QMemberStudy.memberStudy;
+
+
+        // QueryDSL을 사용하여 업데이트 쿼리 작성
+        long updatedCount = update(qMemberStudy)
+                .set(qMemberStudy.isAccepted, false)
                 .where(qMemberStudy.member.email.eq(email)
                         .and(qMemberStudy.study.sno.eq(sno)))
                 .execute();

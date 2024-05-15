@@ -202,5 +202,13 @@ public class StudyServiceImpl implements StudyService {
     }
 
 
+      /*   INSERT INTO member_study VALUES      (email = ?, sno = ?, is_managed = 0, is_accpeted = 0;)
+        - 모집 페이지 [참가 신청] post 요청
+     */
+
+
+    /*   INSERT INTO study VALUES   (,, ,, , , , ,)   ([study] + cno = ? + [interests] + [task] )
+        - 스터디 생성
+     */
 
 }

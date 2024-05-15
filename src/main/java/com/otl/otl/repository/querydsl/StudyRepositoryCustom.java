@@ -4,6 +4,7 @@ import com.otl.otl.domain.MemberStudy;
 import com.otl.otl.domain.Study;
 import com.otl.otl.dto.MemberStudyProjection.MemberStudyProjectionImpl;
 import com.querydsl.core.Tuple;
+import jakarta.transaction.Transactional;
 
 import java.util.List;
 
@@ -56,6 +57,9 @@ public interface StudyRepositoryCustom {
     List<Tuple> countAcceptedBySno();
 
 
+    // UPDATE member_study SET is_accepted = 1 WHERE email = ? AND sno = ?
+    @Transactional
+    void updateIsAcceptedRefuseByEmailAndSno(String email, Long sno);
 
     // email = ? AND is_accepted = 0; 참가 대기 중
     List<Study> findAllByCurDate();

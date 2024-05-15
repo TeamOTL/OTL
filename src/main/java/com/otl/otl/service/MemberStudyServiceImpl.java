@@ -63,35 +63,60 @@ public class MemberStudyServiceImpl implements MemberStudyService {
     }
 
 
+     /*  INSERT INTO task ( , , , , ) VALUES ( , , , , , , );
+        - 나의 스터디 - 회의록 작성
+     */
+
+    /*  UPDATE task SET ?, ?, ?, ?, ? WHERE sno = ? AND tno = ?;
+        - 나의 스터디 - 회의록 작성
+     */
 
 
-//  <<< 방장 페이지 >>>
+
+
+    //  <<< 방장 페이지 >>>
     /*  WHERE sno = ? AND is_accpeted = 1 AND is_managed = 1 ;
-        - 방장 페이지 -> 참가 중인 멤버 조회 (강퇴)
+        - 방장 페이지 -> 참가 중인 멤버 조회 (GET)
      */
     @Override
     public List<MemberStudy> findMemberBySnoAndIsAccepted(Long sno, Boolean isAccepted, Boolean isManaged) {
         return memberStudyRepository.findMemberBySnoAndIsAccepted(sno, isAccepted, isManaged);
     }
 
-
     /*  UPDATE member_study SET is_accepted = 1 WHERE email = ? AND sno = ?
-        - 방장 페이지 - 참가 중인 멤버 강퇴
-     */
-    @Override
-    public void RemoveParticipant(String email, Long sno) {
+       - 방장 페이지 -> 참가 신청 멤버 관리 <신청 승인> (PUT)
+    */
+    public void AcceptParticipant(String email, Long sno) {
         memberStudyRepository.updateIsAcceptedByEmailAndSno(email, sno);
     }
 
 
-    /*   ;  [study], cno, interests.interestName, [task]
-        - 방장 페이지 -> 스터디 관리 (스터디 수정)
+    /*  //DELETE FROM member_study WHERE email = ? AND sno = ?
+        - 방장 페이지 -> 참가 신청 멤버 관리 < 거절 >(PUT)
+     */
+    @Override
+    public void refuseParticipant(String email, Long sno) {
+//        memberStudyRepository.(email, sno);
+    }
+
+
+    /*  UPDATE member_study SET is_accepted = 0 WHERE email = ? AND sno = ?
+        - 방장 페이지 - 참가 중인 멤버 강퇴 (PUT)
+     */
+    @Override
+    public void RemoveParticipant(String email, Long sno) {
+        memberStudyRepository.updateIsAcceptedRefuseByEmailAndSno(email, sno);
+    }
+
+
+    /*   UPDATE study SET ( , , , , , , );      ([study] + cno = ? + [interests] + [task] )
+        - 방장 페이지 -> 스터디 관리 (스터디 수정) (PUT)
      */
 
 
-    /*  ;
-        -
-     */
+
+
+
 
 
 
