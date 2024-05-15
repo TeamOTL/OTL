@@ -14,6 +14,9 @@ public interface StudyService {
     void createStudy(StudyCreateCustomDTO studyCreateCustomDTO, String email);
 
 
+    StudyDTO getStudy(Long sno);
+
+
     // <--------------------------------- salmon ---------------------------------------->
     // 추가된 메서드
     List<Study> findUserStudies(String email);

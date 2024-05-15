@@ -14,4 +14,6 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     // 이메일을 이용해 회원 데이터를 삭제하는 메소드
     @Transactional
     void deleteByEmail(String email);
+
+    Optional<Member> findByMemberDescription(String memberDescription);
 }

@@ -4,6 +4,7 @@ package com.otl.otl.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.otl.otl.domain.MemberStudy;
 import com.otl.otl.domain.Study;
+import com.otl.otl.dto.StudyDTO;
 import com.otl.otl.dto.StudyListDTO;
 import com.otl.otl.dto.customDTO.StudyCreateCustomDTO;
 import com.otl.otl.service.MemberStudyService;
@@ -123,6 +124,14 @@ public class StudyController {
 
 
         return ResponseEntity.ok(studies);
+    }
+
+
+    //모집방 상세 정보 조회
+    @GetMapping("/study/{sno}")
+    public ResponseEntity<StudyDTO> getStudy(@PathVariable Long sno) {
+        StudyDTO studyDTO = studyService.getStudy(sno);
+        return ResponseEntity.ok(studyDTO);
     }
 
 }

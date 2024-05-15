@@ -1,86 +1,87 @@
 
-class Dashboard extends HTMLElement {
+class Dashboard {
 
     constructor() {
-        super();
         this.calenderJson = [];
         this.email = '';
+
+
 
     }
     connectedCallback() {
         // 전역 변수 초기화
         this.email = this.getAttribute('email').replace(/"/g, '');
-        this.innerHTML = `
-            <style>
-                #todolistContainer {
-                    right: -100%;
-                    z-index: 1;
-                    transition: right 0.5s ease-in;
-                }
-                #todolistContainer.show {
-                    right: 5%;
-                    transition: right 0.5s ease-out;
-                }
-            </style>
-            <div class="row justify-content-center gap-3 h-600">
-                <div id="calendar" class="col-lg-8 bg-white p-3 rounded fc fc-media-screen fc-direction-ltr fc-theme-standard"></div>
-                <div class="col-auto">
-                    <button id="todolistPopup" class="btn border btn-facebook shadow-lg p-3 mb-5">👈TodoList</button>
-                </div>
-                <div id="todolistContainer" class="row position-absolute col-lg-6 col-md-6 col-sm-3 fade d-none">
-                    <div class="bg-white shadow-lg rounded" id="todolist">
-                        <div class="row justify-content-center">
-                            <h4 class="h4 p-4 col">TodoList</h4>
-                            <h4 class="h4 p-4 col-auto">
-                                <button type="button" id="todolistExit" class="btn btn-danger col-auto">X</button>
-                            </h4>
-                        </div>
-                        <form id="todoForm">
-                            <label class="row justify-content-between gap-3 m-2">
-                                <input class="col col-form-label form-control" type="text" placeholder="할 일 입력" name="todoTitle" id="todoTitle">
-                                <button class="btn btn-facebook col-auto" onclick="submitTodo(event)">+</button>
-                            </label>
-                            <label class="row justify-content-center gap-5">
-                                <input type="date" class="col-lg-4 col-sm-3 col-md-3 form-control input-group" name="startDate" id="startDate">~
-                                <input type="date" class="col-lg-4 col-sm-3 col-md-3 form-control input-group" name="endDate" id="endDate">
-                            </label>
-                            <hr class="border border-dark">
-                        </form>
-                        <ul class="nav nav-tabs" id="todoTabs" role="tablist">
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link active" id="all-tab" onclick="showAllTodos()"
-                                        data-bs-toggle="tab" data-bs-target="#all" type="button" role="tab"
-                                        aria-controls="all" aria-selected="true">할 일
-                                </button>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link" id="completed-tab" onclick="showCompletedTodos()"
-                                        data-bs-toggle="tab" data-bs-target="#completed" type="button" role="tab"
-                                        aria-controls="completed" aria-selected="false">완료 목록
-                                </button>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link" id="pending-tab" onclick="showDeletedTodos()"
-                                        data-bs-toggle="tab" data-bs-target="#pending" type="button" role="tab"
-                                        aria-controls="pending" aria-selected="false">삭제 목록
-                                </button>
-                            </li>
-                        </ul>
-                        <div class="tab-content" id="todoTabsContent">
-                            <div class="tab-pane fade show active" id="allTodo" role="tabpanel" aria-labelledby="all-tab">
-                                <ul class="list-group" id="todoListing"></ul>
-                            </div>
-                            <div class="tab-pane fade" id="completedTodo" role="tabpanel" aria-labelledby="completed-tab">
-                                <ul class="list-group" id="todoListCompleted"></ul>
-                            </div>
-                            <div class="tab-pane fade" id="deleteTodo" role="tabpanel" aria-labelledby="pending-tab">
-                                <ul class="list-group" id="todoListDeleted"></ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        `;
+        // this.innerHTML = `
+        //     <style>
+        //         #todolistContainer {
+        //             right: -100%;
+        //             z-index: 1;
+        //             transition: right 0.5s ease-in;
+        //         }
+        //         #todolistContainer.show {
+        //             right: 5%;
+        //             transition: right 0.5s ease-out;
+        //         }
+        //     </style>
+        //     <div class="row justify-content-center gap-3 h-600">
+        //         <div id="calendar" class="col-lg-8 bg-white p-3 rounded fc fc-media-screen fc-direction-ltr fc-theme-standard"></div>
+        //         <div class="col-auto">
+        //             <button id="todolistPopup" class="btn border btn-facebook shadow-lg p-3 mb-5">👈TodoList</button>
+        //         </div>
+        //         <div id="todolistContainer" class="row position-absolute col-lg-6 col-md-6 col-sm-3 fade d-none">
+        //             <div class="bg-white shadow-lg rounded" id="todolist">
+        //                 <div class="row justify-content-center">
+        //                     <h4 class="h4 p-4 col">TodoList</h4>
+        //                     <h4 class="h4 p-4 col-auto">
+        //                         <button type="button" id="todolistExit" class="btn btn-danger col-auto">X</button>
+        //                     </h4>
+        //                 </div>
+        //                 <form id="todoForm">
+        //                     <label class="row justify-content-between gap-3 m-2">
+        //                         <input class="col col-form-label form-control" type="text" placeholder="할 일 입력" name="todoTitle" id="todoTitle">
+        //                         <button class="btn btn-facebook col-auto" type="submit">+</button>
+        //                     </label>
+        //                     <label class="row justify-content-center gap-5">
+        //                         <input type="date" class="col-lg-4 col-sm-3 col-md-3 form-control input-group" name="startDate" id="startDate">~
+        //                         <input type="date" class="col-lg-4 col-sm-3 col-md-3 form-control input-group" name="endDate" id="endDate">
+        //                     </label>
+        //                     <hr class="border border-dark">
+        //                 </form>
+        //                 <ul class="nav nav-tabs" id="todoTabs" role="tablist">
+        //                     <li class="nav-item" role="presentation">
+        //                         <button class="nav-link active" id="all-tab"
+        //                                 data-bs-toggle="tab" data-bs-target="#all" type="button" role="tab"
+        //                                 aria-controls="all" aria-selected="true">할 일
+        //                         </button>
+        //                     </li>
+        //                     <li class="nav-item" role="presentation">
+        //                         <button class="nav-link" id="completed-tab"
+        //                                 data-bs-toggle="tab" data-bs-target="#completed" type="button" role="tab"
+        //                                 aria-controls="completed" aria-selected="false">완료 목록
+        //                         </button>
+        //                     </li>
+        //                     <li class="nav-item" role="presentation">
+        //                         <button class="nav-link" id="pending-tab"
+        //                                 data-bs-toggle="tab" data-bs-target="#pending" type="button" role="tab"
+        //                                 aria-controls="pending" aria-selected="false">삭제 목록
+        //                         </button>
+        //                     </li>
+        //                 </ul>
+        //                 <div class="tab-content" id="todoTabsContent">
+        //                     <div class="tab-pane fade show active" id="allTodo" role="tabpanel" aria-labelledby="all-tab">
+        //                         <ul class="list-group" id="todoListing"></ul>
+        //                     </div>
+        //                     <div class="tab-pane fade" id="completedTodo" role="tabpanel" aria-labelledby="completed-tab">
+        //                         <ul class="list-group" id="todoListCompleted"></ul>
+        //                     </div>
+        //                     <div class="tab-pane fade" id="deleteTodo" role="tabpanel" aria-labelledby="pending-tab">
+        //                         <ul class="list-group" id="todoListDeleted"></ul>
+        //                     </div>
+        //                 </div>
+        //             </div>
+        //         </div>
+        //     </div>
+        // `;
 
         // 이벤트 리스너 설정
         this.setupEventListeners();
@@ -99,6 +100,9 @@ class Dashboard extends HTMLElement {
         document.getElementById("todolistExit").addEventListener("click", this.handleExitClick.bind(this));
         document.addEventListener("click", this.handleOutsideClick.bind(this));
         document.getElementById("todoForm").addEventListener("submit", this.submitTodo.bind(this));
+        document.getElementById("all-tab").addEventListener("click", this.showAllTodos.bind(this));
+        document.getElementById("completed-tab").addEventListener("click", this.showCompletedTodos.bind(this));
+        document.getElementById("pending-tab").addEventListener("click", this.showDeletedTodos.bind(this));
     }
 
 
@@ -194,7 +198,7 @@ class Dashboard extends HTMLElement {
     /** 투두리스트 x버튼 클릭 시 이벤트
      * @param event
      */
-    handleExitClick() {
+    handleExitClick(event) {
         const todolistContainer = document.getElementById("todolistContainer");
         clearTimeout(this.todolistPopupTimeout);
         this.todolistExitTimeout = setTimeout(() => {
@@ -383,5 +387,4 @@ class Dashboard extends HTMLElement {
             .catch(error => console.error('Error fetching deleted todos:', error));
     }
 }
-
-customElements.define("custom-calender", Dashboard);
+const dashboard = new Dashboard();

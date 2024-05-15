@@ -46,6 +46,8 @@ public interface MemberStudyService {
     */
     List<StudyListDTO> findWaitingParticipant(Long sno, Boolean isAccepted, Boolean isManaged);
 
+    // 지오 만듦
+    MemberStudy requestStudy(Long sno, String email, String comment);
 
     /*  UPDATE member_study SET is_accepted = 1 WHERE email = ? AND sno = ?
        - 방장 페이지 -> 참가 신청 멤버 관리 <신청 승인> (PUT)

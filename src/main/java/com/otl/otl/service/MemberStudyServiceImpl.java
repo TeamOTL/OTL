@@ -1,11 +1,14 @@
 package com.otl.otl.service;
 
+import com.otl.otl.domain.Member;
 import com.otl.otl.domain.MemberStudy;
 import com.otl.otl.domain.Study;
 import com.otl.otl.dto.MemberStudyDTO;
 import com.otl.otl.dto.MemberStudyProjection.MemberStudyProjectionImpl;
 import com.otl.otl.dto.StudyListDTO;
+import com.otl.otl.repository.MemberRepository;
 import com.otl.otl.repository.MemberStudyRepository;
+import com.otl.otl.repository.StudyRepository;
 import com.otl.otl.service.converter.CustomConverters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,10 +22,15 @@ public class MemberStudyServiceImpl implements MemberStudyService {
     private final MemberStudyRepository memberStudyRepository;
     private final CustomConverters customConverters;
 
+    private final StudyRepository studyRepository; // 지오 추가
+    private final MemberRepository memberRepository; // 지오 추가
+
     @Autowired
     public MemberStudyServiceImpl(MemberStudyRepository memberStudyRepository, StudyService studyService, CustomConverters customConverters) {
         this.memberStudyRepository = memberStudyRepository;
         this.customConverters = customConverters;
+        this.memberRepository = memberRepository;
+
     }
 
     // 컨버터
@@ -122,6 +130,30 @@ public class MemberStudyServiceImpl implements MemberStudyService {
                 .collect(Collectors.toList());
     }
 
+    // 지오 만듦
+    @Override
+    public MemberStudy requestStudy(Long sno, String email, String comment) {
+        // Study 조회
+        Study study = studyRepository.findById(sno)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid study ID"));
+
+        // Member 조회
+        Member member = memberRepository.findByEmail(email)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid member email"));
+
+        // MemberStudy 엔티티 생성 및 저장
+        MemberStudy memberStudy = MemberStudy.builder()
+                .member(member)
+                .study(study)
+                .isAccepted(false) // 신청 시에는 미승인 상태로 설정
+                .isManaged(false)  // 방장이 아님
+                .comment(comment)
+                .build();
+
+        memberStudyRepository.saveAndFlush(memberStudy);
+
+        return memberStudy;
+    }
 
     /*  UPDATE member_study SET is_accepted = 1 WHERE email = ? AND sno = ?
        - 방장 페이지 -> 참가 신청 멤버 관리 <신청 승인> (PUT)

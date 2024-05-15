@@ -1,15 +1,13 @@
 package com.otl.otl.service.converter;
 
 import com.otl.otl.domain.*;
-import com.otl.otl.dto.InterestsDTO;
-import com.otl.otl.dto.MemberStudyDTO;
+import com.otl.otl.dto.*;
 import com.otl.otl.dto.MemberStudyProjection.MemberStudyProjectionImpl;
-import com.otl.otl.dto.StudyListDTO;
-import com.otl.otl.dto.TaskDTO;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class CustomConverters {
@@ -117,6 +115,8 @@ public class CustomConverters {
                 .comment(memberStudyDTO.getComment())
                 .build();
     }
+
+    
 
 
 }

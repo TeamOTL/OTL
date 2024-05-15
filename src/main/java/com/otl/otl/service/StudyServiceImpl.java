@@ -99,6 +99,12 @@ public class StudyServiceImpl implements StudyService {
         memberStudyRepository.saveAndFlush(memberStudy);
     }
 
+    public StudyDTO getStudy(Long sno) {
+        Study study = studyRepository.findById(sno).orElseThrow(() -> new IllegalArgumentException("Invalid study ID"));
+        return null;
+    }
+
+
 
 
 // <----------------------------------------- 99duuk ------------------------------------------------->
