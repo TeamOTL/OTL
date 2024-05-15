@@ -10,4 +10,6 @@ public interface MemberStudyService {
     //List<MemberStudy> findByMemberEmail(String email);
 
     MemberStudy requestStudy(Long sno, String email, String comment);
+
+    List<MemberStudy> readRequest(Long sno);
 }

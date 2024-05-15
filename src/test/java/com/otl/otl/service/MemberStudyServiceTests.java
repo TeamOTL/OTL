@@ -11,6 +11,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.List;
+
 
 @SpringBootTest
 @Log4j2
@@ -50,5 +52,24 @@ public class MemberStudyServiceTests {
         MemberStudy memberStudy = memberStudyService.requestStudy(requestSno, loggedInEmail, requestComment);
 
         memberStudyRepository.saveAndFlush(memberStudy);
+    }
+
+    @Test
+    public void testReadRequest() {
+        // 테스트할 스터디 번호
+        Long readSno = 3L;
+
+        // MemberStudyService의 readRequest 메서드를 호출하여 결과를 가져옴
+        List<MemberStudy> memberStudies = memberStudyService.readRequest(readSno);
+
+        // 결과가 비어 있는지 확인
+        if (memberStudies.isEmpty()) {
+            log.info("No member study found for study with ID {}", readSno);
+        } else {
+            // 결과 출력
+            for (MemberStudy memberStudy : memberStudies) {
+                log.info("MemberStudy: {}", memberStudy);
+            }
+        }
     }
 }

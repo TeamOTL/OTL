@@ -10,10 +10,12 @@ import com.otl.otl.repository.StudyRepository;
 import com.otl.otl.service.converter.CustomConverters;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.hibernate.Hibernate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Log4j2
@@ -72,5 +74,63 @@ public class MemberStudyServiceImpl implements MemberStudyService {
         memberStudyRepository.saveAndFlush(memberStudy);
 
         return memberStudy;
+    }
+
+    @Override
+    public List<MemberStudy> readRequest(Long sno) {
+
+        // Study 조회
+        Study study = studyRepository.findById(sno)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid study ID"));
+
+        // MemberStudy 조회
+        List<MemberStudy> memberStudies = memberStudyRepository.findByStudyAndIsAcceptedAndIsManaged(study, false, false);
+
+        // 조회된 결과가 비어 있는지 확인하고 비어 있으면 예외를 던집니다.
+        if (memberStudies.isEmpty()) {
+            throw new IllegalArgumentException("No member study found");
+        }
+
+        return memberStudies;
+
+//        // Study 조회
+//        Study study = studyRepository.findById(sno)
+//                .orElseThrow(() -> new IllegalArgumentException("Invalid study ID"));
+//
+//        // MemberStudy 조회
+//        List<MemberStudy> memberStudies = memberStudyRepository.findByStudyAndIsAcceptedAndIsManaged(study, false, false);
+//
+//        // 조회된 결과가 비어 있는지 확인하고 비어 있으면 예외를 던집니다.
+//        if (memberStudies.isEmpty()) {
+//            throw new IllegalArgumentException("No member study found");
+//        }
+//
+//        // MemberStudy 엔티티의 member 필드만 EAGER 로딩으로 설정
+//        for (MemberStudy memberStudy : memberStudies) {
+//            memberStudy.getMember().getInterests().size(); // member 필드의 interests를 가져옴
+//        }
+//
+//        return memberStudies;
+
+//        // Study 조회
+//        Study study = studyRepository.findById(sno)
+//                .orElseThrow(() -> new IllegalArgumentException("Invalid study ID"));
+//
+//        // MemberStudy 조회
+//        List<MemberStudy> memberStudies = memberStudyRepository.findByStudyAndIsAcceptedAndIsManaged(study, false, false);
+//
+//        // 조회된 결과가 비어 있는지 확인하고 비어 있으면 예외를 던집니다.
+//        if (memberStudies.isEmpty()) {
+//            throw new IllegalArgumentException("No member study found");
+//        }
+//
+//        // MemberStudy 엔티티의 member 필드만 EAGER 로딩으로 설정
+//        for (MemberStudy memberStudy : memberStudies) {
+//            memberStudy.getMember().getInterests().size(); // member 필드의 interests를 가져옴
+//            // Study 필드의 tasks를 Lazy로 설정
+//            Hibernate.initialize(memberStudy.getStudy().getTasks());
+//        }
+//
+//        return memberStudies;
     }
 }
