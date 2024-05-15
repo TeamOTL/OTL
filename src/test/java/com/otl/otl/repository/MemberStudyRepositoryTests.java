@@ -261,6 +261,32 @@ Hibernate:
         memberStudyRepository.updateIsAcceptedByEmailAndSno(email, sno);
     }
 
+    @Test
+    @Transactional
+    @Commit
+    public void deleteMemberStudyByEmailAndSnoTest() {
+        // Given
+        String email = "test1"; // 테스트할 이메일
+        Long sno = 7L; // 테스트할 스터디 번호
+
+        // 부모 테이블인 Study를 조회합니다.
+        Study study = studyRepository.findById(sno)
+                .orElseThrow(() -> new EntityNotFoundException("Study not found"));
+        log.info("this:"+study);
+
+        Member member = memberRepository.findByEmail(email).orElseThrow(() -> new EntityNotFoundException("Member not found"));
+        log.info("this:" + member);
+        // MemberStudy 객체를 생성하고 필드를 설정합니다.
+        MemberStudy memberStudy = MemberStudy.builder()
+                .study(study) // 부모 테이블인 Study 설정
+                .member(member)
+                .build();
+
+        // When
+        memberStudyRepository.deleteMemberStudyByEmailAndSno(email, sno);
+    }
+
+
     // UPDATE member_study SET is_accepted = 1 WHERE email = ? AND sno = ?
 //    @Test
 //    public void updateIsAcceptedByEmailAndSnoTest() {

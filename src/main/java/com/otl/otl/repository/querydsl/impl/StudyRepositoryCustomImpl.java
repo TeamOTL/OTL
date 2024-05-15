@@ -258,6 +258,28 @@ AND is_accepted = 0;
         return memberStudyList;
     }
 
+    // sno = ? AND is_accpeted = 0; 방장 페이지 -> 참가 대기 멤버 조회 (강퇴)
+    /*
+    SELECT ms.emil, ms.sno, m.member_profile_image, m.nickname
+    FROM member_study ms
+    WHERE sno = ?,
+    AND is_accepted = 0;
+     */
+    @Override
+    public List<MemberStudy> findMemberBySnoAndAcceptedFalse(Long sno, Boolean isAccepted, Boolean isManaged) {
+        QMemberStudy qMemberStudy = QMemberStudy.memberStudy;
+
+        // QueryDSL을 사용하여 쿼리 작성
+        List<MemberStudy> memberStudyList = from(qMemberStudy)
+                .select(qMemberStudy)
+                .where(qMemberStudy.study.sno.eq(sno)
+                        .and(qMemberStudy.isAccepted.eq(false))
+                        .and(qMemberStudy.isManaged.eq(false)))
+                .fetch();
+
+        return memberStudyList;
+    }
+
 
     // UPDATE member_study SET is_accepted = 1 WHERE email = ? AND sno = ?
     @Override
@@ -277,7 +299,7 @@ AND is_accepted = 0;
         log.info("Updated {} rows", updatedCount);
     }
 
-    // UPDATE member_study SET is_accepted = 1 WHERE email = ? AND sno = ?
+    // UPDATE member_study SET is_accepted = 0 WHERE email = ? AND sno = ?
     @Override
     @Transactional
     public void updateIsAcceptedRefuseByEmailAndSno(String email, Long sno) {
@@ -304,16 +326,7 @@ AND is_accepted = 0;
     //2024-05-14T03:22:42.152+09:00  INFO 33563 --- [otl] [    Test worker] c.o.o.r.q.i.StudyRepositoryCustomImpl    : Updated 1 rows
 
 
-
     // <-----------------------------------------My Study ------------------------------------------------->
-
-
-
-
-
-
-
-
 
 
 // <----------------------------------------- Study ------------------------------------------------->
@@ -429,4 +442,21 @@ Hibernate:
         ms1_0.sno
 2024-05-15T05:20:09.277+09:00  INFO 59638 --- [otl] [    Test worker] c.o.otl.repository.StudyRepositoryTests  : [[1, 3], [2, 2]]
      */
+
+
+
+    // DELETE FROM member_study WHERE email = ? AND sno = ?
+    @Override
+    @Transactional
+    public void deleteMemberStudyByEmailAndSno(String email, Long sno) {
+        QMemberStudy qMemberStudy = QMemberStudy.memberStudy;
+
+        long deleteCount = delete(qMemberStudy)
+                .where(qMemberStudy.member.email.eq(email)
+                        .and(qMemberStudy.study.sno.eq(sno))
+                        .and(qMemberStudy.isAccepted.eq(false)))
+                .execute();
+
+        log.info("Deleted {} rows", deleteCount);
+    }
 }

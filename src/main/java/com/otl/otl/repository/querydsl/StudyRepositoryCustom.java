@@ -41,6 +41,17 @@ public interface StudyRepositoryCustom {
      */
     List<MemberStudy> findMemberBySnoAndIsAccepted(Long sno, Boolean isAccepted, Boolean isManaged);
 
+
+
+    // sno = ? AND is_accpeted = ; 방장 페이지 -> 참가 대기 멤버 조회 (승인/거절)
+    /*
+    SELECT ms.emil, ms.sno, m.member_profile_image, m.nickname
+    FROM member_study ms
+    WHERE sno = ?,
+    AND is_accepted = 0;
+     */
+    List<MemberStudy> findMemberBySnoAndAcceptedFalse(Long sno, Boolean isAccepted, Boolean isManaged);
+
     // UPDATE member_study SET is_accepted = 1 WHERE email = ? AND sno = ?
     void updateIsAcceptedByEmailAndSno(String email, Long sno);
 
@@ -67,4 +78,7 @@ public interface StudyRepositoryCustom {
     List<Study> findAllByCurDateByCno(Long cno);
     // email = ? AND is_accepted = 0 AND study_name LIKE '%?%;
     List<Study> findAllByCurDateByKeyword(String keyword);
+
+    @Transactional
+    void deleteMemberStudyByEmailAndSno(String email, Long sno);
 }

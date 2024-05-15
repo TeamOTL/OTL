@@ -38,13 +38,12 @@ public class MemberStudyServiceImpl implements MemberStudyService {
     public List<MemberStudy> findByMemberEmail(String email) {
         return memberStudyRepository.findByMemberEmail(email);
     }
-//  <<<  >>>
 
 
 
 
 
-//  <<< 나의 스터디 >>>
+//  <---------------------------- 나의 스터디 ---------------------------->
     /*  WHERE email = ? AND is_accpeted = 1;
         - (참가 중인) 나의 스터디 다건 조회
      */
@@ -74,14 +73,23 @@ public class MemberStudyServiceImpl implements MemberStudyService {
 
 
 
-    //  <<< 방장 페이지 >>>
+    //  <---------------------------- 방장 페이지 ---------------------------->
     /*  WHERE sno = ? AND is_accpeted = 1 AND is_managed = 1 ;
         - 방장 페이지 -> 참가 중인 멤버 조회 (GET)
      */
     @Override
-    public List<MemberStudy> findMemberBySnoAndIsAccepted(Long sno, Boolean isAccepted, Boolean isManaged) {
+    public List<MemberStudy> findParticipant(Long sno, Boolean isAccepted, Boolean isManaged) {
         return memberStudyRepository.findMemberBySnoAndIsAccepted(sno, isAccepted, isManaged);
     }
+
+    /*  WHERE sno = ? AND is_accpeted = 0 AND is_managed = 1 ;
+       - 방장 페이지 -> 참가 대기 멤버 조회 (GET)
+    */
+    @Override
+    public List<MemberStudy> findWaitingParticipant(Long sno, Boolean isAccepted, Boolean isManaged) {
+        return memberStudyRepository.findMemberBySnoAndAcceptedFalse(sno, isAccepted, isManaged);
+    }
+
 
     /*  UPDATE member_study SET is_accepted = 1 WHERE email = ? AND sno = ?
        - 방장 페이지 -> 참가 신청 멤버 관리 <신청 승인> (PUT)
@@ -91,12 +99,12 @@ public class MemberStudyServiceImpl implements MemberStudyService {
     }
 
 
-    /*  //DELETE FROM member_study WHERE email = ? AND sno = ?
+    /*  DELETE FROM member_study WHERE email = ? AND sno = ?
         - 방장 페이지 -> 참가 신청 멤버 관리 < 거절 >(PUT)
      */
     @Override
     public void refuseParticipant(String email, Long sno) {
-//        memberStudyRepository.(email, sno);
+        memberStudyRepository.deleteMemberStudyByEmailAndSno(email, sno);
     }
 
 
@@ -107,6 +115,7 @@ public class MemberStudyServiceImpl implements MemberStudyService {
     public void RemoveParticipant(String email, Long sno) {
         memberStudyRepository.updateIsAcceptedRefuseByEmailAndSno(email, sno);
     }
+
 
 
     /*   UPDATE study SET ( , , , , , , );      ([study] + cno = ? + [interests] + [task] )

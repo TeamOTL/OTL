@@ -35,7 +35,13 @@ public interface MemberStudyService {
     /*  WHERE sno = ? AND is_accpeted = 1 AND is_managed = 1 ;
         - 방장 페이지 -> 참가 중인 멤버 조회
     */
-    List<MemberStudy> findMemberBySnoAndIsAccepted(Long sno, Boolean isAccepted, Boolean isManaged);
+    List<MemberStudy> findParticipant(Long sno, Boolean isAccepted, Boolean isManaged);
+
+
+    /*  WHERE sno = ? AND is_accpeted = 0 AND is_managed = 1 ;
+       - 방장 페이지 -> 참가 대기 멤버 조회 (GET)
+    */
+    List<MemberStudy> findWaitingParticipant(Long sno, Boolean isAccepted, Boolean isManaged);
 
 
     /*  UPDATE member_study SET is_accepted = 1 WHERE email = ? AND sno = ?
@@ -55,14 +61,17 @@ public interface MemberStudyService {
     /*  UPDATE member_study SET is_accepted = 0 WHERE email = ? AND sno = ?
        - 방장 페이지 - 참가 중인 멤버 강퇴 (PUT)
     */
-
-
     void RemoveParticipant(String email, Long sno);
 
 
     /*   UPDATE study SET ( , , , , , , );      ([study] + cno = ? + [interests] + [task] )
-        - 방장 페이지 -> 스터디 관리 (스터디 수정) (PUT)
-     */
+            - 방장 페이지 -> 스터디 관리 (스터디 수정) (PUT)
+         */
+
+
+
+
+
 
 
 
