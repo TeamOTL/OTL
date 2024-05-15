@@ -251,6 +251,19 @@ public class MemberController {
         model.addAttribute("email", email);
         model.addAttribute("memberProfileImage", member.getMemberProfileImage());
 
+        List<StudyListDTO> studies = studyService.findOpenStudies();
+        log.info("StudyListDTO: " + studies);
+
+        // 스터디 데이터를 모델에 추가
+        model.addAttribute("openStudies", studies);
+
+
+
+
+
+
         return "studyJoin";  // studyJoin.html 템플릿을 반환
     }
+
+
 }

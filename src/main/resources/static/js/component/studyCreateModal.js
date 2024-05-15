@@ -146,6 +146,7 @@ class studyCreateModal extends HTMLElement {
                 $("#btn-save").on("click", (event) => {
                     event.preventDefault(); // 폼 submit 이벤트 방지
                     this.save();
+                    createStudy();
                 });
             },
             // 동적 Task 입력 필드 추가 함수
@@ -248,6 +249,7 @@ class studyCreateModal extends HTMLElement {
                 }).done(function (resp) {
                     alert("스터디 생성 성공");
                     console.log(resp);
+                    location.reload();  // 페이지 새로고침
                 }).fail(function (error) {
                     alert("스터디 생성 실패");
                     console.error(error);

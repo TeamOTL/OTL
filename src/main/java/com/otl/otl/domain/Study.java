@@ -1,5 +1,6 @@
 package com.otl.otl.domain;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -45,16 +46,19 @@ public class Study {
     @ManyToOne
     @JoinColumn(name = "cno")
     private Category category;
-    //토) category 1:1 -> n:1 (1:1시 cno가 study에 유니크키 되어 중복 불가)
+
 
     @Transient
     private String dDay;
 
+    @Transient
+    private String People;
 
     @OneToMany(mappedBy = "study",
             cascade = {CascadeType.ALL}
             , fetch = FetchType.LAZY)
     @Builder.Default
+    @JsonManagedReference
     private List<Task> tasks = new ArrayList<>();
 
 
@@ -62,12 +66,14 @@ public class Study {
             cascade = {CascadeType.ALL}
             , fetch = FetchType.LAZY)
     @Builder.Default
+    @JsonManagedReference
     private List<Interests> interests = new ArrayList<>();
 
 
 
     @OneToMany(mappedBy = "study", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
     @Builder.Default
+    @JsonManagedReference
     private List<MemberStudy> memberStudies = new ArrayList<>();
 
 
@@ -118,6 +124,9 @@ public class Study {
         this.dDay = dDay;
     }
 
+    public void setPeople(String people) {
+        this.People = people;
+    }
 
     public List<Member> getMembers() {
         List<Member> members = new ArrayList<>();

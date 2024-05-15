@@ -1,6 +1,7 @@
 package com.otl.otl.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -22,6 +23,7 @@ public class Interests {
     //interests.sno NULL허용
     @ManyToOne(fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "sno")
+    @JsonBackReference
     private Study study;
 
     @ManyToOne(fetch = FetchType.LAZY)

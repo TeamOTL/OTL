@@ -6,9 +6,6 @@ import com.otl.otl.dto.MemberStudyDTO;
 import com.otl.otl.dto.MemberStudyProjection.MemberStudyProjectionImpl;
 import com.otl.otl.dto.StudyListDTO;
 import com.otl.otl.dto.TaskDTO;
-import com.otl.otl.dto.customDTO.CustomInterestDTO;
-import com.otl.otl.dto.customDTO.CustomTaskDTO;
-import com.otl.otl.dto.customDTO.StudyCreateCustomDTO;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -16,6 +13,7 @@ import java.util.List;
 
 @Component
 public class CustomConverters {
+
     public StudyListDTO ProjectionToDTO(MemberStudyProjectionImpl projection) {
         return StudyListDTO.builder()
                 .sno(projection.getStudy().getSno())
@@ -30,8 +28,29 @@ public class CustomConverters {
                 .categoryName(projection.getStudy().getCategory().getCategoryName())
                 .categoryImage(projection.getStudy().getCategory().getCategoryImage())
                 .dDay(projection.getStudy().getDDay())
+                .people(projection.getStudy().getPeople())
                 .tasks(toTaskDTOList(projection.getStudy().getTasks()))
                 .interests(toInterestsDTOList(projection.getStudy().getInterests()))
+                .build();
+    }
+
+    public StudyListDTO memberStudyToDTO(MemberStudy memberStudy) {
+        return StudyListDTO.builder()
+                .sno(memberStudy.getStudy().getSno())
+                .studyName(memberStudy.getStudy().getStudyName())
+                .studyDescription(memberStudy.getStudy().getStudyDescription())
+                .studyPlan(memberStudy.getStudy().getStudyPlan())
+                .maxMember(memberStudy.getStudy().getMaxMember())
+                .firstDate(memberStudy.getStudy().getFirstDate())
+                .rStartDate(memberStudy.getStudy().getRStartDate())
+                .rEndDate(memberStudy.getStudy().getREndDate())
+                .categoryCno(memberStudy.getStudy().getCategory().getCno())
+                .categoryName(memberStudy.getStudy().getCategory().getCategoryName())
+                .categoryImage(memberStudy.getStudy().getCategory().getCategoryImage())
+                .dDay(memberStudy.getStudy().getDDay())
+                .people(memberStudy.getStudy().getPeople())
+                .tasks(toTaskDTOList(memberStudy.getStudy().getTasks()))
+                .interests(toInterestsDTOList(memberStudy.getStudy().getInterests()))
                 .build();
     }
 
@@ -79,26 +98,12 @@ public class CustomConverters {
                 .categoryName(study.getCategory().getCategoryName())
                 .categoryImage(study.getCategory().getCategoryImage())
                 .dDay(study.getDDay())
+                .people(study.getPeople())
                 .tasks(toTaskDTOList(study.getTasks()))
                 .interests(toInterestsDTOList(study.getInterests()))
                 .build();
     }
-    //    public MemberStudy MemberStudyDTOToDomain(MemberStudyDTO memberStudyDTO, MemberStudy memberStudy) {
-//        member.builder()
-//                .email(memberStudyDTO.getMember().getEmail()
-//
-//        study.builder()
-//                .sno(memberStudyDTO.getStudy().getSno())
-//
-//        return MemberStudy.builder()
-//                .msNo(memberStudyDTO.getMsNo())
-//                .member(memberStudyDTO.getMember())
-//                .study(memberStudyDTO.getStudy())
-//                .isAccepted(memberStudyDTO.isAccepted())
-//                .isManaged(memberStudyDTO.isManaged())
-//                .comment(memberStudyDTO.getComment())
-//                .build();
-//    }
+
     public MemberStudy MemberStudyDTOToDomain(MemberStudyDTO memberStudyDTO, MemberStudy memberStudy) {
         Member member = Member.builder().email(memberStudyDTO.getMember().getEmail()).build(); // DTO에서 멤버의 이메일 값을 가져와서 Member 엔티티를 생성
         Study study = Study.builder().sno(memberStudyDTO.getStudy().getSno()).build(); // DTO에서 스터디 고유번호 값을 가져와서 Study 엔티티를 생성
@@ -111,32 +116,6 @@ public class CustomConverters {
                 .isManaged(memberStudyDTO.isManaged())
                 .comment(memberStudyDTO.getComment())
                 .build();
-    }
-
-    // StudyCreateCustomDTO를 Study 도메인 객체로 변환하는 메서드
-    public Study StudyCreateCustomDTOToDomain(StudyCreateCustomDTO studyCreateCustomDTO, Category category) {
-        Study study = Study.builder()
-                .studyName(studyCreateCustomDTO.getStudyName())
-                .studyDescription(studyCreateCustomDTO.getStudyDescription())
-                .studyPlan(studyCreateCustomDTO.getStudyPlan())
-                .maxMember(studyCreateCustomDTO.getMaxMember())
-                .firstDate(studyCreateCustomDTO.getFirstDate())
-//                .rStartDate(studyCreateCustomDTO.getRStartDate())
-//                .rEndDate(studyCreateCustomDTO.getREndDate())
-                .category(category)
-                .build();
-
-        // CustomTaskDTO 리스트를 Study의 Task 리스트로 변환하여 추가
-        for (CustomTaskDTO taskDTO : studyCreateCustomDTO.getCustomTasks()) {
-            study.addTask(taskDTO.getTaskDate(), taskDTO.getTaskTitle());
-        }
-
-        // CustomInterestDTO 리스트를 Study의 Interest 리스트로 변환하여 추가
-        for (CustomInterestDTO interestDTO : studyCreateCustomDTO.getCustomInterests()) {
-            study.addInterest(interestDTO.getInterestName());
-        }
-
-        return study;
     }
 
 

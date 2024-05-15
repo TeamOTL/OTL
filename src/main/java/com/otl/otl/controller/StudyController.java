@@ -2,9 +2,11 @@ package com.otl.otl.controller;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.otl.otl.domain.MemberStudy;
 import com.otl.otl.domain.Study;
-import com.otl.otl.dto.StudyCreateDTO;
+import com.otl.otl.dto.StudyListDTO;
 import com.otl.otl.dto.customDTO.StudyCreateCustomDTO;
+import com.otl.otl.service.MemberStudyService;
 import com.otl.otl.service.StudyService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,7 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -24,6 +27,7 @@ import java.util.Map;
 //@RequiredArgsConstructor
 public class StudyController {
     private final StudyService studyService;
+    private MemberStudyService memberStudyService;
 
     @Autowired
     public StudyController(StudyService studyService, ObjectMapper objectMapper) {

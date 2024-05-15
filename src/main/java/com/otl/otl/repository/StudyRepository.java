@@ -12,7 +12,6 @@ public interface StudyRepository extends JpaRepository<Study, Long>, StudyReposi
     // cno 별 Study 조회
     List<Study> findByCategoryCno(Long cno);
 
-//    Optional<Study> findByInterestsIno(Long ino);
 
     // 모든 Study 조회
     List<Study> findAll();

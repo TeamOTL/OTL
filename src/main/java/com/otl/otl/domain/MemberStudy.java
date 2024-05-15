@@ -34,9 +34,6 @@ public class MemberStudy {
     @Column
     private String comment;         // 방장에게 한마디 (nullable = true)
 
-//    @Transient
-//    private int people;           //현재 참가 인원 count 위한 필드
-
 
 public MemberStudy(Long msNo, Study study, Boolean isAccepted, Boolean isManaged, String comment) {
     this.msNo = msNo;
