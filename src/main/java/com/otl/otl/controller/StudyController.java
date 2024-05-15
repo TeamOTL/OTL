@@ -3,7 +3,7 @@ package com.otl.otl.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.otl.otl.domain.Study;
-import com.otl.otl.dto.StudyCreateDTO;
+//import com.otl.otl.dto.StudyCreateDTO;
 import com.otl.otl.dto.customDTO.StudyCreateCustomDTO;
 import com.otl.otl.service.StudyService;
 import lombok.extern.log4j.Log4j2;

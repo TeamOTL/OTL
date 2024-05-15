@@ -141,7 +141,7 @@ package com.otl.otl.dto.customDTO;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.otl.otl.dto.InterestsDTO;
-import com.otl.otl.dto.StudyCreateDTO;
+//import com.otl.otl.dto.StudyCreateDTO;
 import com.otl.otl.dto.StudyDTO;
 import com.otl.otl.dto.TaskDTO;
 import lombok.*;
