@@ -42,20 +42,29 @@ public class StudyController {
     }
 
 
-@PostMapping("/studyCreate")
-public ResponseEntity<String> studyCreate(@RequestBody StudyDTO studyDTO) {
+    @PostMapping("/studyCreate")
+    public ResponseEntity<String> studyCreate(@RequestBody StudyDTO studyDTO) {
 
-    System.out.println("StudyApiController");
-    System.out.println(studyDTO);
+        System.out.println("StudyApiController");
+        System.out.println(studyDTO);
 
-    log.info("게시글 저장 시도 : {}", studyDTO);
+        log.info("게시글 저장 시도 : {}", studyDTO);
+
+
 
 
 
     //ajax resp으로 전달
     //status 200: 통신을 정상적으로 성공함
-    return ResponseEntity.status(HttpStatus.CREATED).body("스터디 성공적으로 등록되었습니다.");
+    return ResponseEntity.status(HttpStatus.CREATED).
 
+    body("스터디 성공적으로 등록되었습니다.");
+
+}
+    @GetMapping("/studyRoomManager")
+    public String studyRoomManager () {
+        return "studyRoomManager";
+    }
 }
 
 
