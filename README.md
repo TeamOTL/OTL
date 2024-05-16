@@ -1,17 +1,30 @@
 # OTL ( 좌절 금지 )
 
-<!--배지-->
-![MIT License][license-shield] ![Repository Size][repository-size-shield] ![Issue Closed][issue-closed-shield]
-
 <!--프로젝트 대문 이미지-->
-![Project Title](img/project-title.png)
+![Project Title](https://avatars.githubusercontent.com/u/166816665?s=200&v=4)
+
+<!--배지-->
+![Java](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=java&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
+![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white)
+![Git](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white)
+![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)
+![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
+<hr>
+
+<!-- 프로젝트 기간 -->
+# 프로젝트 기간 : 
+# 2024-05-01~ 2024-05-30
+<hr>
+
 
 <!--프로젝트 버튼-->
  [![Readme in English][readme-eng-shield]][readme-eng-url] [![View Demo][view-demo-shield]][view-demo-url] [![Report bug][report-bug-shield]][report-bug-url] [![Request feature][request-feature-shield]][request-feature-url]
 
 <!--목차-->
-# Table of Contents
-- [[1] About the Project](#1-about-the-project)
+# 목차
+- [[1] 프로젝트 선택 배경](#1-about-the-project)
   - [Features](#features)
   - [Technologies](#technologies)
 - [[2] Getting Started](#2-getting-started)
@@ -26,15 +39,16 @@
 
 
 
-# [1] About the Project
+# [1] 프로젝트 선택 배경
 *다음 내용을 고려하여 프로젝트에 대한 **전반적인 정보**를 적으세요.*
-
+### 클래스에서 스터디를 여러사람들이 했으면 좋겠어서 만들었다.
 - ❗️짧은❗️ 도입부/제작 동기
 - 
 - 무슨 프로젝트인지
 - 왜 이 프로젝트를 사용해야하는지
 
 ## Features
+#### 달력에 표시되는 기능을 만들려했으나 실패. 킄큭
 *강조하고 싶은 **주요 기능**이나 **차별성 있는 특징**을 적으세요.*
 - 최고 멋진 **README**를 쉽게 작성할 수 있도록 *이텔릭체*로 된 **가이드**를 제공
 - 뱃지로 **언어 옵션**을 제공
@@ -42,10 +56,13 @@
 ## Technologies
 ***언어, 프레임워크, 주요 라이브러리**를 **버전**과 함께 나열하세요.*
 
-- [Maven](https://maven.apache.org/) 3.6.3
 - [MySQL](https://www.mysql.com/) 8.0
 - [Spring](https://spring.io/) 2.4.3
-
+- [springframework.boot](https://spring.io/projects/spring-boot) 3.2.5
+- [io.spring.dependency-management](https://docs.spring.io/dependency-management-plugin/docs/current/reference/html) 3.2.5
+- [Java](https://www.java.com/ko/) 17
+- [thymeleaf]
+- [swagger]
 
 
 # [2] Getting Started
@@ -54,7 +71,9 @@
 ## Prerequisites
 *프로젝트를 동작시키기 위해 필요한 소프트웨어와 라이브러리를 나열하고 어떻게 다운받을 수 있는지 설명하세요.*
 
-- [OpenWeather API key](https://openweathermap.org/) (무료)
+- [Kakao Login](https://developers.kakao.com/docs/latest/ko/kakaologin/rest-api) (무료)
+- [달력?]
+- [부트스트랩]
 - npm
 ```bash
 npm install npm@latest -g
