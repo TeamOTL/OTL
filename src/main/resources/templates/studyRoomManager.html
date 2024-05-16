@@ -3,15 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>스터디룸매니저</title>
+    <title>스터디룸 관리</title>
 
     <!-- Custom fonts for this template-->
     <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <!-- Custom styles for this template-->
     <link href="/css/sb-admin-2.min.css" rel="stylesheet">
-    <link href="/css/dashboard.css" rel="stylesheet">
-
+    <style>
+        .profile-image {
+            width: 40px; /* 원하는 크기로 설정 */
+            height: 40px; /* 원하는 크기로 설정 */
+            object-fit: cover; /* 이미지 비율을 유지하며 잘라내기 */
+            border-radius: 50%; /* 원형 이미지 */
+        }
+    </style>
+</head>
 <body id="page-top">
 <!-- Page Wrapper -->
 <div id="wrapper">
@@ -23,142 +30,90 @@
         <!-- Main Content -->
         <div id="content">
             <!-- TopBar -->
-            <custom-topbar></custom-topbar>
+            <custom-topbar th:attr="data-nickname=${nickname}, data-profile-image=${memberProfileImage}"></custom-topbar>
             <!-- TopBar End -->
             <!-- container fluid -->
             <div class="container-fluid">
                 <div class="row">
                     <!-- 스터디룸 관리 -->
-                    <div class="col-lg-6">
-
+                    <div class="col-lg-12">
                         <div class="card mb-4">
                             <!-- Card Body -->
                             <div class="card-body">
-                                <div class="manager-header">
-                                    <h4 class="font-weight-bolder" style="color: #FD7B38;">스터디룸 관리</h4>
-                                </div>
-                                <!-- Modal Body -->
-                                <div class="modal-body" style="color: black;">
-
+                                <h4 class="font-weight-bolder" style="color: #FD7B38;">스터디룸 관리</h4>
+                                <!-- 스터디 정보 수정 폼 -->
+                                <form th:action="@{/api/studyRooms/{sno}/update(sno=${study.sno})}" method="post">
+                                    <input type="hidden" name="_method" value="put"/>
                                     <!-- 스터디 이름 -->
                                     <div class="row mb-3">
                                         <label class="col-sm-2.5 col-form-label">스터디 이름</label>
                                         <div class="col-sm-8">
-                                            <input id="studyName" type="text" class="form-control">
+                                            <input name="studyName" type="text" class="form-control" th:value="${study.studyName}">
                                         </div>
                                     </div>
-                                    <!-- 카테고리 & 모집인원 -->
-                                    <div class="row mb-3 justify-content-between">
-                                        <label class="col-sm-2.5 col-form-label">카테고리</label>
-                                        <div class="col-sm-3">
-                                            <select id="category" class="form-select form-control">
-                                                <option value="1">1</option>
-                                                <option value="2">2</option>
-                                                <option value="3">3</option>
-                                            </select>
-                                        </div>
-                                        <label class="col-sm-2.5 col-form-label">모집 인원</label>
-                                        <div class="col-sm-3">
-                                            <select id="maxMember" class="form-select form-control">
-                                                <option value="1">1</option>
-                                                <option value="2">2</option>
-                                                <option value="3">3</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <!-- 관심분야 -->
-                                    <div class="row mb-3 justify-content-between">
-                                        <label class="col-sm-2.5 col-form-label">관심분야</label>
-                                        <div class="col-sm-3">
-                                            <select class="form-select form-control">
-                                                <option value="1">1</option>
-                                                <option value="2">2</option>
-                                                <option value="3">3</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-sm-3">
-                                            <select class="form-select form-control">
-                                                <option value="1">1</option>
-                                                <option value="2">2</option>
-                                                <option value="3">3</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-sm-3">
-                                            <select class="form-select form-control">
-                                                <option value="1">1</option>
-                                                <option value="2">2</option>
-                                                <option value="3">3</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <!-- 모집기간 -->
+                                    <!-- 스터디 설명 -->
                                     <div class="row mb-3">
-                                        <label class="col-sm-2.5 col-form-label">모집 기간</label>
-                                        <div class="col-sm-4 d-flex">
-                                            <input id="rStartDate" type="date" class="form-select form-control">
-                                            ~
-                                            <input id="rEndDate" type="date" class="form-select form-control">
+                                        <label class="col-sm-2.5 col-form-label">설명</label>
+                                        <div class="col flex-grow-1">
+                                            <input name="studyDescription" type="text" class="form-control" th:value="${study.studyDescription}">
+                                        </div>
+                                    </div>
+                                    <!-- 스터디 일정 -->
+                                    <div class="row mb-3">
+                                        <label class="col-sm-2.5 col-form-label">일정</label>
+                                        <div class="col d-flex">
+                                            <input name="studyPlan" type="text" class="form-control mr-1" th:value="${study.studyPlan}">
                                         </div>
                                     </div>
                                     <!-- 스터디 시작일 -->
                                     <div class="row mb-3">
                                         <label class="col-sm-2.5 col-form-label">스터디 시작일</label>
                                         <div class="col-sm-8">
-                                            <input id="firstDate" type="date" class="form-select form-control">
+                                            <input name="firstDate" type="date" class="form-control" th:value="${study.firstDate}">
                                         </div>
                                     </div>
-                                    <!-- 한 줄 설명 -->
-                                    <div class="row mb-3">
-                                        <label class="col-sm-2.5 col-form-label">설명</label>
-                                        <div class="col flex-grow-1">
-                                            <input id="studyDescription" type="text" class="form-control" placeholder="15글자 이하">
-                                        </div>
+                                    <!-- 버튼들 -->
+                                    <div class="modal-footer">
+                                        <button type="submit" class="btn btn-success">수정하기</button>
+                                        <a th:href="@{/api/studyRooms/{sno}/delete(sno=${study.sno})}" class="btn btn-danger" th:onclick="return confirm('정말로 삭제하시겠습니까?');">스터디 삭제</a>
                                     </div>
-                                    <!-- 일정 -->
-                                    <div class="row mb-3">
-                                        <label class="form-label">일정</label>
-                                        <div class="col d-flex">
-                                            <input id="studyPlan" type="text" class="form-control mr-1" placeholder="">
-                                            <button type="button" class="btn btn-primary ">+</button>
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <input type="text" class="form-control mr-1" placeholder="">
-                                        <input type="text" class="form-control mr-1" placeholder="">
-                                        <input type="text" class="form-control mr-1" placeholder="">
-                                        <textarea class="form-control bg-white" disabled></textarea>
-                                    </div>
-                                </div>
-
-                                <!-- Modal Footer -->
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-primary">참가신청 현황</button>
-                                    <button type="button" class="btn btn-success">수정하기</button>
-                                    <button type="button" class="btn btn-danger">스터디 삭제</button>
-                                </div>
+                                </form>
                             </div>
                         </div>
                     </div>
-                    <!-- 스터디 멤버 강제 퇴장 버튼 -->
+                    <!-- 스터디 멤버 목록 -->
                     <div class="col-lg-6">
-
                         <div class="card mb-4">
                             <!-- Card Body -->
                             <div class="card-body">
+                                <h4 class="font-weight-bolder" style="color: #FD7B38;">스터디 멤버</h4>
                                 <ul id="studyMembers" class="list-group">
-                                    <div class="member-state" style="margin-bottom: 10px;">
-                                        <form class="form-inline my-2 my-lg-0">
-                                            <input class="form-control mr-2" type="search" placeholder="Search" aria-label="Search">
-                                            <!-- 폼을 오른쪽 정렬하기 위해 ml-auto 클래스 추가 -->
-                                            <button class="btn btn-outline-success ml-auto" type="submit">검색</button>
-                                        </form>
-                                    </div>
-                                    <!-- 멤버 목록이 여기 추가될 것입니다 -->
+                                    <li th:each="member : ${members}" class="list-group-item d-flex justify-content-between align-items-center">
+                                        <img th:src="${member.memberProfileImage}" alt="프로필 이미지" class="profile-image rounded-circle mr-3 me-3" />
+                                        <span class="flex-grow-1 font-weight-bolder fs-5 text-dark" th:text="${member.nickname}"></span>
+                                        <button type="button" class="btn btn-danger btn-sm" th:onclick="'removeMember(' + \'' + ${member.email} + '\' + ')'">강제 퇴장</button>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
                     </div>
-
+                    <!-- 참가 신청자 목록 -->
+                    <div class="col-lg-6">
+                        <div class="card mb-4">
+                            <!-- Card Body -->
+                            <div class="card-body">
+                                <h4 class="font-weight-bolder" style="color: #FD7B38;">참가 신청자</h4>
+                                <ul id="applicants" class="list-group">
+                                    <li th:each="applicant : ${applicants}" class="list-group-item d-flex justify-content-between align-items-center">
+                                        <img th:src="${applicant.memberProfileImage}" alt="프로필 이미지" class="profile-image rounded-circle mr-3 me-3" />
+                                        <span class="flex-grow-1 font-weight-bolder fs-5 text-dark" th:text="${applicant.nickname}"></span>
+                                        <button type="button" class="btn btn-success btn-sm" th:onclick="'acceptApplicant(' + \'' + ${applicant.email} + '\' + ')'">승인</button>
+                                        <button type="button" class="btn btn-danger btn-sm" th:onclick="'rejectApplicant(' + \'' + ${applicant.email} + '\' + ')'">거절</button>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <!-- End of Page Wrapper -->
@@ -171,76 +126,66 @@
     </div>
 </div>
 
-    <!-- sidebar & topbar & 스크롤 컴포넌트화 -->
-    <script th:src="@{js/component/sidebar.js}"></script>
-    <script th:src="@{js/component/topbar.js}"></script>
-    <script th:src="@{js/component/scrollTopButton.js}"></script>
-    <!-- PopupComponent -->
-    <script th:src="@{js/component/studyCreateModal.js}"></script>
-    <script th:src="@{js/component/studyInfoModal.js}"></script>
-    <script th:src="@{js/component/userDropModal.js}"></script>
-    <script th:src="@{js/component/userSettingModal.js}"></script>
-    <script th:src="@{js/component/todoList.js}"></script>
-    <!-- 캘린더 -->
-    <script th:src="@{js/index.global.js}"></script>
+<!-- sidebar & topbar & 스크롤 컴포넌트화 -->
+<script th:src="@{js/component/sidebar.js}"></script>
+<script th:src="@{js/component/topbar.js}"></script>
+<script th:src="@{js/component/scrollTopButton.js}"></script>
+<!-- PopupComponent -->
+<script th:src="@{js/component/studyCreateModal.js}"></script>
+<script th:src="@{js/component/studyInfoModal.js}"></script>
+<script th:src="@{js/component/userDropModal.js}"></script>
+<script th:src="@{js/component/userSettingModal.js}"></script>
+<script th:src="@{js/component/todoList.js}"></script>
+<!-- 캘린더 -->
+<script th:src="@{js/index.global.js}"></script>
 
-    <!-- 부트스트랩 JS (팝업을 위해 필요) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<!-- 부트스트랩 JS (팝업을 위해 필요) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-    <!-- Bootstrap core JavaScript-->
-    <script th:src="@{vendor/jquery/jquery.min.js}"></script>
+<!-- Bootstrap core JavaScript-->
+<script th:src="@{vendor/jquery/jquery.min.js}"></script>
 
-    <!-- Core plugin JavaScript-->
-    <script th:src="@{vendor/jquery-easing/jquery.easing.min.js}"></script>
+<!-- Core plugin JavaScript-->
+<script th:src="@{vendor/jquery-easing/jquery.easing.min.js}"></script>
 
-    <!-- Custom scripts for all pages-->
-    <script th:src="@{js/sb-admin-2.min.js}"></script>
+<!-- Custom scripts for all pages-->
+<script th:src="@{js/sb-admin-2.min.js}"></script>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // URL에서 sno 파라미터를 가져오는 함수
-        function getQueryParam(param) {
-            const urlParams = new URLSearchParams(window.location.search);
-            return urlParams.get(param);
-        }
+    function removeMember(email) {
+        fetch(`/api/studyMembers/${email}/remove`, { method: 'DELETE' })
+            .then(response => {
+                if (response.ok) {
+                    location.reload(); // 성공 시 페이지를 새로고침하여 목록을 업데이트합니다.
+                } else {
+                    console.error('멤버 제거에 실패했습니다.');
+                }
+            });
+    }
 
-        const sno = getQueryParam('sno'); // sno 파라미터 가져오기
-        if (sno) {
-            fetchStudyData(sno);
-        }
+    function acceptApplicant(email) {
+        fetch(`/api/studyApplicants/${email}/accept`, { method: 'POST' })
+            .then(response => {
+                if (response.ok) {
+                    location.reload(); // 성공 시 페이지를 새로고침하여 목록을 업데이트합니다.
+                } else {
+                    console.error('신청 승인에 실패했습니다.');
+                }
+            });
+    }
 
-        function fetchStudyData(sno) {
-            fetch(`/api/studyRooms/${sno}`)
-                .then(response => response.json())
-                .then(data => {
-                    // 가져온 데이터를 사용하여 페이지 요소를 업데이트합니다.
-                    document.getElementById('studyName').value = data.studyName;
-                    document.getElementById('studyDescription').value = data.studyDescription;
-                    document.getElementById('studyPlan').value = data.studyPlan;
-                    document.getElementById('rStartDate').value = data.rStartDate;
-                    document.getElementById('rEndDate').value = data.rEndDate;
-                    document.getElementById('firstDate').value = data.firstDate;
-                    document.getElementById('maxMember').value = data.maxMember;
-
-                    // 멤버 목록 업데이트
-                    const studyMembers = document.getElementById('studyMembers');
-                    studyMembers.innerHTML = '';
-                    data.memberNicknames.forEach(nickname => {
-                        const memberItem = document.createElement('li');
-                        memberItem.className = 'list-group-item d-flex justify-content-end align-items-center';
-                        memberItem.innerHTML = `
-                            <img src="/icon/face.svg" alt="프로필 이미지" class="rounded-circle mr-3 me-3" />
-                            <span class="flex-grow-1 font-weight-bolder fs-5 text-dark">${nickname}</span>
-                            <button type="button" class="btn btn-danger btn-block">강제 퇴장</button>
-                        `;
-                        studyMembers.appendChild(memberItem);
-                    });
-                })
-                .catch(error => console.error('스터디 데이터를 가져오는 중 오류 발생:', error));
-        }
-    });
+    function rejectApplicant(email) {
+        fetch(`/api/studyApplicants/${email}/reject`, { method: 'POST' })
+            .then(response => {
+                if (response.ok) {
+                    location.reload(); // 성공 시 페이지를 새로고침하여 목록을 업데이트합니다.
+                } else {
+                    console.error('신청 거절에 실패했습니다.');
+                }
+            });
+    }
 </script>
 </body>
 </html>

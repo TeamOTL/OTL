@@ -2,6 +2,7 @@ package com.otl.otl.service;
 
 import com.otl.otl.domain.Category;
 import com.otl.otl.domain.Study;
+import com.otl.otl.dto.MemberDTO;
 import com.otl.otl.dto.StudyDTO;
 import com.otl.otl.dto.StudyListDTO;
 
@@ -23,8 +24,21 @@ public interface StudyService {
 
     List<StudyDTO> findUserStudies(String email);
 
-    StudyDTO findStudyById(Long sno);
 
+    Optional<StudyDTO> findStudyById(Long sno);
+
+    // 추가된 메서드
+    boolean isManager(Long sno, String email);
+    void updateStudy(Long sno, StudyDTO studyDTO);
+
+
+    List<MemberDTO> getStudyMembers(Long sno);
+    List<MemberDTO> getStudyApplicants(Long sno);
+    void removeMemberByEmail(String email);
+
+    void acceptApplicantByEmail(String email);
+
+    void rejectApplicantByEmail(String email);
     //    검색
 //    PageResponseDTO<StudyDTO> list(PageRequestDTO pageRequestDTO);
 
@@ -63,4 +77,7 @@ public interface StudyService {
 
     // 추가된 메서드
     List<String> findUserStudyNames(String email);
+
+
+    void deleteStudy(Long sno);
 }

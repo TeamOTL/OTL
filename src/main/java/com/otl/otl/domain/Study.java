@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 
 @Entity
 @Getter
+@Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -165,6 +166,39 @@ public class Study {
                 .memberNicknames(this.getMembers().stream().map(Member::getNickname).collect(Collectors.toList()))
                 .tasks(this.tasks.stream().map(Task::toDTO).collect(Collectors.toList()))
                 .build();
+    }
+
+    // 필요한 setter 메서드를 추가합니다.
+    public void setStudyName(String studyName) {
+        this.studyName = studyName;
+    }
+
+    public void setStudyDescription(String studyDescription) {
+        this.studyDescription = studyDescription;
+    }
+
+    public void setStudyPlan(String studyPlan) {
+        this.studyPlan = studyPlan;
+    }
+
+    public void setMaxMember(Long maxMember) {
+        this.maxMember = maxMember;
+    }
+
+    public void setRStartDate(String rStartDate) {
+        this.rStartDate = rStartDate;
+    }
+
+    public void setREndDate(String rEndDate) {
+        this.rEndDate = rEndDate;
+    }
+
+    public void setFirstDate(String firstDate) {
+        this.firstDate = firstDate;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
 

@@ -4,6 +4,7 @@ package com.otl.otl.domain;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+import com.otl.otl.dto.MemberDTO;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -40,4 +41,14 @@ public class Member {
     @Builder.Default
     @JsonManagedReference
     private List<Interests> interests = new ArrayList<>();
+
+    // toDTO 메서드 추가
+    public MemberDTO toDTO() {
+        return MemberDTO.builder()
+                .mno(this.mno)
+                .email(this.email)
+                .nickname(this.nickname)
+                .memberProfileImage(this.memberProfileImage)
+                .build();
+    }
 }

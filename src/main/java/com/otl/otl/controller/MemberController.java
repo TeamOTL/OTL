@@ -2,6 +2,7 @@ package com.otl.otl.controller;
 
 import com.otl.otl.domain.Member;
 import com.otl.otl.domain.MemberStudy;
+import com.otl.otl.domain.Study;
 import com.otl.otl.dto.*;
 import com.otl.otl.repository.MemberRepository;
 import com.otl.otl.repository.MemberStudyRepository;
@@ -20,9 +21,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Controller
@@ -54,61 +53,55 @@ public class MemberController {
         return "main";
     }
 
-    @GetMapping("/studyRoomManager")
-    public String studyRoomManager () {
-        return "studyRoomManager";
-    }
-
-    @GetMapping("/studyRoom_yu/{studyId}")
-    public String studyRoom_yu(@PathVariable Long studyId, @AuthenticationPrincipal OAuth2User oauthUser, Model model) {
+    @GetMapping("/studyRoom_yu/{sno}")
+    public String studyRoom_yu(@PathVariable Long sno, @AuthenticationPrincipal OAuth2User oauthUser, Model model) {
         if (oauthUser == null) {
-            log.error("OAuth2User is null");
-            return "redirect:/"; // 로그인 페이지로 리다이렉트
+            log.error("OAuth2 사용자 정보가 없습니다.");
+            return "redirect:/";
         }
         Map<String, Object> attributes = oauthUser.getAttributes();
-        log.info("OAuth2User Attributes: {}", attributes);
+        log.info("OAuth2 사용자 속성: {}", attributes);
 
-        // 카카오 로그인에서 이메일 속성 가져오기
         Map<String, Object> kakaoAccount = (Map<String, Object>) attributes.get("kakao_account");
         String email = (String) kakaoAccount.get("email");
         if (email == null) {
-            log.error("Email attribute is null");
-            return "redirect:/"; // 로그인 페이지로 리다이렉트
+            log.error("이메일 속성이 없습니다.");
+            return "redirect:/";
         }
 
         Member member = memberRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new RuntimeException("사용자를 찾을 수 없습니다."));
 
-        List<MemberStudy> memberStudies = memberStudyRepository.findByMemberEmail(member.getEmail());
-        List<StudyDTO> studyDTOs = memberStudies.stream().map(ms -> {
-            StudyDTO studyDTO = StudyDTO.builder()
-                    .sno(ms.getStudy().getSno())
-                    .studyName(ms.getStudy().getStudyName())
-                    .dDay(ms.getStudy().calCombinedDday())
-                    .memberNicknames(ms.getStudy().getMembers().stream()
-                            .map(Member::getNickname)
-                            .collect(Collectors.toList()))
-                    .studyPlan(ms.getStudy().getStudyPlan())
-                    .tasks(ms.getStudy().getTasks().stream().map(task -> TaskDTO.builder()
-                                    .tno(task.getTno())
-                                    .taskTitle(task.getTaskTitle())
-                                    .taskDate(task.getTaskDate())
-                                    .taskTime(task.getTaskTime())
-                                    .taskPlace(task.getTaskPlace())
-                                    .taskMember(task.getTaskMember())
-                                    .taskContent(task.getTaskContent())
-                                    .isCompleted(task.getIsCompleted() != null ? task.getIsCompleted() : false) // 기본값 설정
-                                    .build())
-                            .collect(Collectors.toList()))
-                    .build();
-            return studyDTO;
-        }).collect(Collectors.toList());
+        Optional<StudyDTO> optionalStudyDTO = studyService.findStudyById(sno);
 
-        model.addAttribute("studies", studyDTOs);
-        model.addAttribute("currentStudyId", studyId); // 현재 스터디 ID를 모델에 추가
+        if (optionalStudyDTO.isEmpty()) {
+            log.error("스터디를 찾을 수 없습니다. 스터디 ID: {}", sno);
+            return "redirect:/error"; // 오류 페이지로 리다이렉트
+        }
+
+        StudyDTO studyDTO = optionalStudyDTO.get();
+        List<MemberDTO> memberDTOs = studyDTO.getMemberNicknames().stream()
+                .map(nickname -> {
+                    Member studyMember = memberRepository.findByNickname(nickname)
+                            .orElseThrow(() -> new RuntimeException("멤버를 찾을 수 없습니다. 닉네임: " + nickname));
+                    return new MemberDTO(studyMember.getEmail(), studyMember.getNickname(), studyMember.getMemberProfileImage());
+                })
+                .collect(Collectors.toList());
+
+        studyDTO.setMembers(memberDTOs);
+
+        model.addAttribute("study", studyDTO);
+        model.addAttribute("currentStudyId", sno);
+        model.addAttribute("isManager", studyService.isManager(sno, email));
+
+        log.info("스터디 정보를 모델에 추가했습니다. sno: {}, studyDTO: {}", sno, studyDTO);
 
         return "studyRoom_yu";  // studyRoom_yu.html 템플릿을 반환
     }
+
+
+
+
 
     @GetMapping("/dashBoard")
     public String getUserInfo(@AuthenticationPrincipal OAuth2User oauthUser, Model model) {
@@ -269,5 +262,44 @@ public class MemberController {
         model.addAttribute("memberProfileImage", member.getMemberProfileImage());
 
         return "studyJoin";  // studyJoin.html 템플릿을 반환
+    }
+
+    // 스터디룸 관리 페이지의 데이터를 가져오는 API
+    @GetMapping("/studyRoomManager/{sno}")
+    public String getStudyForManager(@PathVariable Long sno, @AuthenticationPrincipal OAuth2User oauthUser, Model model) {
+        log.info("스터디룸 관리 페이지 요청 - 스터디 ID: {}", sno);
+        if (oauthUser == null) {
+            log.error("OAuth2User is null");
+            return "redirect:/"; // 로그인 페이지로 리다이렉트
+        }
+        Map<String, Object> attributes = oauthUser.getAttributes();
+        log.info("OAuth2User Attributes: {}", attributes);
+
+        // 카카오 로그인에서 이메일 속성 가져오기
+        Map<String, Object> kakaoAccount = (Map<String, Object>) attributes.get("kakao_account");
+        String email = (String) kakaoAccount.get("email");
+        if (email == null) {
+            log.error("Email attribute is null");
+            return "redirect:/"; // 로그인 페이지로 리다이렉트
+        }
+
+        // 스터디 ID로 스터디 조회
+        Optional<StudyDTO> optionalStudyDTO = studyService.findStudyById(sno);
+        if (optionalStudyDTO.isEmpty() || !studyService.isManager(sno, email)) {
+            log.error("스터디룸을 찾을 수 없거나 권한이 없습니다 - 스터디 ID: {}", sno);
+            return "error/403"; // 권한이 없으면 403 페이지로 이동
+        }
+
+        StudyDTO studyDTO = optionalStudyDTO.get();
+        List<MemberDTO> members = studyService.getStudyMembers(sno);
+        List<MemberDTO> applicants = studyService.getStudyApplicants(sno);
+
+        model.addAttribute("study", studyDTO);
+        model.addAttribute("members", members);
+        model.addAttribute("applicants", applicants);
+        model.addAttribute("isManager", true);
+
+        log.info("스터디룸 관리 페이지 응답 - 스터디 ID: {}", sno);
+        return "studyRoomManager"; // studyroommanager.html 템플릿으로 이동
     }
 }

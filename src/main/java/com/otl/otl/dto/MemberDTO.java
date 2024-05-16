@@ -26,4 +26,11 @@ public class MemberDTO {
                 ", memberProfileImage='" + memberProfileImage + '\'' +
                 '}';
     }
+
+    // 새로운 생성자 추가
+    public MemberDTO(String email, String nickname, String memberProfileImage) {
+        this.email = email;
+        this.nickname = nickname;
+        this.memberProfileImage = memberProfileImage;
+    }
 }

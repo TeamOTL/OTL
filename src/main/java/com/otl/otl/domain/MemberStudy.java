@@ -25,7 +25,7 @@ public class MemberStudy {
 
     @Column
     @Builder.Default
-    private boolean isAccepted = true;     //참가 상태 (참가중, 대기중)
+    private Boolean isAccepted = null;     //참가 상태 (null: 신청 없음, false: 대기 중, true: 승인됨)
 
     @Column
     @Builder.Default
@@ -45,5 +45,10 @@ public MemberStudy(Long msNo, Study study, Boolean isAccepted, Boolean isManaged
     this.isManaged = isManaged;
     this.comment = comment;
 }
+
+    // setIsAccepted 메서드 추가
+    public void setIsAccepted(Boolean isAccepted) {
+        this.isAccepted = isAccepted;
+    }
 
 }

@@ -29,8 +29,10 @@ public class StudyDTO {
 
     // 새로운 필드 추가
     private List<String> memberNicknames; // 멤버 닉네임 리스트
+    private List<MemberDTO> members; // MemberDTO 리스트 추가
 
     private List<TaskDTO> tasks; // 새로운 필드 추가
+    private CategoryDTO category;  // 추가
 
 
 }

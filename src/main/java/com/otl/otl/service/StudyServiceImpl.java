@@ -200,11 +200,117 @@ public class StudyServiceImpl implements StudyService {
     }
 
     @Override
-    public StudyDTO findStudyById(Long sno) {
+    public Optional<StudyDTO> findStudyById(Long sno) {
+        Study study = studyRepository.findById(sno)
+                .orElseThrow(() -> new RuntimeException("스터디를 찾을 수 없습니다. sno: " + sno));
+        StudyDTO studyDTO = StudyDTO.builder()
+                .sno(study.getSno())
+                .studyName(study.getStudyName())
+                .dDay(study.calCombinedDday())
+                .memberNicknames(study.getMembers().stream()
+                        .map(Member::getNickname)
+                        .collect(Collectors.toList()))
+                .studyPlan(study.getStudyPlan())
+                .tasks(study.getTasks().stream().map(task -> TaskDTO.builder()
+                                .tno(task.getTno())
+                                .taskTitle(task.getTaskTitle())
+                                .taskDate(task.getTaskDate())
+                                .taskTime(task.getTaskTime())
+                                .taskPlace(task.getTaskPlace())
+                                .taskMember(task.getTaskMember())
+                                .taskContent(task.getTaskContent())
+                                .isCompleted(task.getIsCompleted() != null ? task.getIsCompleted() : false)
+                                .build())
+                        .collect(Collectors.toList()))
+                .build();
+        return Optional.of(studyDTO);
+    }
+    @Override
+    public boolean isManager(Long sno, String email) {
+        Member member = memberRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        Optional<MemberStudy> memberStudy = memberStudyRepository.findByMemberAndStudySno(member, sno);
+        return memberStudy.isPresent() && memberStudy.get().isManaged();
+    }
+
+    @Override
+    public List<MemberDTO> getStudyMembers(Long sno) {
         Study study = studyRepository.findById(sno)
                 .orElseThrow(() -> new RuntimeException("Study not found"));
-        return study.toDTO();
+        return study.getMembers().stream()
+                .map(Member::toDTO)
+                .collect(Collectors.toList());
     }
+
+    @Override
+    public List<MemberDTO> getStudyApplicants(Long sno) {
+        return memberStudyRepository.findByStudySnoAndIsAccepted(sno, false).stream()
+                .map(MemberStudy::getMember)
+                .map(Member::toDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public void acceptApplicantByEmail(String email) {
+        Member member = memberRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        List<MemberStudy> memberStudies = memberStudyRepository.findByMember(member);
+        if (memberStudies.isEmpty()) {
+            throw new RuntimeException("MemberStudy not found");
+        }
+        memberStudies.forEach(memberStudy -> memberStudy.setIsAccepted(true));
+        memberStudyRepository.saveAll(memberStudies);
+    }
+
+    @Override
+    public void rejectApplicantByEmail(String email) {
+        Member member = memberRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        List<MemberStudy> memberStudies = memberStudyRepository.findByMember(member);
+        if (memberStudies.isEmpty()) {
+            throw new RuntimeException("MemberStudy not found");
+        }
+        memberStudyRepository.deleteAll(memberStudies);
+    }
+
+    @Override
+    public void removeMemberByEmail(String email) {
+        Member member = memberRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        List<MemberStudy> memberStudies = memberStudyRepository.findByMember(member);
+        if (memberStudies.isEmpty()) {
+            throw new RuntimeException("MemberStudy not found");
+        }
+        memberStudyRepository.deleteAll(memberStudies);
+    }
+
+    @Override
+    public void updateStudy(Long sno, StudyDTO studyDTO) {
+        Study study = studyRepository.findById(sno)
+                .orElseThrow(() -> new RuntimeException("스터디를 찾을 수 없습니다. sno: " + sno));
+
+        study.setStudyName(studyDTO.getStudyName());
+        study.setStudyDescription(studyDTO.getStudyDescription());
+        study.setStudyPlan(studyDTO.getStudyPlan());
+        study.setMaxMember(studyDTO.getMaxMember());
+        study.setRStartDate(studyDTO.getRStartDate());
+        study.setREndDate(studyDTO.getREndDate());
+        study.setFirstDate(studyDTO.getFirstDate());
+        study.setCategory(modelMapper.map(studyDTO.getCategory(), Category.class));
+
+        studyRepository.save(study);
+        log.info("스터디가 수정되었습니다. sno: {}", sno);
+    }
+
+    @Override
+    public void deleteStudy(Long sno) {
+        studyRepository.deleteById(sno);
+        log.info("스터디가 삭제되었습니다. sno: {}", sno);
+    }
+
+
+
+
 
 
 

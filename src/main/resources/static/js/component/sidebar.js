@@ -1,5 +1,4 @@
 class sidebar extends HTMLElement {
-
     connectedCallback() {
         const path = window.location.pathname;
         let sPath = "";
@@ -15,7 +14,6 @@ class sidebar extends HTMLElement {
                <div class="sidebar-brand-icon">
                    <img src="${sPath}img/main_icon.svg" />
                </div>
-               <!-- <div class="sidebar-brand-text mx-3"><b1 class="text-black-50">OTL</b1></div> -->
            </a>
 
            <br>
@@ -47,7 +45,6 @@ class sidebar extends HTMLElement {
                    <div class="bg-white py-2 collapse-inner rounded">
                        <h6 class="collapse-header">나의 스터디룸</h6>
                        <div id="myStudyRooms" href="studyRoom_yu"></div>
-                       
                    </div>
                </div>
            </li>
@@ -87,6 +84,7 @@ class sidebar extends HTMLElement {
             collapseElement.classList.toggle('show');
         });
     }
+
     // 스터디룸 데이터를 로드하는 함수
     async loadStudyRooms() {
         try {
@@ -124,5 +122,5 @@ class sidebar extends HTMLElement {
         });
     }
 }
-// customElements.define을 사용하여 custom-sidebar 태그를 Sidebar 클래스와 연결
+
 customElements.define("custom-sidebar", sidebar);
