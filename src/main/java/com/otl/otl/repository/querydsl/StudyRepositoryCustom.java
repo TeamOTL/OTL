@@ -2,6 +2,7 @@ package com.otl.otl.repository.querydsl;
 
 import com.otl.otl.domain.MemberStudy;
 import com.otl.otl.domain.Study;
+import com.otl.otl.domain.Task;
 import com.otl.otl.dto.MemberStudyProjection.MemberStudyProjectionImpl;
 import com.querydsl.core.Tuple;
 import jakarta.transaction.Transactional;
@@ -31,6 +32,16 @@ public interface StudyRepositoryCustom {
 
 
     List<Tuple> findAllAddCount();
+
+
+
+    // DELETE FROM member_study WHERE email = ? AND sno = ?
+    @Transactional
+    void deleteTask(Long sno, Long tno);
+
+
+    @Transactional
+    void updateTask(Long tno, String taskTitle, String taskDate, String taskTime, String taskPlace, String taskMember, String taskContent);
 
     // sno = ? AND is_accpeted = 1; 방장 페이지 -> 참가 중인 멤버 조회 (강퇴)
     /*

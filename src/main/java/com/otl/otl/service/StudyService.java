@@ -33,7 +33,7 @@ public interface StudyService {
 
 
     // + 페이지 로드시 category findAll()
-    List<Category> getAllCategories();
+//    List<Category> getAllCategories();
 
 
     /*   ( 2024-05-20 -> d-13 )

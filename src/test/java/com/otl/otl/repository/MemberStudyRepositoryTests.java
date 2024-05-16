@@ -3,6 +3,7 @@ package com.otl.otl.repository;
 import com.otl.otl.domain.Member;
 import com.otl.otl.domain.MemberStudy;
 import com.otl.otl.domain.Study;
+import com.otl.otl.domain.Task;
 import com.otl.otl.dto.MemberStudyProjection.MemberStudyProjection;
 import com.otl.otl.dto.MemberStudyProjection.MemberStudyProjectionImpl;
 import com.otl.otl.service.StudyService;
@@ -32,6 +33,8 @@ public class MemberStudyRepositoryTests {
     private StudyRepository studyRepository;
     @Autowired
     private MemberRepository memberRepository;
+    @Autowired
+    private TaskRepository taskRepository;
 
 
     //     <참가중 다건>
@@ -295,6 +298,23 @@ Hibernate:
 
         // When
         memberStudyRepository.deleteMemberStudyByEmailAndSno(email, sno);
+    }
+    @Test
+    @Transactional
+    @Commit
+    public void deleteTaskTest(){
+        Long tno = 3L;
+        Long sno = 1L;
+        Study study = studyRepository.findById(sno)
+                .orElseThrow(() -> new EntityNotFoundException("Study not found"));
+        log.info("this:"+study);
+
+        Task task = Task.builder()
+                .study(study)
+                .build();
+
+
+    taskRepository.deleteTask(sno, tno);
     }
 
 

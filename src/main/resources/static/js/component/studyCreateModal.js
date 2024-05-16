@@ -189,7 +189,7 @@ class studyCreateModal extends HTMLElement {
                     let categorySelect = $("#categorySelect");
                     resp.forEach(category => {
                         // 카테고리 옵션 추가
-                        categorySelect.append(new Option(category.category_name, category.cno));
+                        categorySelect.append(new Option(category.categoryName, category.cno));
                     });
 
                     // 카테고리 이미지를 표시할 div 추가

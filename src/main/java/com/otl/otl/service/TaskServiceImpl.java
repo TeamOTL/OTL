@@ -28,4 +28,16 @@ public class TaskServiceImpl implements TaskService {
     public List<Task> getManaedTasksByMemberEmail(String email) {
         return taskRepository.findTaskByMemberEmailAndIsManaed(email);
     }
+
+    @Override
+    public void deleteTask(Long sno, Long tno) {
+        taskRepository.deleteTask(sno, tno);
+    }
+
+    @Override
+    public void updateTask(Long tno, String taskTitle, String taskDate, String taskTime, String taskPlace, String taskMember, String taskContent) {
+        taskRepository.updateTask(tno,taskTitle, taskDate, taskTime, taskPlace, taskMember, taskContent );
+    }
+
+
 }

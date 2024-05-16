@@ -113,10 +113,10 @@ public class StudyServiceImpl implements StudyService {
     /*   SELECT * FROM category
         - 카테고리 전체 조회 (For 카테고리 검색)
      */
-    @Override
-    public List<Category> getAllCategories() {
-        return categoryRepository.findAll();
-    }
+//    @Override
+//    public List<Category> getAllCategories() {
+//        return categoryRepository.findAll();
+//    }
 
 
 

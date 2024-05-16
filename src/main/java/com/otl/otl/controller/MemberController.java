@@ -258,12 +258,57 @@ public class MemberController {
         model.addAttribute("openStudies", studies);
 
 
-
-
-
-
         return "studyJoin";  // studyJoin.html 템플릿을 반환
     }
 
+<<<<<<< Updated upstream
+=======
+    @GetMapping("/myStudy")
+    public String myStudy(@AuthenticationPrincipal OAuth2User oauthUser, @RequestParam(required = false) Long sno, Model model) {
+        Map<String, Object> kakaoAccount = oauthUser.getAttribute("kakao_account");
+        Map<String, Object> profile = (Map<String, Object>) kakaoAccount.get("profile");
+
+        String nickname = (String) profile.get("nickname");
+        String email = (String) kakaoAccount.get("email");
+        String memberProfileImage = (String) profile.get("profile_image_url");
+
+        // memberService.registerOrUpdateMember 메소드가 Member 객체를 반환하도록 하고, 해당 객체를 사용합니다.
+        Member member = memberService.registerOrUpdateMember(nickname, email, memberProfileImage);
+
+        // 모델에 사용자 정보 추가
+        model.addAttribute("nickname", nickname);
+        model.addAttribute("email", email);
+        model.addAttribute("memberProfileImage", member.getMemberProfileImage());
+        model.addAttribute("sno", sno);  // sno를 모델에 추가
+
+        return "myStudy";  // myStudy.html 템플릿을 반환
+    }
+//@GetMapping("/myStudy")
+//public String myStudy(@AuthenticationPrincipal OAuth2User oauthUser, @RequestParam(required = false) Long sno, Model model) {
+//    Map<String, Object> kakaoAccount = oauthUser.getAttribute("kakao_account");
+//    Map<String, Object> profile = (Map<String, Object>) kakaoAccount.get("profile");
+//
+//    String nickname = (String) profile.get("nickname");
+//    String email = (String) kakaoAccount.get("email");
+//    String memberProfileImage = (String) profile.get("profile_image_url");
+//
+//    // memberService.registerOrUpdateMember 메소드가 Member 객체를 반환하도록 하고, 해당 객체를 사용합니다.
+//    Member member = memberService.registerOrUpdateMember(nickname, email, memberProfileImage);
+//
+//    // 모델에 사용자 정보 추가
+//    model.addAttribute("nickname", nickname);
+//    model.addAttribute("email", email);
+//    model.addAttribute("memberProfileImage", member.getMemberProfileImage());
+//    model.addAttribute("sno", sno);  // sno를 모델에 추가
+//
+//    return "myStudy";  // myStudy.html 템플릿을 반환
+//}
+
+
+    @GetMapping("/manageStudy")
+    public String manageStudy() {
+        return "manageStudy";  // 실제 HTML 파일 이름
+    }
+>>>>>>> Stashed changes
 
 }

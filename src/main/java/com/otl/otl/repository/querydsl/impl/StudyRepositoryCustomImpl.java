@@ -396,6 +396,37 @@ Hibernate:
         log.info("Deleted {} rows", deleteCount);
     }
 
+    @Override
+    @Transactional
+    public void deleteTask(Long sno, Long tno) {
+         QTask qtask = QTask.task;
+
+        long deleteCount = delete(qtask)
+                .where(qtask.tno.eq(tno))
+                .execute();
+
+        log.info("Deleted {} rows", deleteCount);
+    }
+
+    @Override
+    @Transactional
+    public void updateTask(Long tno, String taskTitle, String taskDate, String taskTime, String taskPlace, String taskMember, String taskContent) {
+       QTask qtask = QTask.task;
+
+       long updateCount = update(qtask)
+               .set(qtask.taskTitle, taskTitle)
+               .set(qtask.taskDate, taskDate)
+               .set(qtask.taskTime, taskTime)
+               .set(qtask.taskPlace, taskPlace)
+               .set(qtask.taskMember, taskMember)
+               .set(qtask.taskContent, taskContent)
+               .where(qtask.tno.eq(tno))
+               .execute();
+
+
+
+       log.info("Updated {} rows", updateCount);
+    }
 
     // sno = ? AND is_accpeted = 1; 방장 페이지 -> 참가 중인 멤버 조회 (강퇴)
     /*

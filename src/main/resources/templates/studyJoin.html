@@ -87,7 +87,7 @@
                 <!-- 스터디 모집 영역 -->
                 <div id="study-list" class="row">
                     <div th:each="study : ${openStudies}" class="col-xl-4 col-lg-6 mb-4">
-                        <div class="card p-3 h-100">
+                        <div class="card p-3 h-100" th:data-study-name="${study.studyName}" th:data-category-name="${study.categoryName}" th:data-max-member="${study.maxMember}" th:data-r-start-date="${study.rStartDate}" th:data-r-end-date="${study.rEndDate}" th:data-first-date="${study.firstDate}" th:data-study-description="${study.studyDescription}" th:data-study-plan="${study.studyPlan}" th:data-interests="${study.interests}">
                             <div class="d-flex align-items-center" style="padding: 0 20px 0 20px">
                                 <img th:src="${study.categoryImage}" alt="프로필 이미지" class="rounded-circle me-3">
                                 <h5 class="flex-grow-1 mx-3 text-dark font-weight-bold">
@@ -112,12 +112,10 @@
                                 <hr>
                                 <div class="d-flex align-items-center justify-content-start mb-4 flex-wrap">
                                     <div th:each="interest : ${study.interests}">
-                                        <button type="button" class="btn btn-outline-primary font-weight-bolder mx-1 mb-2" disabled=""
-                                                th:text="${interest.interestName}">관심사</button>
+                                        <button type="button" class="btn btn-outline-primary font-weight-bolder mx-1 mb-2" disabled="" th:text="${interest.interestName}">관심사</button>
                                     </div>
                                 </div>
-                                <div class="study_time d-flex justify-content-start ml-1 mb-2 text-black-50 rounded align-items-center"
-                                     style="background-color: #FFF5EF;">
+                                <div class="study_time d-flex justify-content-start ml-1 mb-2 text-black-50 rounded align-items-center" style="background-color: #FFF5EF;">
                                     <img src="/img/state=off.svg" class="p-2" alt=""/>
                                     <span th:text="${study.studyPlan}">스터디 시간</span>
                                 </div>
@@ -126,6 +124,7 @@
                             </div>
                         </div>
                     </div>
+
                 </div> <!--row end -->
                 <custom-setting-modal></custom-setting-modal>
                 <custom-scroll-top-btn></custom-scroll-top-btn>
@@ -145,12 +144,38 @@
 <script th:src="@{js/component/userSettingModal.js}"></script>
 <script th:src="@{js/component/todoList.js}"></script>
 
-
 <script>
-   
+    document.addEventListener("DOMContentLoaded", function() {
+        const studyCards = document.querySelectorAll(".card .btn-secondary");
+        studyCards.forEach(card => {
+            card.addEventListener("click", function(event) {
+                const studyData = event.currentTarget.closest(".card").dataset;
+                fillModal(studyData);
+            });
+        });
+    });
 
+    function fillModal(studyData) {
+        document.getElementById("modal-study-name").value = studyData.studyName;
+        document.getElementById("modal-category").value = studyData.categoryName;
+        document.getElementById("modal-max-member").value = studyData.maxMember;
+        document.getElementById("modal-start-date").value = studyData.rStartDate;
+        document.getElementById("modal-end-date").value = studyData.rEndDate;
+        document.getElementById("modal-first-date").value = studyData.firstDate;
+        document.getElementById("modal-description").value = studyData.studyDescription;
+        document.getElementById("modal-plan").value = studyData.studyPlan;
 
+        const interestsContainer = document.getElementById("modal-interests");
+        interestsContainer.innerHTML = '';
+        studyData.interests.forEach(interest => {
+            const interestElement = document.createElement("span");
+            interestElement.textContent = interest.interestName;
+            interestElement.classList.add("badge", "bg-primary", "m-1");
+            interestsContainer.appendChild(interestElement);
+        });
+    }
 </script>
+
 
 
 
