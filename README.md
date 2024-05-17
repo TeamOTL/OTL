@@ -1,142 +1,161 @@
-# OTL ( 좌절 금지 )
-
-<!--배지-->
-![MIT License][license-shield] ![Repository Size][repository-size-shield] ![Issue Closed][issue-closed-shield]
+# 네이버 클라우드 비트캠프 팀 프로젝트
+# 팀이름 :  ${\textsf{\color{magenta}O{\color{black}NLINE {\color{magenta}T{\color{black}EAM{\color{black} STUDY {\color{magenta}L{\color{black}EVEL UP}}}}}}}}$ 
 
 <!--프로젝트 대문 이미지-->
-![Project Title](img/project-title.png)
+![OTL_X](https://github.com/TeamOTL/OTL/assets/162311939/f7caf395-caaa-40ff-912f-d3fcadb70b76)
 
-<!--프로젝트 버튼-->
- [![Readme in English][readme-eng-shield]][readme-eng-url] [![View Demo][view-demo-shield]][view-demo-url] [![Report bug][report-bug-shield]][report-bug-url] [![Request feature][request-feature-shield]][request-feature-url]
+좌절 금지
 
+<br>
+
+
+
+<br>
+
+<!-- 프로젝트 기간 -->
+# 🗓️ 프로젝트 기간 : 
+# 2024-05-01~ 2024-05-30
+
+<br>
+
+
+
+<br>
+
+# 팀원과 역할 분담
+
+![슬라이드10](https://github.com/TeamOTL/OTL/assets/162311939/bf45ccd3-0916-4f1a-a427-6e4192f8aa08)
+
+
+## 깃허브 주소
+- [이덕현](https://github.com/coding-salmon)
+- [유지오](https://github.com/jidefine)
+- [김동우](https://github.com/99duuk)
+- [조수연](https://github.com/sue-23)
+- [김강현](https://github.com/hmmumm)
+
+<br><br><br><br>
+  <HR>
+  
 <!--목차-->
-# Table of Contents
-- [[1] About the Project](#1-about-the-project)
-  - [Features](#features)
-  - [Technologies](#technologies)
-- [[2] Getting Started](#2-getting-started)
-  - [Prerequisites](#prerequisites)
-  - [Installation](#installation)
-  - [Configuration](#configuration)
-- [[3] Usage](#3-usage)
-- [[4] Contribution](#4-contribution)
-- [[5] Acknowledgement](#5-acknowledgement)
-- [[6] Contact](#6-contact)
-- [[7] License](#7-license)
+# 목차
+- [[1] 프로젝트 선택 배경](#1-프로젝트-선택-배경)
+  - [🚀기존 서비스와의 차별점](#🚀기존-서비스와의-차별점)
+  - [🛠️Technologies](#🛠️Technologies)
+- [[2] 기능 설명](#2-기능-설명)
+- [[3] 💬후기](#3--후기)
+
+<br><br><br><br>
+
+
+# 1 프로젝트 선택 배경
+### 실제로 겪었던 학원에서의 경험으로 학원 시작부터 스터디를 만들어 시작했으면 어떨까? 라는 생각으로 프로젝트 배경이 되었다.
+###  이 프로젝트는 말 걸기 어려운, 나서기 힘든 사람들을 위한 클래스용 스터디 관리와 기록을 작성하는 웹 어플리케이션입니다.
+![슬라이드3](https://github.com/TeamOTL/OTL/assets/162311939/5dd6016e-d7b9-4340-a69e-ff1e9905f857)
 
 
 
-# [1] About the Project
-*다음 내용을 고려하여 프로젝트에 대한 **전반적인 정보**를 적으세요.*
+## 🚀기존 서비스와의 차별점
 
-- ❗️짧은❗️ 도입부/제작 동기
-- 
-- 무슨 프로젝트인지
-- 왜 이 프로젝트를 사용해야하는지
+![슬라이드4](https://github.com/TeamOTL/OTL/assets/162311939/a0476a1a-6003-4a61-8e37-e0eb1e1c665c)
 
-## Features
-*강조하고 싶은 **주요 기능**이나 **차별성 있는 특징**을 적으세요.*
-- 최고 멋진 **README**를 쉽게 작성할 수 있도록 *이텔릭체*로 된 **가이드**를 제공
-- 뱃지로 **언어 옵션**을 제공
+![슬라이드5](https://github.com/TeamOTL/OTL/assets/162311939/626f1bc5-0d65-4d5a-a760-2ddeae1f162d)
 
-## Technologies
+![슬라이드6](https://github.com/TeamOTL/OTL/assets/162311939/ef5b8968-8828-43f3-bd97-7a9e210fec47)
+
+
+
+## 🛠️Technologies
 ***언어, 프레임워크, 주요 라이브러리**를 **버전**과 함께 나열하세요.*
 
-- [Maven](https://maven.apache.org/) 3.6.3
+![슬라이드9](https://github.com/TeamOTL/OTL/assets/162311939/a87e8b4e-8b44-4739-a20c-65fca8debb58)
+
 - [MySQL](https://www.mysql.com/) 8.0
 - [Spring](https://spring.io/) 2.4.3
+- [springframework.boot](https://spring.io/projects/spring-boot) 3.2.5
+- [io.spring.dependency-management](https://docs.spring.io/dependency-management-plugin/docs/current/reference/html) 3.2.5
+- [Java](https://www.java.com/ko/) 17
+- [thymeleaf](https://www.thymeleaf.org/) 3.1
+- [swagger](https://swagger.io/) 3.0
+
+<!--배지-->
+![Java](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=java&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
+![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white)
+![Git](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white)
+![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)
+![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
+
+<hr>
+
+# 프로젝트 설계
+- <h2>피그마로 화면을 설계</h2>
+![슬라이드7](https://github.com/TeamOTL/OTL/assets/162311939/6463d7b6-cba3-497a-8de3-45f117534809)
 
 
+<br>
 
-# [2] Getting Started
-*만약 운영체제에 따라 프로그램을 다르게 동작시켜야한다면, 운영체제별로 동작 방법을 설명하세요*
-
-## Prerequisites
-*프로젝트를 동작시키기 위해 필요한 소프트웨어와 라이브러리를 나열하고 어떻게 다운받을 수 있는지 설명하세요.*
-
-- [OpenWeather API key](https://openweathermap.org/) (무료)
-- npm
-```bash
-npm install npm@latest -g
-```
-
-## Installation
-*어떻게 이 프로젝트의 소스코드를 다운받을 수 있는지 설명하세요.*
-1. Repository 클론
-```bash
-git clone https://github.com/your-username/project-repository
-```
-2. NPM packages 설치
-```bash
-npm install
-```
-
-## Configuration
-*코드의 어느 부분을 채우거나 수정해야하는지 설명하세요.*
-- `config.js`에 Openweather API key를 입력
-```bash
-const API_KEY = "<Your API key>";
-```
+- <h2>DB</h2>
+![슬라이드8](https://github.com/TeamOTL/OTL/assets/162311939/6c02a4b0-f8b2-46f8-b5de-c249c9be7275)
 
 
+# 2 기능 설명
 
-# [3] Usage
-***스크린샷, 코드** 등을 통해 **사용 방법**과 **사용 예제**를 보여주세요. 사용 예제별로 h2 헤더로 나누어 설명할 수 있습니다.*
+## <h2>Kakao Login</h2>
+카카오 로그인을 사용하여 유저의 정보를 저장하여 회원 가입을 쉽게 합니다.
 
-![usage](img/usage.png)
+![로그인](https://github.com/TeamOTL/OTL/assets/162311939/672d6d65-5be8-4684-b3d2-386e6c53e7f0)
 
-```java
-// 몇 개의 API 사용 예제를 코드와 함께 보여주세요.
-```
-
-
-
-# [4] Contribution
-기여해주신 모든 분들께 대단히 감사드립니다.[`contributing guide`][contribution-url]를 참고해주세요.
-이 프로젝트의 기여하신 분들을 소개합니다! 🙆‍♀️
-*이모티콘 쓰는 것을 좋아한다면, 버그 수정에 🐞, 아이디어 제공에 💡, 새로운 기능 구현에 ✨를 사용할 수 있습니다.*
-- 🐞 [dev-ujin](https://github.com/dev-ujin): 메인페이지 버그 수정
+- <h2>환경 설정으로 사용자의 프로필 설정을 변경 할 수 있습니다.</h2>
+![환경설정](https://github.com/TeamOTL/OTL/assets/162311939/7872afa7-8ac3-4adb-9c2b-c2c034c1b829)
 
 
+## <h2>대시보드</h2>
+캘린더라이브러리를 가져와 할 일 등록, 나의 스터디의 일정을 표시를 합니다. 완료가 된 할 일은 캘린더에서 제외됩니다.
+![DashBoard](https://github.com/TeamOTL/OTL/assets/162311939/1dc9abb4-00a5-4861-a5ec-dbb93aefc081)
 
-# [5] Acknowledgement
-***유사한 프로젝트의 레포지토리** 혹은 **블로그 포스트** 등 프로젝트 구현에 영감을 준 출처에 대해 링크를 나열하세요.*
+## <h2>게시판 글 생성 & 수정</h2>
+게시판의 글 등록과 글 수정을 할 수 있습니다.
 
-- [Readme Template - Embedded Artistry](https://embeddedartistry.com/blog/2017/11/30/embedded-artistry-readme-template/)
-- [How to write a kickass Readme - James.Scott](https://dev.to/scottydocs/how-to-write-a-kickass-readme-5af9)
-- [Best-README-Template - othneildrew](https://github.com/othneildrew/Best-README-Template#prerequisites)
-- [Img Shields](https://shields.io/)
-- [Github Pages](https://pages.github.com/)
+![게시판_글생성_수정_](https://github.com/TeamOTL/OTL/assets/162311939/ef54becf-f6b7-4047-a796-d218ac1d79e0)
 
+## <h2>게시판 검색</h2>
+게시판에 등록된 게시글을 검색 할 수 있습니다.
+![게시판_검색](https://github.com/TeamOTL/OTL/assets/162311939/2db61e2d-2446-48c8-9618-5699278d79a0)
 
-
-# [6] Contact
-- 📧 dev.ujin518@gmail.com
-- 📋 [https://dev-ujin.github.io/contact](https://dev-ujin.github.io/contact)
-
-
-
-# [7] License
-MIT 라이센스
-라이센스에 대한 정보는 [`LICENSE`][license-url]에 있습니다.
+## <h2>게시글 삭제 & 댓글 등록,수정,삭제</h2>
+게시글을 삭제 할 수 있고, 댓글을 등록 및 수정, 삭제가 가능합니다.
+![게시판_글삭제_댓글_생성_수정_삭제_예외처리](https://github.com/TeamOTL/OTL/assets/162311939/424cd84f-ddfe-4ed7-8b45-4ea19ec94144)
 
 
+## <h2>스터디 방 생성 & 스터디 모집 게시판 </h2>
+스터디를 모집하는 멤버를 모집하는 글을 작성할 수 있습니다.
+![스터디_생성](https://github.com/TeamOTL/OTL/assets/162311939/9cd31a1c-25e3-4d1e-b8d0-83f1737fb2c8)
 
-<!--Url for Badges-->
-[license-shield]: https://img.shields.io/github/license/dev-ujin/readme-template?labelColor=D8D8D8&color=04B4AE
-[repository-size-shield]: https://img.shields.io/github/repo-size/dev-ujin/readme-template?labelColor=D8D8D8&color=BE81F7
-[issue-closed-shield]: https://img.shields.io/github/issues-closed/dev-ujin/readme-template?labelColor=D8D8D8&color=FE9A2E
+예외처리로 모집 기간이 지난 날짜는 스터디 모집 게시판에 보이지 않게 처리 하였습니다.
 
-<!--Url for Buttons-->
-[readme-eng-shield]: https://img.shields.io/badge/-readme%20in%20english-2E2E2E?style=for-the-badge
-[view-demo-shield]: https://img.shields.io/badge/-%F0%9F%98%8E%20view%20demo-F3F781?style=for-the-badge
-[view-demo-url]: https://dev-ujin.github.io
-[report-bug-shield]: https://img.shields.io/badge/-%F0%9F%90%9E%20report%20bug-F5A9A9?style=for-the-badge
-[report-bug-url]: https://github.com/dev-ujin/readme-template/issues
-[request-feature-shield]: https://img.shields.io/badge/-%E2%9C%A8%20request%20feature-A9D0F5?style=for-the-badge
-[request-feature-url]: https://github.com/dev-ujin/readme-template/issues
+![스터디_지난날짜생성(예외처리)](https://github.com/TeamOTL/OTL/assets/162311939/abc1dd8a-0ed4-4ffd-b6d1-e1963e3dfce5)
 
-<!--URLS-->
-[license-url]: LICENSE.md
-[contribution-url]: CONTRIBUTION.md
-[readme-eng-url]: ../README.md
+
+## <h2>나의 스터디 상세보기 조회</h2>
+내가 가입된 스터디 방의 기록된 정보를 볼 수 있습니다.
+
+![나의스터디상세조회](https://github.com/TeamOTL/OTL/assets/162311939/66f479f1-369d-4c18-8bc0-7c30fccf44eb)
+
+## <h2>나의 스터디 글 수정 & 삭제</h2>
+나의 스터디 글을 수정하거나 삭제가 가능합니다.
+
+![나의스터디수정_삭제](https://github.com/TeamOTL/OTL/assets/162311939/736b8d89-2374-41ec-b217-400a85bf2522)
+
+
+<hr>
+
+
+# 3️ 💬후기
+
+![슬라이드30](https://github.com/TeamOTL/OTL/assets/162311939/740fd877-e928-4f58-b2c3-bc130223f4c7)
+
+![image](https://github.com/TeamOTL/OTL/assets/162311939/4c118d4a-9c03-4edd-9562-04044b7c64d8)
+
+
