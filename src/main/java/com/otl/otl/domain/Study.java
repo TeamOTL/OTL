@@ -72,12 +72,12 @@ public class Study {
 
 
 
-    @OneToMany(mappedBy = "study",
-            cascade = {CascadeType.ALL},
-            fetch = FetchType.LAZY)
-    @Builder.Default
-    @JsonManagedReference
-    private List<MemberStudy> memberStudies = new ArrayList<>();
+//    @OneToMany(mappedBy = "study",
+//            cascade = {CascadeType.ALL},
+//            fetch = FetchType.LAZY)
+//    @Builder.Default
+//    @JsonManagedReference
+//    private List<MemberStudy> memberStudies = new ArrayList<>();
 
 
 //    //스터디방 생성시 주차 추가
@@ -131,13 +131,7 @@ public class Study {
         this.People = people;
     }
 
-    public List<Member> getMembers() {
-        List<Member> members = new ArrayList<>();
-        for (MemberStudy memberStudy : memberStudies) {
-            members.add(memberStudy.getMember());
-        }
-        return members;
-    }
+//--
 
     public void addTask(String taskDate, String taskTitle) {
 

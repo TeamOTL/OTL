@@ -2,17 +2,16 @@ package com.otl.otl.controller;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-<<<<<<< Updated upstream
 import com.otl.otl.domain.MemberStudy;
 import com.otl.otl.domain.Study;
-import com.otl.otl.dto.StudyDTO;
-=======
-import com.otl.otl.domain.Category;
->>>>>>> Stashed changes
+import com.otl.otl.domain.Task;
 import com.otl.otl.dto.StudyListDTO;
 import com.otl.otl.dto.TaskDTO;
 import com.otl.otl.dto.customDTO.StudyCreateCustomDTO;
-import com.otl.otl.service.*;
+import com.otl.otl.service.MemberStudyService;
+import com.otl.otl.service.StudyService;
+import com.otl.otl.service.TaskService;
+import com.otl.otl.service.TaskServiceImpl;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -33,27 +32,16 @@ import java.util.Map;
 //@RequiredArgsConstructor
 public class StudyController {
     private final StudyService studyService;
-<<<<<<< Updated upstream
-    private MemberStudyService memberStudyService;
-
-    @Autowired
-    public StudyController(StudyService studyService, ObjectMapper objectMapper) {
-        this.studyService = studyService;
-        this.objectMapper = objectMapper;
-=======
     private final MemberStudyService memberStudyService;
-    private final CategoryService categoryService;
-    private final TaskService taskService;
+    private TaskService taskService;
 
 
     @Autowired
-    public StudyController(StudyService studyService, ObjectMapper objectMapper, MemberStudyService memberStudyService, TaskService taskService, CategoryService categoryService) {
+    public StudyController(StudyService studyService, ObjectMapper objectMapper, MemberStudyService memberStudyService, TaskService taskService) {
         this.studyService = studyService;
         this.objectMapper = objectMapper;
         this.memberStudyService = memberStudyService;
         this.taskService = taskService;
-        this.categoryService = categoryService;
->>>>>>> Stashed changes
     }
 
 //    @GetMapping("/studyRoom_yu")
@@ -127,10 +115,6 @@ public class StudyController {
     }
 
 
-<<<<<<< Updated upstream
-
-    @GetMapping("/studyList/{sno}")
-=======
 
 
 //    @GetMapping("/myStudy")
@@ -176,15 +160,16 @@ public class StudyController {
 
 
     @GetMapping("/myStudy/{sno}")
->>>>>>> Stashed changes
     public ResponseEntity<List<StudyListDTO>> getMyStudyAcceptedAndSno(@AuthenticationPrincipal OAuth2User oauthUser, @PathVariable Long sno) {
         Map<String, Object> kakaoAccount = oauthUser.getAttribute("kakao_account");
         String email = (String) kakaoAccount.get("email");
-        List<StudyListDTO> studies = memberStudyService.getMyStudyAcceptedAndSno(email, sno);
-        log.info("studies:"+studies);
+        log.info("email: {}", email);
+        log.info("sno: {}", sno);
 
+        List<StudyListDTO> study = memberStudyService.getMyStudyAccptedAndSno(email, sno);
+        log.info("studies: " + study);
 
-        return ResponseEntity.ok(studies);
+        return ResponseEntity.ok(study);
     }
 
     @DeleteMapping("/tasks/{tno}")
@@ -194,53 +179,19 @@ public class StudyController {
         return ResponseEntity.noContent().build();
     }
 
-    //모집방 상세 정보 조회
-    @GetMapping("/study/{sno}")
-    public ResponseEntity<StudyDTO> getStudy(@PathVariable Long sno) {
-        StudyDTO studyDTO = studyService.getStudy(sno);
-        return ResponseEntity.ok(studyDTO);
+
+    @PatchMapping("/tasks/{tno}")
+    public ResponseEntity<Void> updateTask(@PathVariable Long tno, @RequestBody TaskDTO taskDTO) {
+        log.info("Updating task with tno: {}", tno);
+        taskService.updateTask(tno,
+                taskDTO.getTaskTitle(),
+                taskDTO.getTaskDate(),
+                taskDTO.getTaskTime(),
+                taskDTO.getTaskPlace(),
+                taskDTO.getTaskMember(),
+                taskDTO.getTaskContent());
+        return ResponseEntity.ok().build();
     }
 
-}
-
-<<<<<<< Updated upstream
-=======
-@PatchMapping("/tasks/{tno}")
-public ResponseEntity<Void> updateTask(@PathVariable Long tno, @RequestBody TaskDTO taskDTO) {
-    log.info("Updating task with tno: {}", tno);
-    taskService.updateTask(tno,
-            taskDTO.getTaskTitle(),
-            taskDTO.getTaskDate(),
-            taskDTO.getTaskTime(),
-            taskDTO.getTaskPlace(),
-            taskDTO.getTaskMember(),
-            taskDTO.getTaskContent());
-    return ResponseEntity.ok().build();
-}
-//    @GetMapping("/api/categories")
-//    public ResponseEntity<List<Category>> getCategories() {
-//        List<Category> categories = studyService.getAllCategories();
-//        return ResponseEntity.ok(categories);
-//    }
-
-    @GetMapping("/api/filterStudies")
-    public ResponseEntity<List<StudyListDTO>> filterStudies(
-            @AuthenticationPrincipal OAuth2User oauthUser,
-            @RequestParam(required = false) String keyword,
-            @RequestParam(required = false) Long category) {
-
-        List<StudyListDTO> studies;
-
-        if (keyword != null && !keyword.isEmpty()) {
-            studies = studyService.findOpenStudiesByKeyword(keyword);
-        } else if (category != null && category != 0) {
-            studies = studyService.findOpenStudiesByCno(category);
-        } else {
-            studies = studyService.findOpenStudies();
-        }
-
-        return ResponseEntity.ok(studies);
-    }
 
 }
->>>>>>> Stashed changes
